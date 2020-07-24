@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 16:29:32 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 16:33:23 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,15 @@ void	check_param(char **line, t_ptr *ptr)
 	int i;
 
 	i = 0;
+	/*
+	** checking split
+	*/
+	ft_split_all_line(line);
+	printf("%s\n", line);
+	/*
+	** end of checking
+	*/
+
 	while (line[i])
 	{
 		if (ft_strncmp("echo", line[i]) == 0)

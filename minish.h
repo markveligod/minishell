@@ -57,6 +57,7 @@ char				**ft_realloc_mass(char **map, char *line);
 int					ft_mass_len(char **mass);
 char				*ft_strdup(const char *s1);
 void				ft_free_array(char **arr);
+char				**ft_split_all_line(char *line);
 
 /*
 ** prototype srcs
