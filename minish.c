@@ -40,6 +40,7 @@ int		main(void)
 {
 	int count;
 	char *line;
+	char **mass;
 
 	ft_putstr("(｡◕‿◕｡✿) \n");
 	while (1)
@@ -52,7 +53,8 @@ int		main(void)
 		}
 		else
 		{
-			//check_param(line);
+			if (!(mass = ft_split(line, ' ')))
+				error("Malloc error");
 		}
 		free(line);
 		ft_putstr("Ok\n");

@@ -37,5 +37,6 @@ char				*ft_strjoin(char *remains, char *buffer);
 int					ft_strlen(char *str);
 int					get_next_line(char **line);
 void				error(char *str);
+char				**ft_split(char const *s, char c);
 
 #endif
