@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 08:06:57 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 09:32:27 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,24 @@
 # include <errno.h>
 # include <stdlib.h>
 
+typedef struct		s_echo
+{
+	char			*line;
+	int				flag_n;
+	int				flag_v;
+	int 			flag_vv;
+	int				flag_dollar;
+	
+}					t_echo;
+
 /*
 ** prototype utils
 */
 
-void	ft_putstr(char *str);
-char	*ft_strjoin(char *remains, char *buffer);
-int		ft_strlen(char *str);
-int		get_next_line(char **line);
-void	error(char *str);
+void				ft_putstr(char *str);
+char				*ft_strjoin(char *remains, char *buffer);
+int					ft_strlen(char *str);
+int					get_next_line(char **line);
+void				error(char *str);
 
 #endif
