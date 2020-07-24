@@ -79,6 +79,15 @@ void	check_param(char *line, t_ptr *ptr)
 	char ch;
 
 	i = 0;
+	/*
+	** checking split
+	*/
+	ft_split_all_line(line);
+	printf("%s\n", line);
+	/*
+	** end of checking
+	*/
+
 	while (line[i])
 	{	
 		if (line[i] == 'e' && line[i + 1] == 'c' && line[i + 2] == 'h' && line[i + 3] == 'o')
@@ -108,7 +117,7 @@ int		main(void)
 		{
 			check_param(line, &ptr);
 		}
-		free(line);
+		//free(line);
 		//printf("Str: %s\n", ptr.ec->line);
 	}
 	return (0);
