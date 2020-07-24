@@ -35,6 +35,8 @@ void	check_param(char *line)
 		i++;
 	}
 }
+
+#hello
 #hello
 int		main(void)
 {
