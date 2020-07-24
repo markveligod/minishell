@@ -25,9 +25,11 @@ void	init_list_echo(t_ptr *ptr)
 {
 	if (!(ptr->ec = (t_echo *)malloc(sizeof(t_echo))));
 		clear_malloc();
-	ptr->ec->flag_n = 0;
-	ptr->ec->flag_dotcomma = 0;
-	ptr->ec->flag_dollar = 0;
+		ptr->ec->fd = (char **)malloc(sizeof(char *) * 1);
+		ptr->ec->fd[0] = NULL;
+		ptr->ec->flag_n = 0;
+		ptr->ec->flag_dotcomma = 0;
+		ptr->ec->flag_dollar = 0;
 }
 
 int 	parser_echo(char *line, t_ptr *ptr, int j)
@@ -107,7 +109,7 @@ int		main(void)
 			check_param(line, &ptr);
 		}
 		free(line);
-		printf("Str: %s\n", ptr.ec->line);
+		//printf("Str: %s\n", ptr.ec->line);
 	}
 	return (0);
 }

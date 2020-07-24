@@ -22,7 +22,7 @@
 
 typedef struct		s_echo
 {
-	int				*fd;
+	char			**fd;
 	char			*line;
 	char			*flag_v;
 	int				flag_n;
@@ -49,5 +49,11 @@ void				error(char *str);
 int					ft_strcmp(const char *str1, const char *str2);
 char				**ft_split(char const *s, char c);
 int 				ft_strchr(const char *s);
+void				create_file_v(t_ptr *ptr, char *line);
+size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char				**ft_realloc_mass(char **map, char *line);
+int					ft_mass_len(char **mass);
+char				*ft_strdup(const char *s1);
+void				ft_free_array(char **arr);
 
 #endif
