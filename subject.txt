@@ -1,0 +1,103 @@
+Chapter I
+Introduction
+The existence of shells is linked to the very existence of IT. At the time, all coders agreed
+that communicating with a computer using aligned 1/0 switches was seriously
+irritating. It was only logical that they came up with the idea to communicate with
+a computer using interactive lines of commands in a language somewhat close
+to english.
+With Minishell, you’ll be able to travel through time and come back to problems
+people faced when Windows didn’t exist.
+________________________________________________________________________________________________
+Глава I
+Вступление
+Существование оболочек связано с самим их существованием. В то время все программисты соглашались, 
+что общение с компьютером с помощью выровненных 1/0-переключателей было серьезно раздражающим. 
+Вполне логично, что им пришла в голову идея общаться с компьютером, используя интерактивные строки команд 
+на языке, несколько близком к английскому.
+С Minishell вы сможете путешествовать во времени и возвращаться к проблемам, с которыми люди сталкивались, 
+когда Windows не существовало.
+________________________________________________________________________________________________
+Chapter II
+Common Instructions
+• Your project must be written in accordance with the Norm. If you have bonus
+files/functions, they are included in the norm check and you will receive a 0 if there
+is a norm error inside.
+• Your functions should not quit unexpectedly (segmentation fault, bus error, double
+free, etc) apart from undefined behaviors. If this happens, your project will be
+considered non functional and will receive a 0 during the evaluation.
+• All heap allocated memory space must be properly freed when necessary. No leaks
+will be tolerated.
+• If the subject requires it, you must submit a Makefile which will compile your
+source files to the required output with the flags -Wall, -Wextra and -Werror, and
+your Makefile must not relink.
+• Your Makefile must at least contain the rules $(NAME), all, clean, fclean and
+re.
+• To turn in bonuses to your project, you must include a rule bonus to your Makefile,
+which will add all the various headers, librairies or functions that are forbidden on
+the main part of the project. Bonuses must be in a different file _bonus.{c/h}.
+Mandatory and bonus part evaluation is done separately.
+• If your project allows you to use your libft, you must copy its sources and its
+associated Makefile in a libft folder with its associated Makefile. Your project’s
+Makefile must compile the library by using its Makefile, then compile the project.
+• We encourage you to create test programs for your project even though this work
+won’t have to be submitted and won’t be graded. It will give you a chance
+to easily test your work and your peers’ work. You will find those tests especially
+useful during your defence. Indeed, during defence, you are free to use your tests
+and/or the tests of the peer you are evaluating.
+• Submit your work to your assigned git repository. Only the work in the git repository will be graded. If Deepthought is assigned to grade your work, it will be done
+after your peer-evaluations. If an error happens in any section of your work during
+Deepthought’s grading, the evaluation will stop.
+________________________________________________________________________________________________
+глава II
+Общие Инструкции
+* Ваш проект должен быть написан в соответствии с нормой. Если у вас есть bonusfiles/функции, они включены в проверку нормы, и вы получите 0, если внутри есть ошибка нормы.
+• Ваши функции не должны завершаться неожиданно (ошибка сегментации, ошибка шины, двойная свобода и т. д.), Кроме неопределенного поведения. Если это произойдет, ваш проект будет считаться нефункциональным и получит 0 баллов во время оценки.
+• При необходимости все выделенное кучи пространство памяти должно быть правильно освобождено. Никакие утечки не будут допущены.
+• Если тема требует этого, вы должны отправить файл Makefile, который будет компилировать ваш
+исходные файлы к требуемому выходу с флагами-Wall,- Wextra и-Werror, и ваш Makefile не должен повторно связываться.
+• Ваш файл Makefile должен содержать, по крайней мере, правила $(NAME), all, clean, fclean и re.
+• Чтобы включить бонусы в свой проект, вы должны включить бонус правила в свой Makefile, который добавит все различные заголовки, librairies или функции, запрещенные в основной части проекта. Бонусы должны быть в другом файле _bonus.{з/з}. Обязательная и бонусная часть оценки проводится отдельно.
+• Если ваш проект позволяет вам использовать libft, вы должны скопировать его исходные тексты и связанный файл Makefile в папке libft с соответствующим файлом Makefile. Ваш проект Makefile должен скомпилировать библиотеку с помощью ее Makefile, а затем скомпилировать проект.
+• Мы рекомендуем вам создавать тестовые программы для вашего проекта, даже если эта работа не будет представлена и не будет оценена. Это даст вам шанс чтобы легко проверить свою работу и работу своих коллег. Вы найдете эти тесты особенно полезно во время вашей защиты. Действительно, во время защиты вы можете свободно использовать свои тесты и/или тесты коллег, которых вы оцениваете.
+* Отправляйте свою работу в назначенный вам репозиторий git. Оцениваться будет только работа в репозитории git. Если глубокая мысль назначена для оценки вашей работы, она будет выполнена после ваших коллегиальных оценок. Если во время оценки Deepthought произойдет ошибка в каком-либо разделе вашей работы, оценка будет остановлена.
+________________________________________________________________________________________________
+Your shell should:
+• Show a prompt when waiting for a new command
+• Search and launch the right executable (based on the PATH variable or by using relative or absolute path) like in bash
+• It must implement the builtins like in bash:
+◦ echo with option ’-n’
+◦ cd with only a relative or absolute path
+◦ pwd without any options
+◦ export without any options
+◦ unset without any options
+◦ env without any options and any arguments
+◦ exit without any options
+• ; in the command should separate commands like in bash
+• ’ and " should work like in bash except for multiline commands
+• Redirections < > “>>” should work like in bash except for file descriptor aggregation
+Pipes | should work like in bash
+• Environment variables ($ followed by characters) should work like in bash
+• $? should work like in bash
+• ctrl-C, ctrl-D and ctrl-\ should have the same result as in bash
+________________________________________________________________________________________________
+Ваша оболочка должна быть:
+• Показывать приглашение при ожидании новой команды
+• Поиск и запуск нужного исполняемого файла (на основе переменной PATH или с помощью относительного или абсолютного пути), как в bash
+• Он должен реализовывать встроенные модули, как в bash:
+• echo с опцией ’-n’
+• cd только относительного или абсолютного пути
+• pwd без любых опций
+• export без любых опций
+• unset без любых опций
+• env без любых опций и без любых аргументов
+• exit без любых опций
+• ; в команде должны быть отдельные команды, как в bash
+• ' и " должны работать как в bash, за исключением многострочных команд
+• Перенаправления < > "> > " должны работать как в bash, за исключением каналов агрегации файловых дескрипторов | должны работать как в bash
+• Переменные окружения ( $ , за которыми следуют символы) должны работать как в bash
+• $? должно работать как в bash
+• ctrl-C, ctrl-D и ctrl - \ должны иметь тот же результат, что и в bash
+________________________________________________________________________________________________
+Program name: minishell
+External functs: malloc, free, write, open, read, close, fork, wait, waitpid, wait3, wait4, signal, kill, exit, getcwd, chdir, stat, lstat, fstat, execve, dup, dup2, pipe, opendir, readdir, closedir, strerror, errno
+________________________________________________________________________________________________
