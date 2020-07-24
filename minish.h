@@ -48,5 +48,6 @@ int					get_next_line(char **line);
 void				error(char *str);
 int					ft_strcmp(const char *str1, const char *str2);
 char				**ft_split(char const *s, char c);
+char				*ft_strchr(const char *s);
 
 #endif

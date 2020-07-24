@@ -15,6 +15,7 @@
 /*
 ** clear malloc to go main() !!!
 */
+
 void	clear_malloc()
 {
 	return ;
