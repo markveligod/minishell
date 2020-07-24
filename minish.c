@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 13:30:04 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 14:30:11 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,35 @@ void	clear_malloc()
 
 void	init_list_echo(t_ptr *ptr)
 {
-	if (!(ptr->ec = (t_echo *)malloc(sizeof(t_echo))));
-		clear_malloc();
+	if (!ptr->ec)
+		if (!(ptr->ec = (t_echo *)malloc(sizeof(t_echo))));
+			clear_malloc();
 	ptr->ec->flag_n = 0;
-	ptr->ec->flag_dotcomma = 0;
-	ptr->ec->flag_dollar = 0;
+}
+
+int		check_nnn(char *str, t_ptr *ptr)
+{
+	int i;
+
+	i = 0;
+	while (str[i] == ' ')
+	{
+		if (str[i + 1] == '-' && str[i + 2] == 'n')
+		{
+			ptr->ec->flag_n = 1;
+			i += 3;
+		}
+		else
+			i++;
+	}
+	return (i);
 }
 
 int 	parser_echo(char *line, t_ptr *ptr, int j)
 {
 	int i;
 	int fd;
-	
+
 	i = 4;
 	init_list_echo(ptr);
 	i += check_nnn(&line[i], ptr);
@@ -48,8 +65,8 @@ int 	parser_echo(char *line, t_ptr *ptr, int j)
 			if (i == j)
 				error("Syntex error");
 			else
-				ptr->ec->fd = create_file_v(ptr, line[i]);
-			while (line[i] != ' ' && i != j && line[i] != '>')
+				create_file_v(ptr, &line[i]);
+			while (line[i] != ' ' && i != j && line[i] != '>' && line[i] != '<')
 				i++;
 			continue ;
 		}
@@ -61,8 +78,21 @@ int 	parser_echo(char *line, t_ptr *ptr, int j)
 			if (i == j)
 				error("Syntex error");
 			else
-				ptr->ec->fd = create_file_v(ptr, line[i]);
-			while (line[i] != ' ' && i != j)
+				create_file_v(ptr, line[i]);
+			while (line[i] != ' ' && i != j && line[i] != '>' && line[i] != '<')
+				i++;
+			continue ;
+		}
+		if (line[i] == '<' && line[i + 1] != '<')
+		{
+			i++;
+			while (line[i] == ' ')
+				i++;
+			if (i == j)
+				error("Syntex error");
+			else
+				create_file_v(ptr, "0");
+			while (line[i] != ' ' && i != j && line[i] != '>' && line[i] != '<')
 				i++;
 			continue ;
 		}
@@ -81,8 +111,8 @@ void	check_param(char *line, t_ptr *ptr)
 	{	
 		if (line[i] == 'e' && line[i + 1] == 'c' && line[i + 2] == 'h' && line[i + 3] == 'o')
 			i += parser_echo(&line[i], ptr, ft_strchr(&line[i]));
-		if (line[i] == 'c' && line[i + 1] == 'd')
-			i += parser_cd(&line[i], ptr, ft_strchr(&line[i]));
+//		if (line[i] == 'c' && line[i + 1] == 'd')
+//			i += parser_cd(&line[i], ptr, ft_strchr(&line[i]));
 		i++;
 	}
 }
