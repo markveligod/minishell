@@ -6,11 +6,15 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 15:58:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 15:59:21 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 16:54:23 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minish.h"
+
+/*
+** копия create_file_v.c
+*/
 
 void create_flag_v(t_ptr *ptr, char *line)
 {

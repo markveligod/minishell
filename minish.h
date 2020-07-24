@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 16:26:06 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 16:51:45 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ char				**ft_split_all_line(char *line);
 void				create_file_v(t_ptr *ptr, char *line);
 void 				create_flag_v(t_ptr *ptr, char *line);
 void				error(char *str);
+int 				parser_echo(char **line, t_ptr *ptr);
 
 #endif
