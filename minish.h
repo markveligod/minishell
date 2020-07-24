@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 13:21:03 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 13:32:23 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int					get_next_line(char **line);
 void				error(char *str);
 int					ft_strcmp(const char *str1, const char *str2);
 char				**ft_split(char const *s, char c);
-char				*ft_strchr(const char *s);
+int 				ft_strchr(const char *s);
 
 #endif
