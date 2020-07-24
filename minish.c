@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 08:53:59 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 09:42:51 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int 	parser_echo(char *line)
 	return (i);
 }
 
-void	check_param(char *line)
+void	check_param(char **line)
 {
 	int i;
 
