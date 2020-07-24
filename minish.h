@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 12:10:04 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 13:21:03 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <errno.h>
 # include <stdlib.h>
+
+# include <stdio.h> //delete
 
 typedef struct		s_echo
 {

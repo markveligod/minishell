@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 13:03:22 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 13:21:24 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_list_echo(t_ptr *ptr)
 	ptr->ec->flag_dollar = 0;
 }
 
-int 	parser_echo(char *line, t_ptr *ptr, )
+int 	parser_echo(char *line, t_ptr *ptr, char ch)
 {
 	int i;
 	int fd;
@@ -37,26 +37,36 @@ int 	parser_echo(char *line, t_ptr *ptr, )
 	i = 4;
 	init_list_echo(ptr);
 	i += check_nnn(&line[i], ptr);
-	while (line[i] && line[i] != '|' && line[i] != ';')
+	while (line[i] && line[i] != ch)
 	{
 		if (line[i] == '>' && line[i + 1] != '>')
 		{
-			if (line[i + 1] == '|' || line[i + 1] == ';')
+			while (line[i] == ' ')
+				i++;
+			if (line[i] == ch)
 				error("Syntex error");
-			else 
-				fd = create_file_v(ptr, line[++i]);
-			i += 2;
+			else
+				ptr->ec->fd = create_file_v(ptr, line[i]);
+			while (line[i] != ' ' && line[i] != ch && line[i] != '>')
+				i++;
 			continue ;
 		}
-		if (ft_strcmp("<", line[i]) == 0)
+		if (line[i] == '>' && line[i + 1] == '>')
 		{
-			fd = 0;
 			i += 2;
+			while (line[i] == ' ')
+				i++;
+			if (line[i] == ch)
+				error("Syntex error");
+			else
+				ptr->ec->fd = create_file_v(ptr, line[i]);
+			while (line[i] != ' ' && line[i] != ch)
+				i++;
 			continue ;
 		}
-		ptr->ec->line = ft_strjoin(&line[i]);
+		ptr->ec->line = ft_strjoin(ptr->ec->line, line[i]);
 	}
-
+	return (i);
 }
 
 void	check_param(char *line, t_ptr *ptr)
@@ -95,6 +105,7 @@ int		main(void)
 			check_param(line, &ptr);
 		}
 		free(line);
+		printf("Str: %s\n", ptr.ec->line);
 	}
 	return (0);
 }
