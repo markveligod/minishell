@@ -49,11 +49,28 @@ void 	parser_echo(char **line, t_ptr *ptr)
 
 }
 
+int		check_pipe(char **line)
+{
+	int i;
+	int pipe;
+
+	i = 0;
+	pipe = 0;
+	while (line[i] != NULL)
+	{
+		if (!(ft_strcmp(line[i], "|")))
+			pipe = i;
+		i++;
+	}
+	return (pipe);
+}
+
 void	check_param(char **line, t_ptr *ptr)
 {
 	int i;
 
-	i = check_pipe();
+	i = check_pipe(line);
+	printf("%d\n", i);
 	while (line[i])
 	{
 		if (ft_strcmp("echo", line[i]))
