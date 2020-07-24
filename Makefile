@@ -13,8 +13,8 @@
 NAME = minishell
 FLAGS = -Wall -Werror -Wextra
 HDRS = ./minish.h
-SRCS = ./minish.c ./srcs/error.c
-SRCS_UTILS = ./utils/ft_strchr.c ./utils/ft_strcmp.c ./utils/ft_split.c ./utils/ft_putstr.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/get_next_line.c
+SRCS = ./minish.c ./srcs/error.c ./srcs/create_file_v.c
+SRCS_UTILS = ./utils/ft_strlcpy.c ./utils/ft_strchr.c ./utils/ft_strcmp.c ./utils/ft_split.c ./utils/ft_putstr.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/get_next_line.c ./utils/ft_mass_len.c ./utils/ft_realloc_mass.c ./utils/ft_strdup.c ./utils/ft_free_array.c
 OBJ = $(SRCS:.c=.o) $(SRCS_UTILS:.c=.o)
 
 %.o:%.c

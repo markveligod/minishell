@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 14:30:11 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 16:29:32 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,77 +23,59 @@ void	clear_malloc()
 
 void	init_list_echo(t_ptr *ptr)
 {
-	if (!ptr->ec)
-		if (!(ptr->ec = (t_echo *)malloc(sizeof(t_echo))));
-			clear_malloc();
+	if (!(ptr->ec = (t_echo *)malloc(sizeof(t_echo))));
+		clear_malloc();
+	ptr->ec->fd = (char **)malloc(sizeof(char *) * 1);
+	ptr->ec->flag_v = (char **)malloc(sizeof(char *) * 1);
+	ptr->ec->fd[0] = NULL;
+	ptr->ec->flag_v[0] = NULL;
 	ptr->ec->flag_n = 0;
 }
 
-int		check_nnn(char *str, t_ptr *ptr)
+int		check_nnn(char **str, t_ptr *ptr)
 {
 	int i;
 
 	i = 0;
-	while (str[i] == ' ')
+	while (str[i])
 	{
-		if (str[i + 1] == '-' && str[i + 2] == 'n')
+		if (ft_strcmp("-n", str[i]) != 0)
+			break;
+		else
 		{
 			ptr->ec->flag_n = 1;
-			i += 3;
-		}
-		else
 			i++;
+		}
 	}
 	return (i);
 }
 
-int 	parser_echo(char *line, t_ptr *ptr, int j)
+int 	parser_echo(char **line, t_ptr *ptr)
 {
 	int i;
-	int fd;
+	t_echo new;
 
-	i = 4;
-	init_list_echo(ptr);
+	i = 1;
+	new = init_list_echo(ptr);
 	i += check_nnn(&line[i], ptr);
-	while (line[i] && i != j)
+	while (line[i])
 	{
-		if (line[i] == '>' && line[i + 1] != '>')
+		if (ft_strcmp(";", line[i]) == 0)
 		{
-			i++;
-			while (line[i] == ' ')
-				i++;
-			if (i == j)
-				error("Syntex error");
-			else
-				create_file_v(ptr, &line[i]);
-			while (line[i] != ' ' && i != j && line[i] != '>' && line[i] != '<')
-				i++;
-			continue ;
+			break ;
 		}
-		if (line[i] == '>' && line[i + 1] == '>')
+		if (ft_strcmp("|", line[i]) == 0)
 		{
-			i += 2;
-			while (line[i] == ' ')
-				i++;
-			if (i == j)
-				error("Syntex error");
-			else
-				create_file_v(ptr, line[i]);
-			while (line[i] != ' ' && i != j && line[i] != '>' && line[i] != '<')
-				i++;
-			continue ;
+			break ;
 		}
-		if (line[i] == '<' && line[i + 1] != '<')
+		if (ft_strcmp(">>", line[i]) == 0 || ft_strcmp(">", line[i]) == 0 || ft_strcmp("<", line[i]) == 0)
 		{
-			i++;
-			while (line[i] == ' ')
-				i++;
-			if (i == j)
+			create_flag_v(ptr, line[i]);
+			if (!line[i + 1] || ft_strcmp("|", line[i + 1]) == 0 || ft_strcmp(";", line[i + 1]) == 0)
 				error("Syntex error");
 			else
-				create_file_v(ptr, "0");
-			while (line[i] != ' ' && i != j && line[i] != '>' && line[i] != '<')
-				i++;
+				create_file_v(ptr, line[++i]);
+			i++;
 			continue ;
 		}
 		ptr->ec->line = ft_strjoin(ptr->ec->line, line[i]);
@@ -101,18 +83,15 @@ int 	parser_echo(char *line, t_ptr *ptr, int j)
 	return (i);
 }
 
-void	check_param(char *line, t_ptr *ptr)
+void	check_param(char **line, t_ptr *ptr)
 {
 	int i;
-	char ch;
 
 	i = 0;
 	while (line[i])
-	{	
-		if (line[i] == 'e' && line[i + 1] == 'c' && line[i + 2] == 'h' && line[i + 3] == 'o')
-			i += parser_echo(&line[i], ptr, ft_strchr(&line[i]));
-//		if (line[i] == 'c' && line[i + 1] == 'd')
-//			i += parser_cd(&line[i], ptr, ft_strchr(&line[i]));
+	{
+		if (ft_strncmp("echo", line[i]) == 0)
+			i += parser_echo(&line[i], ptr);
 		i++;
 	}
 }
@@ -134,7 +113,7 @@ int		main(void)
 		}
 		else
 		{
-			check_param(line, &ptr);
+			check_param(mass, &ptr);
 		}
 		free(line);
 		printf("Str: %s\n", ptr.ec->line);
