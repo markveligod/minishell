@@ -6,13 +6,13 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 09:44:13 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 09:46:52 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 10:17:54 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minish.h"
 
-int	ft_strncmp(const char *str1, const char *str2)
+int	ft_strcmp(const char *str1, const char *str2)
 {
 	unsigned char	*s1;
 	unsigned char	*s2;

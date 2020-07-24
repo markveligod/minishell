@@ -6,42 +6,58 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 09:42:51 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 10:32:38 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-int 	parser_echo(char *line)
+/*
+** clear malloc to go main() !!!
+*/
+void	clear_malloc()
 {
-	int i;
-
-	i = 4;
-	while (line[i] == ' ')
-		i++;
-	
-	return (i);
+	return ;
 }
 
-void	check_param(char **line)
+void	init_list_echo(t_ptr *ptr)
+{
+	if (!(ptr->ec = (t_echo *)malloc(sizeof(t_echo))));
+		clear_malloc();
+	ptr->ec->flag_n = 0;
+	ptr->ec->flag_v = 0;
+	ptr->ec->flag_vv = 0;
+	ptr->ec->flag_dotcomma = 0;
+	ptr->ec->flag_dollar = 0;
+}
+
+void 	parser_echo(char **line, t_ptr *ptr)
+{
+	int i;
+	
+	init_list_echo(ptr);
+
+}
+
+void	check_param(char **line, t_ptr *ptr)
 {
 	int i;
 
-	i = 0;
+	i = check_pipe();
 	while (line[i])
 	{
-		if (line[i] == 'e' && line[i + 1] == 'c' && line[i + 2] == 'h' && line[i + 3] == 'o')
-			i += parser_echo(&line[i]);
+		if (ft_strcmp("echo", line[i]))
+			parser_echo(&line[i], ptr);
 		i++;
 	}
-}
 
 int		main(void)
 {
-	int count;
-	char *line;
+	int 	count;
+	char 	*line;
+	char 	**mass;
+	t_ptr 	ptr;
 
-	ft_putstr("(｡◕‿◕｡✿) \n");
 	while (1)
 	{
 		ft_putstr("> ");
@@ -52,7 +68,9 @@ int		main(void)
 		}
 		else
 		{
-			//check_param(line);
+			if (!(mass = ft_split(line, ' ')))
+				error("Malloc error");
+			check_param(mass, &ptr);
 		}
 		free(line);
 		ft_putstr("Ok\n");
