@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 10:32:38 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 10:39:37 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,17 @@ void 	parser_echo(char **line, t_ptr *ptr)
 {
 	int i;
 	
+	i = 0;
 	init_list_echo(ptr);
+	while (line[i])
+	{
+		if (ft_strcmp("-n", line[i]))
+			ptr->ec->flag_n = 1;
+		if (ft_strcmp(">", line[i]))
+			ptr->ec->flag_v = 1;
+		if (ft_strcmp(">>", line[i]))
+			ptr->ec->flag_vv = 1;
+	}
 
 }
 
@@ -47,9 +57,10 @@ void	check_param(char **line, t_ptr *ptr)
 	while (line[i])
 	{
 		if (ft_strcmp("echo", line[i]))
-			parser_echo(&line[i], ptr);
+			parser_echo(&line[i + 1], ptr);
 		i++;
 	}
+}
 
 int		main(void)
 {
