@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 10:20:41 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 12:10:04 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 
 typedef struct		s_echo
 {
+	int				*fd;
 	char			*line;
+	char			*flag_v;
 	int				flag_n;
-	int				flag_v;
-	int 			flag_vv;
 	int				flag_dollar;
 	int				flag_dotcomma;
+	struct s_echo	*next;
 }					t_echo;
 
 typedef struct		s_ptr

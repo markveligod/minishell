@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 10:39:37 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/24 13:03:22 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,56 +25,52 @@ void	init_list_echo(t_ptr *ptr)
 	if (!(ptr->ec = (t_echo *)malloc(sizeof(t_echo))));
 		clear_malloc();
 	ptr->ec->flag_n = 0;
-	ptr->ec->flag_v = 0;
-	ptr->ec->flag_vv = 0;
 	ptr->ec->flag_dotcomma = 0;
 	ptr->ec->flag_dollar = 0;
 }
 
-void 	parser_echo(char **line, t_ptr *ptr)
+int 	parser_echo(char *line, t_ptr *ptr, )
 {
 	int i;
+	int fd;
 	
-	i = 0;
+	i = 4;
 	init_list_echo(ptr);
-	while (line[i])
+	i += check_nnn(&line[i], ptr);
+	while (line[i] && line[i] != '|' && line[i] != ';')
 	{
-		if (ft_strcmp("-n", line[i]))
-			ptr->ec->flag_n = 1;
-		if (ft_strcmp(">", line[i]))
-			ptr->ec->flag_v = 1;
-		if (ft_strcmp(">>", line[i]))
-			ptr->ec->flag_vv = 1;
+		if (line[i] == '>' && line[i + 1] != '>')
+		{
+			if (line[i + 1] == '|' || line[i + 1] == ';')
+				error("Syntex error");
+			else 
+				fd = create_file_v(ptr, line[++i]);
+			i += 2;
+			continue ;
+		}
+		if (ft_strcmp("<", line[i]) == 0)
+		{
+			fd = 0;
+			i += 2;
+			continue ;
+		}
+		ptr->ec->line = ft_strjoin(&line[i]);
 	}
 
 }
 
-int		check_pipe(char **line)
+void	check_param(char *line, t_ptr *ptr)
 {
 	int i;
-	int pipe;
+	char ch;
 
 	i = 0;
-	pipe = 0;
-	while (line[i] != NULL)
-	{
-		if (!(ft_strcmp(line[i], "|")))
-			pipe = i;
-		i++;
-	}
-	return (pipe);
-}
-
-void	check_param(char **line, t_ptr *ptr)
-{
-	int i;
-
-	i = check_pipe(line);
-	printf("%d\n", i);
 	while (line[i])
-	{
-		if (ft_strcmp("echo", line[i]))
-			parser_echo(&line[i + 1], ptr);
+	{	
+		if (line[i] == 'e' && line[i + 1] == 'c' && line[i + 2] == 'h' && line[i + 3] == 'o')
+			i += parser_echo(&line[i], ptr, ft_strchr(&line[i]));
+		if (line[i] == 'c' && line[i + 1] == 'd')
+			i += parser_cd(&line[i], ptr, ft_strchr(&line[i]));
 		i++;
 	}
 }
@@ -96,12 +92,9 @@ int		main(void)
 		}
 		else
 		{
-			if (!(mass = ft_split(line, ' ')))
-				error("Malloc error");
-			check_param(mass, &ptr);
+			check_param(line, &ptr);
 		}
 		free(line);
-		ft_putstr("Ok\n");
 	}
 	return (0);
 }
