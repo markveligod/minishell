@@ -36,8 +36,6 @@ void	check_param(char *line)
 	}
 }
 
-#hello
-#hello
 int		main(void)
 {
 	int count;
