@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 16:51:25 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 16:03:31 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,38 @@ void	clear_malloc()
 	return ;
 }
 
-void	check_param(char **line, t_ptr *ptr)
+void	check_param(char *line, t_ptr *ptr)
 {
 	int i;
+	char 	**mass;
 
 	i = 0;
 	/*
 	** checking split
 	*/
-	ft_split_all_line(line);
-	printf("%s\n", line);
+	mass = ft_split_all_line(line);
+	while (mass[i])
+	{
+		printf("%s\n", mass[i]);
+		i++;
+	}
 	/*
 	** end of checking
 	*/
-
+/*
 	while (line[i])
 	{
 		if (ft_strncmp("echo", line[i]) == 0)
 			i += parser_echo(&line[i], ptr);
 		i++;
 	}
+*/
 }
 
 int		main(void)
 {
 	int 	count;
 	char 	*line;
-	char 	**mass;
 	t_ptr 	ptr;
 
 	while (1)
@@ -60,10 +65,10 @@ int		main(void)
 		}
 		else
 		{
-			check_param(mass, &ptr);
+			check_param(line, &ptr);
 		}
-		free(line);
-		printf("Str: %s\n", ptr.ec->line);
+		//free(line);
+		//printf("Str: %s\n", ptr.ec->line);
 	}
 	return (0);
 }

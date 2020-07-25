@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ckakuna <42.fr>                            +#+  +:+       +#+         #
+#    By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 07:21:41 by ckakuna           #+#    #+#              #
-#    Updated: 2020/07/24 17:30:36 by ckakuna          ###   ########.fr        #
+#    Updated: 2020/07/25 15:55:14 by ckakuna          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 FLAGS = -Wall -Werror -Wextra
 HDRS = ./minish.h
-SRCS = ./minish.c ./srcs/error.c ./srcs/create_file_v.c ./srcs/ft_split_all_line.c ./srcs/parser_echo.c
+SRCS = ./minish.c ./srcs/error.c ./srcs/create_file_v.c ./srcs/ft_split_all_line.c ./srcs/parser_echo.c ./srcs/create_flag_v.c
 SRCS_UTILS = ./utils/ft_strlcpy.c ./utils/ft_strchr.c ./utils/ft_strcmp.c ./utils/ft_split.c ./utils/ft_putstr.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/get_next_line.c ./utils/ft_mass_len.c ./utils/ft_realloc_mass.c ./utils/ft_strdup.c ./utils/ft_free_array.c
 OBJ = $(SRCS:.c=.o) $(SRCS_UTILS:.c=.o)
 
