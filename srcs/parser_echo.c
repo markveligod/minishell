@@ -58,7 +58,7 @@ void	lstadd_back_echo(t_echo **lst, t_echo *new)
 	}
 }
 
-int 	parser_echo(char **line, t_ptr *ptr)
+int 	parser_echo(char **line, t_ptr *ptr, char **space)
 {
 	int i;
 	t_echo *new;
@@ -86,6 +86,7 @@ int 	parser_echo(char **line, t_ptr *ptr)
 			i++;
 			continue ;
 		}
+		line[i] = ft_strjoin(line[i], space[i]);
 		new->line = ft_strjoin(new->line, line[i]);
 		i++;
 	}

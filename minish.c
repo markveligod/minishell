@@ -39,24 +39,35 @@ void	check_param(char *line, t_ptr *ptr)
 {
 	int		i;
 	char 	**mass;
+	char	**space;
+	char	*dup_line;
 
 	i = 0;
+
 	/*
 	** checking split
-	
+	dup_line = ft_strdup(line);
 	mass = line_space(line);
 	while (mass[i] != NULL)
 		printf("%s\n", mass[i++]);
-	
-	
+	space = line_space_counter(dup_line, ft_mass_len(mass));
+	i = 0;
+	while (space[i] != NULL)
+	{
+		printf("%d-|%s|\n", i, space[i]);
+		i++;
+	}
 	** end of checking
 	*/
+
 	init_struct_ptr(ptr);
+	dup_line = ft_strdup(line);
 	mass = line_space(line);
+	space = line_space_counter(dup_line, ft_mass_len(mass));
 	while (mass[i])
 	{
 		if ((ft_strcmp("echo", mass[i])) == 0)
-			i += parser_echo(&mass[i], ptr);
+			i += parser_echo(&mass[i], ptr, &space[i]);
 		else
 			i++;
 	}

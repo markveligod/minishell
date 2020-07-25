@@ -42,7 +42,7 @@ typedef struct		s_ptr
 
 
 /*
-** prototype utils
+** _____________________prototype utils__________________________
 */
 int					get_next_line(char **line);
 void				ft_putstr(char *str);
@@ -58,19 +58,33 @@ char				**ft_realloc_mass(char **map, char *line);
 int					ft_mass_len(char **mass);
 void				ft_free_array(char **arr);
 
+
 /*
-** prototype srcs
+** _____________________prototype srcs__________________________
 */
 
-char				**line_parse(char const *s, char c, char c2);
-char				**line_space(char *line);
-int					line_skip_quote(int i, char *line);
-void 				create_file_v(t_echo *new, char *line);
-void 				create_flag_v(t_echo *new, char *line);
-void				error(char *str);
-int 				parser_echo(char **line, t_ptr *ptr);
+/*
+** main functions
+*/
 void				clear_malloc();
 char				*read_line(char *line);
 int					main(void);
+void				error(char *str);
+
+/*
+** parsing input line
+*/
+char				**line_parse(char const *s, char c, char c2);
+char				**line_space(char *line);
+char				**line_space_counter(char *line, int len);
+int					line_skip_quote(int i, char *line);
+
+/*
+** echo
+*/
+void 				create_file_v(t_echo *new, char *line);
+void 				create_flag_v(t_echo *new, char *line);
+int 				parser_echo(char **line, t_ptr *ptr, char **space);
+
 
 #endif
