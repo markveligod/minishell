@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   parser_base.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/24 07:48:29 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 19:37:15 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/07/25 20:16:50 by ckakuna           #+#    #+#             */
+/*   Updated: 2020/07/25 20:47:46 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minish.h"
 
-void	error(char *str)
+void	init_struct_base(t_ptr *ptr)
 {
-	ft_putstr("Error: ");
-	ft_putstr(str);
-	ft_putstr("\n");
-	//clear_malloc();
-	//main();
+	ptr->base = (t_base *)malloc(sizeof(t_base));
+	ptr->base->flag_base = (char **)malloc(sizeof(char *) * 1);
 }

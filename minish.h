@@ -6,7 +6,7 @@
 /*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 18:48:23 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 20:48:19 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,16 @@ int					line_skip_quote(int i, char *line);
 */
 void 				create_file_v(t_echo *new, char *line);
 void 				create_flag_v(t_echo *new, char *line);
+<<<<<<< HEAD
 int 				parser_echo(char **line, t_ptr *ptr, char **space);
 
+=======
+void				error(char *str);
+int 				parser_echo(char **line, t_ptr *ptr);
+void				clear_malloc();
+char				*read_line(char *line);
+int					main(void);
+void				init_struct_base(t_ptr *ptr);
+>>>>>>> b81f1217ab454a54a4cdc810d9bcd014bdec3414
 
 #endif

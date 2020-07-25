@@ -6,7 +6,7 @@
 /*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 18:47:31 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 20:53:00 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ void	check_param(char *line, t_ptr *ptr)
 	space = line_space_counter(dup_line, ft_mass_len(mass));
 	while (mass[i])
 	{
+		if ((ft_strcmp(";", mass[i]) == 0) || (ft_strcmp("|", mass[i]) == 0))
+		{
+			ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
+			i++;
+			continue ;
+		}
 		if ((ft_strcmp("echo", mass[i])) == 0)
 			i += parser_echo(&mass[i], ptr, &space[i]);
 		else
@@ -134,6 +140,17 @@ int		main(void)
 			}
 			ptr.ec = ptr.ec->next;
 			ct++;
+		}
+		if (ptr.base)
+		{
+			int j = 0;
+			char **base = ptr.base->flag_base;
+			printf("Base element[;][|]: \n");
+			while (base[j])
+			{
+				printf("%s\n", base[j]);
+				j++;
+			}
 		}
 	}
 	return (0);

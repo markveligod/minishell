@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 08:02:03 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 08:04:56 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 19:23:59 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*ft_strjoin(char *remains, char *buffer)
 		j++;
 	}
 	array[size] = '\0';
-	if (remains)
-		free((void *)remains);
+	free((void *)remains);
 	return (array);
 }
