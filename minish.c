@@ -44,22 +44,22 @@ void	check_param(char *line, t_ptr *ptr)
 	/*
 	** checking split
 	*/
-	/*mass = line_space(line);
+	mass = line_space(line);
 	while (mass[i] != NULL)
 		printf("%s\n", mass[i++]);
-	*/
+	
 	/*
 	** end of checking
 	*/
 	init_struct_ptr(ptr);
 	mass = line_space(line);
-	/*while (mass[i])
+	while (mass[i])
 	{
 		if ((ft_strcmp("echo", mass[i])) == 0)
 			i += parser_echo(&mass[i], ptr);
 		else
 			i++;
-	}*/
+	}
 }
 
 /*
