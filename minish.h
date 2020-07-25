@@ -62,6 +62,9 @@ void				ft_free_array(char **arr);
 ** prototype srcs
 */
 
+char				**line_parse(char const *s, char c, char c2);
+char				**line_space(char *line);
+int					line_skip_quote(int i, char *line);
 void 				create_file_v(t_echo *new, char *line);
 void 				create_flag_v(t_echo *new, char *line);
 void				error(char *str);

@@ -43,23 +43,23 @@ void	check_param(char *line, t_ptr *ptr)
 	i = 0;
 	/*
 	** checking split
-	mass = line_space(line);
-	while (mass[i])
-	{
-		printf("%s\n", mass[i]);
-		i++;
-	}
+	*/
+	/*mass = line_space(line);
+	while (mass[i] != NULL)
+		printf("%s\n", mass[i++]);
+	*/
+	/*
 	** end of checking
 	*/
 	init_struct_ptr(ptr);
 	mass = line_space(line);
-	while (mass[i])
+	/*while (mass[i])
 	{
 		if ((ft_strcmp("echo", mass[i])) == 0)
 			i += parser_echo(&mass[i], ptr);
 		else
 			i++;
-	}
+	}*/
 }
 
 int		main(void)
@@ -74,13 +74,13 @@ int		main(void)
 		if ((count = get_next_line(&line)) == (-1))
 		{
 			error("I couldn't read it");
-			continue ;
+			continue;
 		}
 		else
 		{
 			check_param(line, &ptr);
 		}
-		free(line);
+		//free(line);
 		/*
 		** Тестирование листов ECHO
 		*/
