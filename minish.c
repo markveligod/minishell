@@ -6,7 +6,7 @@
 /*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 17:58:06 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 18:24:52 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,20 @@ void	check_param(char *line, t_ptr *ptr)
 	}
 }
 
+/*
+** Функция для чтения из строки еще раз возвращает line
+*/
+
+char	*read_line(char *line)
+{
+	int count;
+	
+	ft_putstr("> ");
+	if ((count = get_next_line(&line)) == (-1))
+		error("I couldn't read it");
+	return (line);
+}
+
 int		main(void)
 {
 	int 	count;
@@ -87,10 +101,10 @@ int		main(void)
 		int k;
 		char **fd;
 		char **flag;
-		int count = 1;
+		int ct = 1;
 		while (ptr.ec)
 		{
-			printf("List: #%d\n", count);
+			printf("List: #%d\n", ct);
 			printf("Str: %s\n", ptr.ec->line);
 			printf("Flag -n: %d\n", ptr.ec->flag_n);
 			fd = ptr.ec->fd;
@@ -108,7 +122,7 @@ int		main(void)
 				k++;
 			}
 			ptr.ec = ptr.ec->next;
-			count++;
+			ct++;
 		}
 	}
 	return (0);
