@@ -6,7 +6,7 @@
 /*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 18:25:40 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 18:48:23 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void				error(char *str);
 int 				parser_echo(char **line, t_ptr *ptr);
 void				clear_malloc();
 char				*read_line(char *line);
+int					main(void);
 
 #endif

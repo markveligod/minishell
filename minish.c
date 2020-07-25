@@ -6,7 +6,7 @@
 /*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 18:24:52 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 18:47:31 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	check_param(char *line, t_ptr *ptr)
 	i = 0;
 	/*
 	** checking split
-	*/
+	
 	mass = line_space(line);
 	while (mass[i] != NULL)
 		printf("%s\n", mass[i++]);
 	
-	/*
+	
 	** end of checking
 	*/
 	init_struct_ptr(ptr);
