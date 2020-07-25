@@ -17,6 +17,7 @@ t_echo	*init_list_echo(t_echo *new)
 	new = (t_echo *)malloc(sizeof(t_echo));
 	new->fd = (char **)malloc(sizeof(char *) * 1);
 	new->flag_v = (char **)malloc(sizeof(char *) * 1);
+	new->line = ft_strdup("\0");
 	new->fd[0] = NULL;
 	new->flag_v[0] = NULL;
 	new->flag_n = 0;
