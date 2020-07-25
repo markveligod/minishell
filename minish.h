@@ -70,6 +70,7 @@ void				clear_malloc();
 char				*read_line(char *line);
 int					main(void);
 void				error(char *str);
+void				init_struct_base(t_ptr *ptr);
 
 /*
 ** parsing input line
@@ -84,16 +85,7 @@ int					line_skip_quote(int i, char *line);
 */
 void 				create_file_v(t_echo *new, char *line);
 void 				create_flag_v(t_echo *new, char *line);
-<<<<<<< HEAD
 int 				parser_echo(char **line, t_ptr *ptr, char **space);
 
-=======
-void				error(char *str);
-int 				parser_echo(char **line, t_ptr *ptr);
-void				clear_malloc();
-char				*read_line(char *line);
-int					main(void);
-void				init_struct_base(t_ptr *ptr);
->>>>>>> b81f1217ab454a54a4cdc810d9bcd014bdec3414
 
 #endif
