@@ -46,6 +46,7 @@ void	check_param(char *line, t_ptr *ptr)
 
 	/*
 	** checking split
+	
 	dup_line = ft_strdup(line);
 	mass = line_space(line);
 	while (mass[i] != NULL)
@@ -57,21 +58,23 @@ void	check_param(char *line, t_ptr *ptr)
 		printf("%d-|%s|\n", i, space[i]);
 		i++;
 	}
+	
 	** end of checking
 	*/
 
 	init_struct_ptr(ptr);
+	//init_struct_base(ptr);
 	dup_line = ft_strdup(line);
 	mass = line_space(line);
 	space = line_space_counter(dup_line, ft_mass_len(mass));
 	while (mass[i])
 	{
-		if ((ft_strcmp(";", mass[i]) == 0) || (ft_strcmp("|", mass[i]) == 0))
+		/*if ((ft_strcmp(";", mass[i]) == 0) || (ft_strcmp("|", mass[i]) == 0))
 		{
-			ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
+			//ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
 			i++;
 			continue ;
-		}
+		}*/
 		if ((ft_strcmp("echo", mass[i])) == 0)
 			i += parser_echo(&mass[i], ptr, &space[i]);
 		else
@@ -138,10 +141,11 @@ int		main(void)
 				printf("Flag: #%d - %s\n", k+1, flag[k]);
 				k++;
 			}
+			printf("Flag base: %c\n", ptr.ec->flag_base);
 			ptr.ec = ptr.ec->next;
 			ct++;
 		}
-		if (ptr.base)
+		/*if (ptr.base)
 		{
 			int j = 0;
 			char **base = ptr.base->flag_base;
@@ -151,7 +155,7 @@ int		main(void)
 				printf("%s\n", base[j]);
 				j++;
 			}
-		}
+		}*/
 	}
 	return (0);
 }

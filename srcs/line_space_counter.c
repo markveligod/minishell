@@ -24,7 +24,8 @@ int		if_space(int *len, int i, char **spaces, char *line)
 		i++;
 		s++;
 	}
-	spaces[*len] = (char *)malloc(sizeof(char) * (s + 1));
+	if (!(spaces[*len] = (char *)malloc(sizeof(char) * (s + 1))))
+		error("Allocation problem");
 	s = 0;
 	i = j;
 	while (line[i] == ' ' || line[i] == '\t')
@@ -44,7 +45,8 @@ char	**line_space_counter(char *line, int len)
 	int		i;
 	int		j;
 
-	spaces = (char **)malloc(sizeof(char *) * (len + 1));
+	if (!(spaces = (char **)malloc(sizeof(char *) * (len + 1))))
+		error("Allocation problem");
 	spaces[len] = NULL;
 	len = 0;
 	i = 0;

@@ -26,6 +26,7 @@ typedef struct		s_echo
 	char			*line;
 	int				flag_n;
 	char			**flag_v;
+	char			flag_base;
 	struct s_echo	*next;
 }					t_echo;
 

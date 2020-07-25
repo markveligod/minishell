@@ -21,6 +21,7 @@ t_echo	*init_list_echo(t_echo *new)
 	new->fd[0] = NULL;
 	new->flag_v[0] = NULL;
 	new->flag_n = 0;
+	new->flag_base = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -68,11 +69,11 @@ int 	parser_echo(char **line, t_ptr *ptr, char **space)
 	i += check_nnn(&line[i], new);
 	while (line[i])
 	{
-		printf("%s\n", line[i]);
-		if (ft_strcmp(";", line[i]) == 0)
-			break ;
-		if (ft_strcmp("|", line[i]) == 0)
-			break ;
+		if (ft_strcmp(";", line[i]) == 0 || ft_strcmp("|", line[i]) == 0)
+		{
+			new->flag_base = line[i][0];
+			break;
+		}
 		if (ft_strcmp(">>", line[i]) == 0 || ft_strcmp(">", line[i]) == 0 || ft_strcmp("<", line[i]) == 0)
 		{
 			new->flag_v = ft_realloc_mass(new->flag_v, line[i]);
