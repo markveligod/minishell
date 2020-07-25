@@ -6,7 +6,7 @@
 /*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:50:46 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 17:54:53 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 19:10:17 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ int 	parser_echo(char **line, t_ptr *ptr)
 		}
 		if (ft_strcmp(">>", line[i]) == 0 || ft_strcmp(">", line[i]) == 0 || ft_strcmp("<", line[i]) == 0)
 		{
-			create_flag_v(new, line[i]);
+			new->flag_v = ft_realloc_mass(new->flag_v, line[i]);
 			if (!line[i + 1] || ft_strcmp("|", line[i + 1]) == 0 || ft_strcmp(";", line[i + 1]) == 0)
 				error("Syntex error");
 			else
-				create_file_v(new, line[++i]);
+				new->fd = ft_realloc_mass(new->fd, line[++i]);
 			i++;
 			continue ;
 		}
