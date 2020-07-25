@@ -6,7 +6,7 @@
 /*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 18:47:31 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 19:21:56 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,20 @@ void	check_param(char *line, t_ptr *ptr)
 	int		i;
 	char 	**mass;
 
-	i = 0;
+	
 	/*
 	** checking split
 	
+	i = 0;
 	mass = line_space(line);
 	while (mass[i] != NULL)
 		printf("%s\n", mass[i++]);
-	
 	
 	** end of checking
 	*/
 	init_struct_ptr(ptr);
 	mass = line_space(line);
+	i = 0;
 	while (mass[i])
 	{
 		if ((ft_strcmp("echo", mass[i])) == 0)
