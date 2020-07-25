@@ -47,6 +47,10 @@ char **ft_split_all_line(char *line)
 				i++;
 			i++;
 		}
+		else if (line[i] == '<' && line[i + 1] == '<')
+			error("Syntex error '<'"); // только для бонусной части
+		else if (line[i] == '>' && line[i + 1] == '>' && line[i + 2] == '>')
+			error("Syntex error '>'");
 		else if ((line[i] == ';' || line[i] == '|') || ((line[i] == '>' && line[i + 1] != '>') || (line[i] == '<' && line[i + 1] != '<')))
 		{
 			new_line = (char *)malloc(sizeof(char *) * (ft_strlen(line) + 3));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 16:51:45 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 17:54:28 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void				ft_putstr(char *str);
 char				*ft_strjoin(char *remains, char *buffer);
 int					ft_strlen(char *str);
 int					get_next_line(char **line);
-int					ft_strcmp(const char *str1, const char *str2);
+int					ft_strcmp(char *str1, char *str2);
 char				**ft_split(char const *s, char c);
 int 				ft_strchr(const char *s);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -63,9 +63,11 @@ char				**ft_split_all_line(char *line);
 ** prototype srcs
 */
 
-void				create_file_v(t_ptr *ptr, char *line);
-void 				create_flag_v(t_ptr *ptr, char *line);
+void 				create_file_v(t_echo *new, char *line);
+void 				create_flag_v(t_echo *new, char *line);
 void				error(char *str);
 int 				parser_echo(char **line, t_ptr *ptr);
+void				clear_malloc();
+int					main(void);
 
 #endif

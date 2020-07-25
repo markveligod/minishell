@@ -6,7 +6,7 @@
 /*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 16:03:31 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 17:45:38 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@ void	clear_malloc()
 	return ;
 }
 
+/*
+** иницилизирует структуру ptr
+*/
+
+void	init_struct_ptr(t_ptr *ptr)
+{
+	ptr->ec = NULL;
+	ptr->base = NULL;
+}
+
+/*
+** Проверяет параметры в строке
+*/
+
 void	check_param(char *line, t_ptr *ptr)
 {
 	int i;
@@ -29,24 +43,23 @@ void	check_param(char *line, t_ptr *ptr)
 	i = 0;
 	/*
 	** checking split
-	*/
 	mass = ft_split_all_line(line);
 	while (mass[i])
 	{
 		printf("%s\n", mass[i]);
 		i++;
 	}
-	/*
 	** end of checking
 	*/
-/*
-	while (line[i])
+	init_struct_ptr(ptr);
+	mass = ft_split_all_line(line);
+	while (mass[i])
 	{
-		if (ft_strncmp("echo", line[i]) == 0)
-			i += parser_echo(&line[i], ptr);
-		i++;
+		if ((ft_strcmp("echo", mass[i])) == 0)
+			i += parser_echo(&mass[i], ptr);
+		else
+			i++;
 	}
-*/
 }
 
 int		main(void)
@@ -67,8 +80,36 @@ int		main(void)
 		{
 			check_param(line, &ptr);
 		}
-		//free(line);
-		//printf("Str: %s\n", ptr.ec->line);
+		free(line);
+		/*
+		** Тестирование листов ECHO
+		*/
+		int k;
+		char **fd;
+		char **flag;
+		int count = 1;
+		while (ptr.ec)
+		{
+			printf("List: #%d\n", count);
+			printf("Str: %s\n", ptr.ec->line);
+			printf("Flag -n: %d\n", ptr.ec->flag_n);
+			fd = ptr.ec->fd;
+			k = 0;
+			while (fd[k])
+			{
+				printf("File: #%d Name: %s\n", k+1, fd[k]);
+				k++;
+			}
+			flag = ptr.ec->flag_v;
+			k = 0;
+			while (flag[k])
+			{
+				printf("Flag: #%d - %s\n", k+1, flag[k]);
+				k++;
+			}
+			ptr.ec = ptr.ec->next;
+			count++;
+		}
 	}
 	return (0);
 }

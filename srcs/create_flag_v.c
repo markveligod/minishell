@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_flag_v.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 15:58:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 16:54:23 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 17:54:23 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,14 @@
 ** копия create_file_v.c
 */
 
-void create_flag_v(t_ptr *ptr, char *line)
+void create_flag_v(t_echo *new, char *line)
 {
 	int		end;
 	char	*name;
 	int		i;
 
 	i = 0;
-	end = ft_strchr(line);
-	while (i < end && line[i] != ' ')
-		i++;
 	name = (char *)malloc(sizeof(char) * (i + 1));
 	ft_strlcpy(name, line, i + 1);
-	ptr->ec->flag_v = ft_realloc_mass(ptr->ec->flag_v, name);
+	new->flag_v = ft_realloc_mass(new->flag_v, name);
 }

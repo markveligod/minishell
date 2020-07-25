@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 09:44:13 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 10:17:54 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 16:54:22 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minish.h"
 
-int	ft_strcmp(const char *str1, const char *str2)
+int	ft_strcmp(char *str1, char *str2)
 {
 	unsigned char	*s1;
 	unsigned char	*s2;

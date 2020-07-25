@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_echo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:50:46 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 17:29:34 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 17:54:53 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int 	parser_echo(char **line, t_ptr *ptr)
 			continue ;
 		}
 		new->line = ft_strjoin(new->line, line[i]);
+		i++;
 	}
 	lstadd_back_echo(&(ptr->ec), new);
 	return (i);
