@@ -12,7 +12,7 @@
 
 #include "../minish.h"
 
-static int		ft_words(char const *s, char c)
+static int		ft_words(char const *s, char c, char c2)
 {
 	int		i;
 	int		w;
@@ -21,20 +21,29 @@ static int		ft_words(char const *s, char c)
 	w = 0;
 	while (s[i])
 	{
-		if (s[i] != c && (s[i - 1] == c || i == 0))
+		if (s[i] != c && s[i] != c2 && (i == 0 ||
+			s[i - 1] == c || s[i - 1] == c2))
+		{
+			i = line_skip_quote(i, (char *)s);
 			w++;
+		}
 		i++;
 	}
 	return (w);
 }
 
-static int		ft_symb(char const *s, char c, int i)
+static int		ft_symb(char const *s, char c, int i, char c2)
 {
 	int		symb;
+	int		j;
 
 	symb = 0;
-	while (s[i] != c && s[i])
+	while (s[i] != c && s[i] && s[i] != c2)
 	{
+		j = line_skip_quote(i, (char *)s);
+		if (i != j)
+			symb += j - i - 2;
+		i = j;
 		i++;
 		symb++;
 	}
@@ -52,27 +61,58 @@ static void		*mass_free(char **mass)
 	return (NULL);
 }
 
-char			**ft_split(char const *s, char c)
+static int		if_quote(int *i, int *symb, char *mass, char *s)
+{
+	if (s[*i] == '\"')
+	{
+		*i = *i + 1;
+		while (s[*i] != '\"')
+		{
+			mass[*symb] = s[*i];
+			*i = *i + 1;
+			*symb = *symb + 1;
+		}
+		return (1);
+	}
+	else if (s[*i] == '\'')
+	{
+		*i = *i + 1;
+		while (s[*i] != '\'')
+		{
+			mass[*symb] = s[*i];
+			*i = *i + 1;
+			*symb = *symb + 1;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+char			**line_parse(char const *s, char c, char c2)
 {
 	char	**mass;
 	int		i;
 	int		w;
 	int		symb;
+	int		words;
 
-	if (!s || !(mass = (char **)malloc(sizeof(char *) * (ft_words(s, c) + 1))))
-		return (NULL);
+	words = ft_words(s, c, c2);
 	w = 0;
 	i = 0;
-	while (w < ft_words(s, c))
+	if (!s || !(mass = (char **)malloc(sizeof(char *) * (words + 1))))
+		return (NULL);
+	while (w < words)
 	{
 		symb = 0;
-		if (s[i] != c && (s[i - 1] == c || i == 0))
+		if (s[i] != c && s[i] != c2 && (i == 0 ||
+			s[i - 1] == c || s[i - 1] == c2))
 		{
 			if ((mass[w] = (char *)malloc(sizeof(char) *
-						(ft_symb(s, c, i) + 1))) == NULL)
+						(ft_symb(s, c, i, c2) + 1))) == NULL)
 				return (mass_free(mass));
-			while (s[i] != c && s[i])
-				mass[w][symb++] = s[i++];
+			if (!(if_quote(&i, &symb, mass[w], (char *)s)))
+				while (s[i] != c && s[i] && s[i] != c2)
+					mass[w][symb++] = s[i++];
 			mass[w++][symb] = '\0';
 		}
 		i++;

@@ -21,26 +21,28 @@ void	clear_malloc()
 	return ;
 }
 
-void	check_param(char **line, t_ptr *ptr)
+void	check_param(char *line, t_ptr *ptr)
 {
 	int i;
+	char **mass;
 
 	i = 0;
 	/*
 	** checking split
 	*/
-	ft_split_all_line(line);
-	printf("%s\n", line);
+	mass = line_space(line);
+	while (mass[i] != NULL)
+		printf("%s\n", mass[i++]);
 	/*
 	** end of checking
 	*/
 
-	while (line[i])
+/*	while (line[i])
 	{
 		if (ft_strncmp("echo", line[i]) == 0)
 			i += parser_echo(&line[i], ptr);
 		i++;
-	}
+	}*/
 }
 
 int		main(void)
@@ -60,10 +62,10 @@ int		main(void)
 		}
 		else
 		{
-			check_param(mass, &ptr);
+			check_param(line, &ptr);
 		}
-		free(line);
-		printf("Str: %s\n", ptr.ec->line);
+		//free(line);
+		//printf("Str: %s\n", ptr.ec->line);
 	}
 	return (0);
 }

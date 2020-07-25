@@ -44,28 +44,27 @@ typedef struct		s_ptr
 /*
 ** prototype utils
 */
-
+int					get_next_line(char **line);
 void				ft_putstr(char *str);
 char				*ft_strjoin(char *remains, char *buffer);
 int					ft_strlen(char *str);
-int					get_next_line(char **line);
 int					ft_strcmp(const char *str1, const char *str2);
-char				**ft_split(char const *s, char c);
-int 				ft_strchr(const char *s);
+//int 				ft_strchr(const char *s);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char				*ft_strdup(const char *s1);
 char				**ft_realloc_mass(char **map, char *line);
 int					ft_mass_len(char **mass);
-char				*ft_strdup(const char *s1);
 void				ft_free_array(char **arr);
-char				**ft_split_all_line(char *line);
 
 /*
 ** prototype srcs
 */
-
 void				create_file_v(t_ptr *ptr, char *line);
 void 				create_flag_v(t_ptr *ptr, char *line);
 void				error(char *str);
 int 				parser_echo(char **line, t_ptr *ptr);
+char				**line_space(char *line);
+char				**line_parse(char const *s, char c, char c2);
+int					line_skip_quote(int i, char *line);
 
 #endif
