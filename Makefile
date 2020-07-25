@@ -13,8 +13,13 @@
 NAME = minishell
 FLAGS = -Wall -Werror -Wextra
 HDRS = ./minish.h
+<<<<<<< HEAD
+SRCS = ./minish.c ./srcs/error.c ./srcs/create_file_v.c ./srcs/parser_echo.c ./srcs/create_flag_v.c ./srcs/line_space.c ./srcs/line_parse.c
+SRCS_UTILS = ./utils/ft_strlcpy.c ./utils/ft_strchr.c ./utils/ft_strcmp.c ./utils/ft_putstr.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/get_next_line.c ./utils/ft_mass_len.c ./utils/ft_realloc_mass.c ./utils/ft_strdup.c ./utils/ft_free_array.c
+=======
 SRCS = ./minish.c ./srcs/error.c ./srcs/create_file_v.c ./srcs/ft_split_all_line.c ./srcs/parser_echo.c ./srcs/create_flag_v.c
 SRCS_UTILS = ./utils/ft_strlcpy.c ./utils/ft_strchr.c ./utils/ft_strcmp.c ./utils/ft_split.c ./utils/ft_putstr.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/get_next_line.c ./utils/ft_mass_len.c ./utils/ft_realloc_mass.c ./utils/ft_strdup.c ./utils/ft_free_array.c
+>>>>>>> ea210a137bf014c4d1e28c763cbb02407c8346a6
 OBJ = $(SRCS:.c=.o) $(SRCS_UTILS:.c=.o)
 
 %.o:%.c

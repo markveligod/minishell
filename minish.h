@@ -6,7 +6,7 @@
 /*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 17:54:28 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 17:58:18 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct		s_ptr
 /*
 ** prototype utils
 */
-
+int					get_next_line(char **line);
 void				ft_putstr(char *str);
 char				*ft_strjoin(char *remains, char *buffer);
 int					ft_strlen(char *str);
@@ -53,11 +53,10 @@ int					ft_strcmp(char *str1, char *str2);
 char				**ft_split(char const *s, char c);
 int 				ft_strchr(const char *s);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char				*ft_strdup(const char *s1);
 char				**ft_realloc_mass(char **map, char *line);
 int					ft_mass_len(char **mass);
-char				*ft_strdup(const char *s1);
 void				ft_free_array(char **arr);
-char				**ft_split_all_line(char *line);
 
 /*
 ** prototype srcs

@@ -6,7 +6,7 @@
 /*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 17:45:38 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/25 17:58:06 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_struct_ptr(t_ptr *ptr)
 
 void	check_param(char *line, t_ptr *ptr)
 {
-	int i;
+	int		i;
 	char 	**mass;
 
 	i = 0;
