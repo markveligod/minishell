@@ -43,7 +43,7 @@ void	check_param(char *line, t_ptr *ptr)
 	i = 0;
 	/*
 	** checking split
-	mass = ft_split_all_line(line);
+	mass = line_space(line);
 	while (mass[i])
 	{
 		printf("%s\n", mass[i]);
@@ -52,7 +52,7 @@ void	check_param(char *line, t_ptr *ptr)
 	** end of checking
 	*/
 	init_struct_ptr(ptr);
-	mass = ft_split_all_line(line);
+	mass = line_space(line);
 	while (mass[i])
 	{
 		if ((ft_strcmp("echo", mass[i])) == 0)
