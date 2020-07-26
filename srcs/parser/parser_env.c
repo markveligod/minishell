@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 14:47:38 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 14:53:32 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 16:04:26 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_env	*init_struct_env(t_env *new)
 {
 	new = (t_env *)malloc(sizeof(t_env));
 	new->arg = (char **)malloc(sizeof(char *) * 1);
+	new->arg[0] = NULL;
 	new->next = NULL;
 	return (new);
 }

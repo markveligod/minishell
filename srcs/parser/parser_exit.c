@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 14:49:48 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 14:53:35 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 16:04:36 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_exit	*init_struct_exit(t_exit *new)
 {
 	new = (t_exit *)malloc(sizeof(t_exit));
 	new->arg = (char **)malloc(sizeof(char *) * 1);
+	new->arg = NULL;
 	new->next = NULL;
 	return (new);
 }

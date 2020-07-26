@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 09:56:38 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 14:53:17 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 16:03:59 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_cd	*init_struct_cd(t_cd *new)
 {
 	new = (t_cd *)malloc(sizeof(t_cd));
 	new->path = (char **)malloc(sizeof(char *) * 1);
+	new->path[0] = NULL;
 	new->next = NULL;
 	return (new);
 }
