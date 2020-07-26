@@ -156,12 +156,12 @@ int		main(void)
 		//free(line);
 		/*
 		** Start test ECHO
-		*/
+		
 		int k;
 		char **fd;
 		char **flag;
 		int ct = 1;
-		printf("\nStart test ECHO... \n\n");
+		printf("\nStart test ECHO... \n");
 		while (ptr.ec)
 		{
 			printf("List: #%d\n", ct);
@@ -184,15 +184,15 @@ int		main(void)
 			ptr.ec = ptr.ec->next;
 			ct++;
 		}
-		printf("\n\nEnd test ECHO... \n\n");
-		/*
+		printf("End test ECHO... \n\n");
+		
 		** End Test echo
 		*/
-		
+
 		/*
 		** Start Test base element
 		*/
-		printf("\n\nStart test base element... \n\n");
+		printf("\n\nStart test base element... \n");
 		int j = 0;
 		char **base = ptr.base->flag_base;
 		printf("Base element[;][|]: \n");
@@ -209,26 +209,29 @@ int		main(void)
 			printf("%d - %s\n", j + 1, base[j]);
 			j++;
 		}
-		printf("\n\nEnd test base element... \n\n");
+		printf("End test base element... \n\n");
 		/*
 		** End Test base element
 		*/
 
 		/*
 		** Start Test cd
-		
-		printf("\n\nStart test cd... \n\n");
+		*/
+		printf("\nStart test cd... \n");
 		int c = 0;
 		base = ptr.cd->path;
 		printf("CD PATH ARGV: \n");
 		if (*base)
+		{
+			cd_command(base);
 			while (base[c])
 			{
 				printf("%d - %s\n", c + 1, base[c]);
 				c++;
 			}
-		printf("\n\nEnd test cd... \n\n");
-		
+		}
+		printf("End test cd... \n\n");
+		/*
 		** End Test cd
 		*/
 

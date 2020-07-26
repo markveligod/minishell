@@ -14,17 +14,12 @@
 #include <errno.h>
 #include <string.h>
 
-void do_cd(char **path)
+void cd_command(char **path)
 {
-	/*errno = 0;
+	errno = 0;
 	if (chdir(path[0]) != 0)
 	{
 		errno_t error_num = errno;
-		printf("%s\n", (char *)strerror(error_num));
-	}*/
-	char s[100];
-	printf("%s\n", path[0]);
-	printf("%s\n", getcwd(s, 100));
-	chdir("..");
-	printf("%s\n", getcwd(s, 100));
+		printf("cd: %s\n", (char *)strerror(error_num));
+	}
 }

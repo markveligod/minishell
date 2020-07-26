@@ -134,6 +134,9 @@ int					parser_unset(char **line, t_ptr *ptr);
 int					parser_env(char **line, t_ptr *ptr);
 int					parser_exit(char **line, t_ptr *ptr);
 
-void do_cd(char **path);
+/*
+** commands
+*/
+void				cd_command(char **path);
 
 #endif
