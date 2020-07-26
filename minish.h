@@ -128,14 +128,12 @@ int					line_skip_quote(int i, char *line);
 */
 int 				parser_echo(char **line, t_ptr *ptr, char **space);
 int					parser_cd(char **line, t_ptr *ptr);
-<<<<<<< HEAD
-void				do_cd(t_cd *cd);
-=======
 int					parser_pwd(char **line, t_ptr *ptr);
 int					parser_export(char **line, t_ptr *ptr);
 int					parser_unset(char **line, t_ptr *ptr);
 int					parser_env(char **line, t_ptr *ptr);
 int					parser_exit(char **line, t_ptr *ptr);
->>>>>>> 1e5139f7cd6ab766c8ec8fd9a39bda8df6504a23
+
+void do_cd(char **path);
 
 #endif
