@@ -196,6 +196,7 @@ int		main(void)
 		while (ptr.cd)
 		{
 			printf("List: %d PATH: %s\n", c, ptr.cd->path);
+			do_cd(ptr.cd);
 			ptr.cd = ptr.cd->next;
 			c++;
 		}

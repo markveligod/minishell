@@ -97,5 +97,6 @@ int 				parser_echo(char **line, t_ptr *ptr, char **space);
 ** cd
 */
 int					parser_cd(char **line, t_ptr *ptr);
+void				do_cd(t_cd *cd);
 
 #endif
