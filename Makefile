@@ -6,16 +6,17 @@
 #    By: ckakuna <42.fr>                            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 07:21:41 by ckakuna           #+#    #+#              #
-#    Updated: 2020/07/26 10:17:43 by ckakuna          ###   ########.fr        #
+#    Updated: 2020/07/26 15:04:31 by ckakuna          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 FLAGS = -Wall -Werror -Wextra
 HDRS = ./minish.h
-SRCS = ./minish.c ./srcs/error.c ./srcs/parser_echo.c ./srcs/line_space.c ./srcs/line_parse.c ./srcs/parser_base.c ./srcs/line_space_counter.c ./srcs/parser_cd.c
+SRCS = ./minish.c ./srcs/error.c ./srcs/line_space.c ./srcs/line_parse.c  ./srcs/line_space_counter.c 
+SRCS_PARS = ./srcs/parser/parser_echo.c ./srcs/parser/parser_base.c ./srcs/parser/parser_cd.c ./srcs/parser/parser_pwd.c ./srcs/parser/parser_export.c ./srcs/parser/parser_unset.c ./srcs/parser/parser_env.c ./srcs/parser/parser_exit.c
 SRCS_UTILS = ./utils/ft_strlcpy.c ./utils/ft_strchr.c ./utils/ft_strcmp.c ./utils/ft_putstr.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/get_next_line.c ./utils/ft_mass_len.c ./utils/ft_realloc_mass.c ./utils/ft_strdup.c ./utils/ft_free_array.c
-OBJ = $(SRCS:.c=.o) $(SRCS_UTILS:.c=.o)
+OBJ = $(SRCS:.c=.o) $(SRCS_UTILS:.c=.o) $(SRCS_PARS:.c=.o)
 
 %.o:%.c
 	@$(CC) -o $@ -c $<

@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 10:14:05 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 14:50:26 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,50 @@ typedef struct		s_base
 
 typedef struct		s_cd
 {
-	char			*path;
+	char			**path;
 	struct s_cd		*next;
 }					t_cd;
+
+typedef struct		s_pwd
+{
+	char			**arg;
+	struct s_pwd	*next;
+}					t_pwd;
+
+typedef struct		s_export
+{
+	char			**arg;
+	struct s_export	*next;
+}					t_export;
+
+typedef struct		s_unset
+{
+	char			**arg;
+	struct s_unset	*next;
+}					t_unset;
+
+typedef struct		s_env
+{
+	char			**arg;
+	struct s_env	*next;
+}					t_env;
+
+typedef struct		s_exit
+{
+	char			**arg;
+	struct s_exit	*next;
+}					t_exit;
 
 typedef struct		s_ptr
 {
 	t_echo			*ec;
 	t_base			*base;
 	t_cd			*cd;
+	t_pwd			*pwd;
+	t_export		*exp;
+	t_unset			*un;
+	t_env			*env;
+	t_exit			*exit;
 }					t_ptr;
 
 
@@ -89,13 +124,14 @@ char				**line_space_counter(char *line, int len);
 int					line_skip_quote(int i, char *line);
 
 /*
-** echo
+** parser [echo][cd][pwd][export][unset][env][exit]
 */
 int 				parser_echo(char **line, t_ptr *ptr, char **space);
-
-/*
-** cd
-*/
 int					parser_cd(char **line, t_ptr *ptr);
+int					parser_pwd(char **line, t_ptr *ptr);
+int					parser_export(char **line, t_ptr *ptr);
+int					parser_unset(char **line, t_ptr *ptr);
+int					parser_env(char **line, t_ptr *ptr);
+int					parser_exit(char **line, t_ptr *ptr);
 
 #endif
