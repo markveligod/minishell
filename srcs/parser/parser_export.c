@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 14:37:23 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 14:53:39 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 16:04:50 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_export	*init_struct_export(t_export *new)
 {
 	new = (t_export *)malloc(sizeof(t_export));
 	new->arg = (char **)malloc(sizeof(char *) * 1);
+	new->arg[0] = NULL;
 	new->next = NULL;
 	return (new);
 }

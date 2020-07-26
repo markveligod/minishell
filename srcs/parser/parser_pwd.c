@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 14:21:35 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 14:53:43 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 16:05:02 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_pwd	*init_struct_pwd(t_pwd *new)
 {
 	new = (t_pwd *)malloc(sizeof(t_pwd));
 	new->arg = (char **)malloc(sizeof(char *) * 1);
+	new->arg[0] = NULL;
 	new->next = NULL;
 	return (new);
 }

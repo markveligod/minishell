@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 14:43:32 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 14:53:47 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 16:05:15 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_unset	*init_struct_unset(t_unset *new)
 {
 	new = (t_unset *)malloc(sizeof(t_unset));
 	new->arg = (char **)malloc(sizeof(char *) * 1);
+	new->arg[0] = NULL;
 	new->next = NULL;
 	return (new);
 }
