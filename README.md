@@ -5,3 +5,4 @@
 [Создание процессов с помощью вызова fork().](https://www.opennet.ru/docs/RUS/linux_parallel/node7.html)  
 [Writing Your Own Shell](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)  
 [Making your own Linux Shell in C](https://www.geeksforgeeks.org/making-linux-shell-c/)  
+[Чтение содержимого директорий diropen, readdir, closedir](https://firststeps.ru/linux/r.php?20)  
