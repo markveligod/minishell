@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 20:48:19 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 09:23:31 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ typedef struct		s_echo
 	char			*line;
 	int				flag_n;
 	char			**flag_v;
-	char			flag_base;
 	struct s_echo	*next;
 }					t_echo;
 
 typedef struct		s_base
 {
 	char			**flag_base;
+	char			**ar_base;
 }					t_base;
 
 typedef struct		s_ptr

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 20:53:00 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 09:37:19 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,23 @@ void	check_param(char *line, t_ptr *ptr)
 	*/
 
 	init_struct_ptr(ptr);
-	//init_struct_base(ptr);
+	init_struct_base(ptr);
 	dup_line = ft_strdup(line);
 	mass = line_space(line);
 	space = line_space_counter(dup_line, ft_mass_len(mass));
 	while (mass[i])
 	{
-		/*if ((ft_strcmp(";", mass[i]) == 0) || (ft_strcmp("|", mass[i]) == 0))
+		if ((ft_strcmp(";", mass[i]) == 0) || (ft_strcmp("|", mass[i]) == 0))
 		{
-			//ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
+			ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
 			i++;
 			continue ;
-		}*/
+		}
 		if ((ft_strcmp("echo", mass[i])) == 0)
+		{
+			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
 			i += parser_echo(&mass[i], ptr, &space[i]);
+		}
 		else
 			i++;
 	}
@@ -116,12 +119,13 @@ int		main(void)
 		}
 		//free(line);
 		/*
-		** Тестирование листов ECHO
+		** Start test ECHO
 		*/
 		int k;
 		char **fd;
 		char **flag;
 		int ct = 1;
+		printf("\nStart test ECHO... \n\n");
 		while (ptr.ec)
 		{
 			printf("List: #%d\n", ct);
@@ -141,21 +145,42 @@ int		main(void)
 				printf("Flag: #%d - %s\n", k+1, flag[k]);
 				k++;
 			}
-			printf("Flag base: %c\n", ptr.ec->flag_base);
 			ptr.ec = ptr.ec->next;
 			ct++;
 		}
-		/*if (ptr.base)
+		printf("\n\nEnd test ECHO... \n\n");
+		/*
+		** End Test echo
+		*/
+		
+		/*
+		** Start Test base element
+		*/
+		printf("\n\nStart test base element... \n\n");
+		if (ptr.base)
 		{
 			int j = 0;
 			char **base = ptr.base->flag_base;
 			printf("Base element[;][|]: \n");
 			while (base[j])
 			{
-				printf("%s\n", base[j]);
+				printf("%d - %s\n", j + 1, base[j]);
 				j++;
 			}
-		}*/
+			j = 0;
+			base = ptr.base->ar_base;
+			printf("Base command[echo][cd][pwd][...]: \n");
+			while (base[j])
+			{
+				printf("%d - %s\n", j + 1, base[j]);
+				j++;
+			}
+			
+		}
+		printf("\n\nEnd test base element... \n\n");
+		/*
+		** End Test base element
+		*/
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_echo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:50:46 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/25 20:12:46 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 09:20:40 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_echo	*init_list_echo(t_echo *new)
 	new->fd[0] = NULL;
 	new->flag_v[0] = NULL;
 	new->flag_n = 0;
-	new->flag_base = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -70,10 +69,7 @@ int 	parser_echo(char **line, t_ptr *ptr, char **space)
 	while (line[i])
 	{
 		if (ft_strcmp(";", line[i]) == 0 || ft_strcmp("|", line[i]) == 0)
-		{
-			new->flag_base = line[i][0];
 			break;
-		}
 		if (ft_strcmp(">>", line[i]) == 0 || ft_strcmp(">", line[i]) == 0 || ft_strcmp("<", line[i]) == 0)
 		{
 			new->flag_v = ft_realloc_mass(new->flag_v, line[i]);
