@@ -6,11 +6,11 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:50:46 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 09:20:40 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 14:53:22 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minish.h"
+#include "../../minish.h"
 
 t_echo	*init_list_echo(t_echo *new)
 {

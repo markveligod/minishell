@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_cd.c                                        :+:      :+:    :+:   */
+/*   parser_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/26 09:56:38 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 10:24:04 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/07/26 14:47:38 by ckakuna           #+#    #+#             */
+/*   Updated: 2020/07/26 14:53:32 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minish.h"
+#include "../../minish.h"
 
-t_cd	*init_struct_cd(t_cd *new)
+t_env	*init_struct_env(t_env *new)
 {
-	new = (t_cd *)malloc(sizeof(t_cd));
-	new->path = ft_strdup("");
+	new = (t_env *)malloc(sizeof(t_env));
+	new->arg = (char **)malloc(sizeof(char *) * 1);
 	new->next = NULL;
 	return (new);
 }
 
-void	lstadd_back_cd(t_cd **lst, t_cd *new)
+void		lstadd_back_env(t_env **lst, t_env *new)
 {
-	t_cd	*temp;
+	t_env	*temp;
 
 	if (!(*lst))
 		*lst = new;
@@ -35,15 +35,21 @@ void	lstadd_back_cd(t_cd **lst, t_cd *new)
 	}
 }
 
-int		parser_cd(char **line, t_ptr *ptr)
+int			parser_env(char **line, t_ptr *ptr)
 {
-	int i;
-	t_cd *new;
+	int 		i;
+	t_env	*new;
 
 	i = 1;
-	new = init_struct_cd(new);
-	if (ft_strcmp(";", line[i]) != 0 || ft_strcmp("|", line[i]) != 0)
-		new->path = ft_strjoin(new->path, line[i]);
-	lstadd_back_cd(&(ptr->cd), new);
+	new = init_struct_env(new);
+	while (line[i])
+	{
+		if (ft_strcmp(";", line[i]) != 0 && ft_strcmp("|", line[i]) != 0)
+			new->arg = ft_realloc_mass(new->arg, line[i]);
+		else
+			break ;
+		i++;
+	}
+	lstadd_back_env(&(ptr->env), new);
 	return (i);
 }

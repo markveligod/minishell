@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 10:28:09 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 15:28:54 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	init_struct_ptr(t_ptr *ptr)
 	ptr->ec = NULL;
 	ptr->base = NULL;
 	ptr->cd = NULL;
+	ptr->pwd = NULL;
+	ptr->exp = NULL;
+	ptr->un = NULL;
+	ptr->env = NULL;
+	ptr->exit = NULL;
 }
 
 /*
@@ -85,6 +90,31 @@ void	check_param(char *line, t_ptr *ptr)
 		{
 			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
 			i += parser_cd(&mass[i], ptr);
+		}
+		else if ((ft_strcmp("pwd", mass[i])) == 0)
+		{
+			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
+			i += parser_pwd(&mass[i], ptr);
+		}
+		else if ((ft_strcmp("export", mass[i])) == 0)
+		{
+			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
+			i += parser_export(&mass[i], ptr);
+		}
+		else if ((ft_strcmp("unset", mass[i])) == 0)
+		{
+			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
+			i += parser_unset(&mass[i], ptr);
+		}
+		else if ((ft_strcmp("env", mass[i])) == 0)
+		{
+			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
+			i += parser_env(&mass[i], ptr);
+		}
+		else if ((ft_strcmp("exit", mass[i])) == 0)
+		{
+			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
+			i += parser_exit(&mass[i], ptr);
 		}
 		else
 			i++;
@@ -163,25 +193,21 @@ int		main(void)
 		** Start Test base element
 		*/
 		printf("\n\nStart test base element... \n\n");
-		if (ptr.base)
+		int j = 0;
+		char **base = ptr.base->flag_base;
+		printf("Base element[;][|]: \n");
+		while (base[j])
 		{
-			int j = 0;
-			char **base = ptr.base->flag_base;
-			printf("Base element[;][|]: \n");
-			while (base[j])
-			{
-				printf("%d - %s\n", j + 1, base[j]);
-				j++;
-			}
-			j = 0;
-			base = ptr.base->ar_base;
-			printf("Base command[echo][cd][pwd][...]: \n");
-			while (base[j])
-			{
-				printf("%d - %s\n", j + 1, base[j]);
-				j++;
-			}
-			
+			printf("%d - %s\n", j + 1, base[j]);
+			j++;
+		}
+		j = 0;
+		base = ptr.base->ar_base;
+		printf("Base command[echo][cd][pwd][...]: \n");
+		while (base[j])
+		{
+			printf("%d - %s\n", j + 1, base[j]);
+			j++;
 		}
 		printf("\n\nEnd test base element... \n\n");
 		/*
@@ -190,19 +216,110 @@ int		main(void)
 
 		/*
 		** Start Test cd
-		*/
+		
 		printf("\n\nStart test cd... \n\n");
-		int c = 1;
-		while (ptr.cd)
-		{
-			printf("List: %d PATH: %s\n", c, ptr.cd->path);
-			do_cd(ptr.cd);
-			ptr.cd = ptr.cd->next;
-			c++;
-		}
+		int c = 0;
+		base = ptr.cd->path;
+		printf("CD PATH ARGV: \n");
+		if (*base)
+			while (base[c])
+			{
+				printf("%d - %s\n", c + 1, base[c]);
+				c++;
+			}
 		printf("\n\nEnd test cd... \n\n");
+		
+		** End Test cd
+		*/
+
 		/*
-		** End Test base element
+		** Start Test pwd
+		
+		printf("\n\nStart test pwd... \n\n");
+		c = 0;
+		base = ptr.pwd->arg;
+		printf("PWD ARGV: \n");
+		if (*base)
+			while (base[c])
+			{
+				printf("%d - %s\n", c + 1, base[c]);
+				c++;
+			}
+		printf("\n\nEnd test pwd... \n\n");
+		
+		** End Test pwd
+		*/
+
+		/*
+		** Start Test export
+		
+		printf("\n\nStart test export... \n\n");
+		c = 0;
+		base = ptr.exp->arg;
+		printf("export ARGV: \n");
+		if (*base)
+			while (base[c])
+			{
+				printf("%d - %s\n", c + 1, base[c]);
+				c++;
+			}
+		printf("\n\nEnd test export... \n\n");
+		
+		** End Test export
+		*/
+
+		/*
+		** Start Test unset
+		
+		printf("\n\nStart test unset... \n\n");
+		c = 0;
+		base = ptr.un->arg;
+		printf("unset ARGV: \n");
+		if (*base)
+			while (base[c])
+			{
+				printf("%d - %s\n", c + 1, base[c]);
+				c++;
+			}
+		printf("\n\nEnd test unset... \n\n");
+		
+		** End Test unset
+		*/
+
+		/*
+		** Start Test env
+		
+		printf("\n\nStart test env... \n\n");
+		c = 0;
+		base = ptr.env->arg;
+		printf("env ARGV: \n");
+		if (*base)
+			while (base[c])
+			{
+				printf("%d - %s\n", c + 1, base[c]);
+				c++;
+			}
+		printf("\n\nEnd test env... \n\n");
+		
+		** End Test env
+		*/
+
+		/*
+		** Start Test exit
+		
+		printf("\n\nStart test exit... \n\n");
+		c = 0;
+		base = ptr.exit->arg;
+		printf("exit ARGV: \n");
+		if (*base)
+			while (base[c])
+			{
+				printf("%d - %s\n", c + 1, base[c]);
+				c++;
+			}
+		printf("\n\nEnd test exit... \n\n");
+		
+		** End Test exit
 		*/
 	}
 	return (0);
