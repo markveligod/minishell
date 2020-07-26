@@ -17,6 +17,11 @@
 void cd_command(char **path)
 {
 	errno = 0;
+	if (ft_mass_len(path) != 1)
+	{
+		printf("cd: Too many arguments\n");
+		return ;
+	}
 	if (chdir(path[0]) != 0)
 	{
 		errno_t error_num = errno;
