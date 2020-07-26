@@ -220,10 +220,10 @@ int		main(void)
 		printf("\nStart test cd... \n");
 		int c = 0;
 		base = ptr.cd->path;
+		cd_command(base);
 		printf("CD PATH ARGV: \n");
 		if (*base)
 		{
-			cd_command(base);
 			while (base[c])
 			{
 				printf("%d - %s\n", c + 1, base[c]);
