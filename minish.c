@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 09:37:19 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 10:28:09 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_struct_ptr(t_ptr *ptr)
 {
 	ptr->ec = NULL;
 	ptr->base = NULL;
+	ptr->cd = NULL;
 }
 
 /*
@@ -80,6 +81,11 @@ void	check_param(char *line, t_ptr *ptr)
 			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
 			i += parser_echo(&mass[i], ptr, &space[i]);
 		}
+		else if ((ft_strcmp("cd", mass[i])) == 0)
+		{
+			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
+			i += parser_cd(&mass[i], ptr);
+		}
 		else
 			i++;
 	}
@@ -93,7 +99,7 @@ char	*read_line(char *line)
 {
 	int count;
 	
-	ft_putstr("> ");
+	ft_putstr("(^_^)> ");
 	if ((count = get_next_line(&line)) == (-1))
 		error("I couldn't read it");
 	return (line);
@@ -107,7 +113,7 @@ int		main(void)
 
 	while (1)
 	{
-		ft_putstr("> ");
+		ft_putstr("(^_^)> ");
 		if ((count = get_next_line(&line)) == (-1))
 		{
 			error("I couldn't read it");
@@ -178,6 +184,22 @@ int		main(void)
 			
 		}
 		printf("\n\nEnd test base element... \n\n");
+		/*
+		** End Test base element
+		*/
+
+		/*
+		** Start Test cd
+		*/
+		printf("\n\nStart test cd... \n\n");
+		int c = 1;
+		while (ptr.cd)
+		{
+			printf("List: %d PATH: %s\n", c, ptr.cd->path);
+			ptr.cd = ptr.cd->next;
+			c++;
+		}
+		printf("\n\nEnd test cd... \n\n");
 		/*
 		** End Test base element
 		*/

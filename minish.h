@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 09:23:31 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/26 10:14:05 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,17 @@ typedef struct		s_base
 	char			**ar_base;
 }					t_base;
 
+typedef struct		s_cd
+{
+	char			*path;
+	struct s_cd		*next;
+}					t_cd;
+
 typedef struct		s_ptr
 {
 	t_echo			*ec;
 	t_base			*base;
+	t_cd			*cd;
 }					t_ptr;
 
 
@@ -84,9 +91,11 @@ int					line_skip_quote(int i, char *line);
 /*
 ** echo
 */
-void 				create_file_v(t_echo *new, char *line);
-void 				create_flag_v(t_echo *new, char *line);
 int 				parser_echo(char **line, t_ptr *ptr, char **space);
 
+/*
+** cd
+*/
+int					parser_cd(char **line, t_ptr *ptr);
 
 #endif
