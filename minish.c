@@ -43,8 +43,8 @@ void	check_param(char *line, t_ptr *ptr)
 	init_struct_ptr(ptr);
 	init_struct_base(ptr);
 	dup_line = ft_strdup(line);
-	mass = line_space(line);
-	space = line_space_counter(dup_line, ft_mass_len(mass));
+	mass = line_space(line, ptr);
+	space = line_space_counter(dup_line, ft_mass_len(mass), ptr);
 	while (mass[i])
 	{
 		if ((ft_strcmp(";", mass[i]) == 0) || (ft_strcmp("|", mass[i]) == 0))
@@ -114,6 +114,7 @@ int		main(void)
 	{
 		line = read_line(line);
 		check_param(line, &ptr);
+		//test_parsing(&ptr);
 		//free(line);
 	}
 	return (0);

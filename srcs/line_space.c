@@ -12,13 +12,14 @@
 
 #include "../minish.h"
 
-char		*add_one_space(char *line, int *i, char c)
+char		*add_one_space(char *line, int *i, char c, t_ptr *ptr)
 {
 	char	*new_line;
 	int		j;
 	int		now;
 
-	new_line = (char *)malloc(sizeof(char *) * (ft_strlen(line) + 3));
+	if (!(new_line = (char *)malloc(sizeof(char *) * (ft_strlen(line) + 3))))
+		error("Allocation problem", ptr);
 	ft_strlcpy(new_line, line, *i + 1);
 	j = *i;
 	if (c == 'b')
@@ -37,13 +38,14 @@ char		*add_one_space(char *line, int *i, char c)
 	return (line);
 }
 
-char		*add_spaces(char *line, int *i)
+char		*add_spaces(char *line, int *i, t_ptr *ptr)
 {
 	char	*new_line;
 	int		j;
 	int		now;
 
-	new_line = (char *)malloc(sizeof(char *) * (ft_strlen(line) + 3));
+	if (!(new_line = (char *)malloc(sizeof(char *) * (ft_strlen(line) + 3))))
+		error("Allocation problem", ptr);
 	ft_strlcpy(new_line, line, *i + 1);
 	j = *i;
 	new_line[j++] = ' ';
@@ -60,13 +62,14 @@ char		*add_spaces(char *line, int *i)
 		new_line[j++] = line[*i];
 	new_line[j] = '\0';
 	free(line);
-	line = ft_strdup(new_line);
+	if (!(line = ft_strdup(new_line)))
+		error("Allocation problem", ptr);
 	free(new_line);
 	*i = now;
 	return (line);
 }
 
-int			line_skip_quote(int i, char *line)
+int		line_skip_quote(int i, char *line, t_ptr *ptr)
 {
 	if (line[i] == '\"')
 	{
@@ -74,7 +77,7 @@ int			line_skip_quote(int i, char *line)
 		while (line[i] && line[i] != '\"')
 			i++;
 		if (!(line[i]))
-			error("QUOTES");
+			error("QUOTES", ptr);
 		return (i);
 	}
 	else if (line[i] == '\'')
@@ -83,37 +86,40 @@ int			line_skip_quote(int i, char *line)
 		while (line[i] && line[i] != '\'')
 			i++;
 		if (!(line[i]))
-			error("QUOTES");
+			error("QUOTES", ptr);
 		return (i);
 	}
 	return (i);
 }
 
-char		**line_space(char *line)
+char		**line_space(char *line, t_ptr *ptr)
 {
 	int		i;
 	int		j;
 	int		now;
+	char	**args;
 
 	i = 0;
 	while (line[i])
 	{
-		if ((j = line_skip_quote(i, line)) != i)
+		if ((j = line_skip_quote(i, line, ptr)) != i)
 		{
 			if (i != 0 && line[i - 1] != ' ')
 			{
-				line = add_one_space(line, &i, 'b');
+				line = add_one_space(line, &i, 'b', ptr);
 				j++;
 			}
 			i = j + 1;
 			if (line[i] && line[i] != ' ' && line[--i])
-				line = add_one_space(line, &i, 'a');
+				line = add_one_space(line, &i, 'a', ptr);
 		}
 		else if (line[i] == ';' || line[i] == '|' ||
 				line[i] == '>' || line[i] == '<')
-			line = add_spaces(line, &i);
+			line = add_spaces(line, &i, ptr);
 		else
 			i++;
 	}
-	return (line_parse(line, ' ', '\t'));
+	if ((args = line_parse(line, ' ', '\t')) == NULL)
+		error("Allocation problem!", ptr);
+	return (args);
 }

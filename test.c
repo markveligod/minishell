@@ -3,7 +3,8 @@
 void    test_parsing(t_ptr *ptr)
 {
 		/*
-		** Start test ECHO		
+		** Start test ECHO	
+		
 		int k;
 		char **fd;
 		char **flag;
@@ -13,8 +14,8 @@ void    test_parsing(t_ptr *ptr)
 		{
 			printf("List: #%d\n", ct);
 			printf("Str: %s\n", ptr->ec->line);
-			printf("Flag -n: %d\n", ptr.ec->flag_n);
-			fd = ptr.ec->fd;
+			printf("Flag -n: %d\n", ptr->ec->flag_n);
+			fd = ptr->ec->fd;
 			k = 0;
 			while (fd[k])
 			{
@@ -86,8 +87,9 @@ void    test_parsing(t_ptr *ptr)
 		** Start Test pwd
 		
 		printf("\n\nStart test pwd... \n\n");
-		c = 0;
-		base = ptr->pwd->arg;
+		int c = 0;
+		char **base = ptr->pwd->arg;
+		pwd_command(base);
 		printf("PWD ARGV: \n");
 		if (*base)
 			while (base[c])

@@ -28,7 +28,7 @@ int		if_space(int *len, int i, char **spaces, char *line)
 	{
 		free(line);
 		ft_free_array(spaces);
-		error("Allocation problem");
+		return (-1);
 	}
 	s = 0;
 	i = j;
@@ -43,7 +43,7 @@ int		if_space(int *len, int i, char **spaces, char *line)
 	return (i);
 }
 
-char	**line_space_counter(char *line, int len)
+char	**line_space_counter(char *line, int len, t_ptr *ptr)
 {
 	char	**spaces;
 	int		i;
@@ -52,7 +52,7 @@ char	**line_space_counter(char *line, int len)
 	if (!(spaces = (char **)malloc(sizeof(char *) * (len + 1))))
 	{
 		free(line);
-		error("Allocation problem");
+		error("Allocation problem", ptr);
 	}
 	spaces[len] = NULL;
 	len = 0;
@@ -62,7 +62,7 @@ char	**line_space_counter(char *line, int len)
 		if (i == 0 && (line[i] == ' ' || line[i] == '\t'))
 			while (line[i] == ' ' || line[i] == '\t')
 				i++;
-		if ((j = line_skip_quote(i, line)) != i)
+		if ((j = line_skip_quote(i, line, ptr)) != i)
 			i = j + 1;
 		else if (line[i] == ';' || line[i] == '|' ||
 				 line[i] == '>' || line[i] == '<')
@@ -77,6 +77,8 @@ char	**line_space_counter(char *line, int len)
 				   line[i] != '\"' && line[i] != '\'')
 				i++;
 		i = if_space(&len, i, spaces, line);
+		if (i < 0)
+			error("Allocation problem!", ptr);
 	}
 	free(line);
 	return (spaces);

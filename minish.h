@@ -119,9 +119,9 @@ void				init_struct_base(t_ptr *ptr);
 ** parsing input line
 */
 char				**line_parse(char const *s, char c, char c2);
-char				**line_space(char *line);
-char				**line_space_counter(char *line, int len);
-int					line_skip_quote(int i, char *line);
+char				**line_space(char *line, t_ptr *ptr);
+char				**line_space_counter(char *line, int len, t_ptr *ptr);
+int					line_skip_quote(int i, char *line, t_ptr *ptr);
 
 /*
 ** parser [echo][cd][pwd][export][unset][env][exit]
@@ -138,6 +138,7 @@ int					parser_exit(char **line, t_ptr *ptr);
 ** commands
 */
 void				cd_command(char **path);
+void				pwd_command(char **args);
 
 /*
 ** TEST'S

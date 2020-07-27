@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd_command.c                                       :+:      :+:    :+:   */
+/*   pwd_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/26 13:25:35 by leweathe          #+#    #+#             */
-/*   Updated: 2020/07/26 13:25:37 by leweathe         ###   ########.fr       */
+/*   Created: 2020/07/27 10:21:42 by leweathe          #+#    #+#             */
+/*   Updated: 2020/07/27 10:21:44 by leweathe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,25 @@
 #include <errno.h>
 #include <string.h>
 
-void cd_command(char **path)
+void	pwd_command(char **args)
 {
-	errno_t error_num;
+	char		*p;
+	errno_t		error_num;
 
-	errno = 0;
-	if (ft_mass_len(path) != 1 && ft_mass_len(path) != 0)
+	if (args[0] != NULL)
+		printf("pwd: Too many arguments\n");
+	else
 	{
-		printf("cd: Too many arguments\n");
-		return ;
-	}
-	if (ft_mass_len(path) == 0)
-		path[0] = ft_strdup("/");
-	if (chdir(path[0]) != 0)
-	{
-		error_num = errno;
-		printf("cd: %s\n", (char *)strerror(error_num));
+		errno = 0;
+		if ((p = getcwd(NULL, 10)) == NULL)
+		{
+			error_num = errno;
+			printf("pwd: %s\n", (char *)strerror(error_num));
+		}
+		else
+		{
+			printf("%s\n", p);
+			free(p);
+		}
 	}
 }

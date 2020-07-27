@@ -12,6 +12,25 @@
 
 #include "../minish.h"
 
+int				skip_quote(int i, char *line)
+{
+	if (line[i] == '\"')
+	{
+		i++;
+		while (line[i] && line[i] != '\"')
+			i++;
+		return (i);
+	}
+	else if (line[i] == '\'')
+	{
+		i++;
+		while (line[i] && line[i] != '\'')
+			i++;
+		return (i);
+	}
+	return (i);
+}
+
 static int		ft_words(char const *s, char c, char c2)
 {
 	int		i;
@@ -24,7 +43,7 @@ static int		ft_words(char const *s, char c, char c2)
 		if (s[i] != c && s[i] != c2 && (i == 0 ||
 			s[i - 1] == c || s[i - 1] == c2))
 		{
-			i = line_skip_quote(i, (char *)s);
+			i = skip_quote(i, (char *)s);
 			w++;
 		}
 		i++;
@@ -40,7 +59,7 @@ static int		ft_symb(char const *s, char c, int i, char c2)
 	symb = 0;
 	while (s[i] != c && s[i] && s[i] != c2)
 	{
-		j = line_skip_quote(i, (char *)s);
+		j = skip_quote(i, (char *)s);
 		if (i != j)
 			symb += j - i - 2;
 		i = j;
