@@ -47,12 +47,6 @@ void	check_param(char *line, t_ptr *ptr)
 	space = line_space_counter(dup_line, ft_mass_len(mass), ptr);
 	while (mass[i])
 	{
-		if ((ft_strcmp(";", mass[i]) == 0) || (ft_strcmp("|", mass[i]) == 0))
-		{
-			ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
-			i++;
-			continue ;
-		}
 		if ((ft_strcmp("echo", mass[i])) == 0)
 		{
 			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
@@ -89,7 +83,18 @@ void	check_param(char *line, t_ptr *ptr)
 			i += parser_exit(&mass[i], ptr);
 		}
 		else
+		{
+			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
+			i += parser_external_commands(&mass[i], ptr);
+		}
+		//while (mass[i] && ft_strcmp(";", mass[i]) != 0 && ft_strcmp("|", mass[i]) != 0)
+		//	i++;
+		/*if ((ft_strcmp(";", mass[i]) == 0) || (ft_strcmp("|", mass[i]) == 0))
+		{
+			ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
 			i++;
+			continue;
+		}*/
 	}
 }
 
@@ -103,6 +108,43 @@ char	*read_line(char *line)
 	get_next_line(&line);
 	return (line);
 }
+
+/*
+** testing fork
+
+#define _GNU_SOURSE
+int main(void)
+{
+	pid_t pid;
+	pid_t wpid;
+	int count;
+	char *line;
+	t_ptr ptr;
+	int status;
+
+	while (1)
+	{
+		line = read_line(line);
+		//check_param(line, &ptr);
+		pid = fork();
+		if (pid == 0)
+		{
+			char *args[] = {"/bin/ls", NULL};
+			execve("/bin/ls", args, NULL);
+
+		}
+		else
+		{
+				wpid = waitpid(pid, &status, WUNTRACED);
+		}
+
+		//test_parsing(&ptr);
+		//free(line);
+	}
+}
+
+** end of testing fork
+*/
 
 int		main(void)
 {
