@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 14:50:26 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/27 09:33:58 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void				ft_free_array(char **arr);
 void				clear_malloc();
 char				*read_line(char *line);
 int					main(void);
-void				error(char *str);
+void				error(char *str, t_ptr *ptr);
 void				init_struct_base(t_ptr *ptr);
 
 /*
@@ -138,5 +138,12 @@ int					parser_exit(char **line, t_ptr *ptr);
 ** commands
 */
 void				cd_command(char **path);
+
+/*
+** TEST'S
+*/
+void    test_parsing(t_ptr *ptr);
+void    test_clear_malloc(t_ptr *ptr);
+void    check_split(char **mass, char *dup_line, char *line, char **space);
 
 #endif

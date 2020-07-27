@@ -3,20 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ckakuna <42.fr>                            +#+  +:+       +#+         #
+#    By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 07:21:41 by ckakuna           #+#    #+#              #
-#    Updated: 2020/07/26 15:04:31 by ckakuna          ###   ########.fr        #
+#    Updated: 2020/07/27 09:37:20 by ckakuna          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 FLAGS = -Wall -Werror -Wextra
 HDRS = ./minish.h
-SRCS = ./minish.c ./srcs/error.c ./srcs/line_space.c ./srcs/line_parse.c  ./srcs/line_space_counter.c ./srcs/cd_command.c
+SRCS = ./srcs/clear_malloc.c ./minish.c ./srcs/error.c ./srcs/line_space.c ./srcs/line_parse.c  ./srcs/line_space_counter.c ./srcs/cd_command.c
 SRCS_PARS = ./srcs/parser/parser_echo.c ./srcs/parser/parser_base.c ./srcs/parser/parser_cd.c ./srcs/parser/parser_pwd.c ./srcs/parser/parser_export.c ./srcs/parser/parser_unset.c ./srcs/parser/parser_env.c ./srcs/parser/parser_exit.c
 SRCS_UTILS = ./utils/ft_strlcpy.c ./utils/ft_strchr.c ./utils/ft_strcmp.c ./utils/ft_putstr.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/get_next_line.c ./utils/ft_mass_len.c ./utils/ft_realloc_mass.c ./utils/ft_strdup.c ./utils/ft_free_array.c
-OBJ = $(SRCS:.c=.o) $(SRCS_UTILS:.c=.o) $(SRCS_PARS:.c=.o)
+TESTS = ./test.c
+OBJ = $(SRCS:.c=.o) $(SRCS_UTILS:.c=.o) $(SRCS_PARS:.c=.o) $(TESTS:.c=.o)
 
 %.o:%.c
 	@$(CC) -o $@ -c $<
