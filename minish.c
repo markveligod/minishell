@@ -85,7 +85,7 @@ void	check_param(char *line, t_ptr *ptr)
 		else
 		{
 			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
-			i += parser_external_commands(&mass[i], ptr);
+			i += parser_external(&mass[i], ptr);
 		}
 	}
 }
@@ -100,43 +100,6 @@ char	*read_line(char *line)
 	get_next_line(&line);
 	return (line);
 }
-
-/*
-** testing fork
-
-#define _GNU_SOURSE
-int main(void)
-{
-	pid_t pid;
-	pid_t wpid;
-	int count;
-	char *line;
-	t_ptr ptr;
-	int status;
-
-	while (1)
-	{
-		line = read_line(line);
-		//check_param(line, &ptr);
-		pid = fork();
-		if (pid == 0)
-		{
-			char *args[] = {"/bin/ls", NULL};
-			execve("/bin/ls", args, NULL);
-
-		}
-		else
-		{
-				wpid = waitpid(pid, &status, WUNTRACED);
-		}
-
-		//test_parsing(&ptr);
-		//free(line);
-	}
-}
-
-** end of testing fork
-*/
 
 int		main(void)
 {

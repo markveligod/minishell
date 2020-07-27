@@ -71,6 +71,12 @@ typedef struct		s_exit
 	struct s_exit	*next;
 }					t_exit;
 
+typedef struct			s_external
+{
+	char				**arg;
+	struct s_external	*next;
+}						t_external;
+
 typedef struct		s_ptr
 {
 	t_echo			*ec;
@@ -81,6 +87,7 @@ typedef struct		s_ptr
 	t_unset			*un;
 	t_env			*env;
 	t_exit			*exit;
+	t_external		*external;
 }					t_ptr;
 
 
@@ -133,6 +140,7 @@ int					parser_export(char **line, t_ptr *ptr);
 int					parser_unset(char **line, t_ptr *ptr);
 int					parser_env(char **line, t_ptr *ptr);
 int					parser_exit(char **line, t_ptr *ptr);
+int					parser_external(char **line, t_ptr *ptr);
 
 /*
 ** commands

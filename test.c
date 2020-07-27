@@ -2,13 +2,19 @@
 
 void    test_parsing(t_ptr *ptr)
 {
+	int i;
+	int j;
+	int k;
+	char **fd;
+	char **flag;
+	int ct;
+	char **base;
+	int c;
+
 		/*
 		** Start test ECHO	
 		
-		int k;
-		char **fd;
-		char **flag;
-		int ct = 1;
+		ct = 1;
 		printf("\nStart test ECHO... \n");
 		while (ptr->ec)
 		{
@@ -37,12 +43,13 @@ void    test_parsing(t_ptr *ptr)
 		** End Test echo
 		*/
 
+
 		/*
 		** Start Test base element
 		
 		printf("\n\nStart test base element... \n");
-		int j = 0;
-		char **base = ptr->base->flag_base;
+		j = 0;
+		base = ptr->base->flag_base;
 		printf("Base element[;][|]: \n");
 		while (base[j])
 		{
@@ -62,11 +69,12 @@ void    test_parsing(t_ptr *ptr)
 		** End Test base element
 		*/
 
+
 		/*
 		** Start Test cd
 		
 		printf("\nStart test cd... \n");
-		int c = 0;
+		c = 0;
 		base = ptr->cd->path;
 		cd_command(base);
 		printf("CD PATH ARGV: \n");
@@ -83,12 +91,13 @@ void    test_parsing(t_ptr *ptr)
 		** End Test cd
 		*/
 
+
 		/*
 		** Start Test pwd
 		
 		printf("\n\nStart test pwd... \n\n");
-		int c = 0;
-		char **base = ptr->pwd->arg;
+		c = 0;
+		base = ptr->pwd->arg;
 		pwd_command(base);
 		printf("PWD ARGV: \n");
 		if (*base)
@@ -101,6 +110,7 @@ void    test_parsing(t_ptr *ptr)
 		
 		** End Test pwd
 		*/
+
 
 		/*
 		** Start Test export
@@ -120,6 +130,7 @@ void    test_parsing(t_ptr *ptr)
 		** End Test export
 		*/
 
+
 		/*
 		** Start Test unset
 		
@@ -137,6 +148,7 @@ void    test_parsing(t_ptr *ptr)
 		
 		** End Test unset
 		*/
+
 
 		/*
 		** Start Test env
@@ -156,6 +168,7 @@ void    test_parsing(t_ptr *ptr)
 		** End Test env
 		*/
 
+
 		/*
 		** Start Test exit
 		
@@ -172,6 +185,27 @@ void    test_parsing(t_ptr *ptr)
 		printf("\n\nEnd test exit... \n\n");
 		
 		** End Test exit
+		*/
+
+
+		/*
+		** Start test external
+		
+		printf("\n\n_______________________\n");
+		printf("Start test external... \n\n");
+		c = 0;
+		base = ptr->external->arg;
+		printf("external ARGV: \n");
+		if (*base)
+			while (base[c])
+			{
+				printf("%d - %s\n", c + 1, base[c]);
+				c++;
+			}
+		printf("\nEnd test env...\n");
+		printf("_______________________\n\n");
+
+		**
 		*/
 }
 
@@ -200,3 +234,40 @@ void    check_split(char **mass, char *dup_line, char *line, char **space)
 	** end of checking
 	*/
 }
+
+/*
+** testing fork
+
+#define _GNU_SOURSE
+int main(void)
+{
+	pid_t pid;
+	pid_t wpid;
+	int count;
+	char *line;
+	t_ptr ptr;
+	int status;
+
+	while (1)
+	{
+		line = read_line(line);
+		//check_param(line, &ptr);
+		pid = fork();
+		if (pid == 0)
+		{
+			char *args[] = {"/bin/ls", NULL};
+			execve("/bin/ls", args, NULL);
+
+		}
+		else
+		{
+				wpid = waitpid(pid, &status, WUNTRACED);
+		}
+
+		//test_parsing(&ptr);
+		//free(line);
+	}
+}
+
+** end of testing fork
+*/

@@ -39,7 +39,7 @@ void		lstadd_back_env(t_env **lst, t_env *new)
 int			parser_env(char **line, t_ptr *ptr)
 {
 	int 		i;
-	t_env	*new;
+	t_env		*new;
 
 	i = 1;
 	new = init_struct_env(new);
