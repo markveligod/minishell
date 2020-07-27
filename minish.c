@@ -87,14 +87,6 @@ void	check_param(char *line, t_ptr *ptr)
 			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
 			i += parser_external_commands(&mass[i], ptr);
 		}
-		//while (mass[i] && ft_strcmp(";", mass[i]) != 0 && ft_strcmp("|", mass[i]) != 0)
-		//	i++;
-		/*if ((ft_strcmp(";", mass[i]) == 0) || (ft_strcmp("|", mass[i]) == 0))
-		{
-			ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
-			i++;
-			continue;
-		}*/
 	}
 }
 
