@@ -117,7 +117,7 @@ int		main(void)
 	{
 		line = read_line(line);
 		check_param(line, &ptr);
-		//test_parsing(&ptr);
+		test_parsing(&ptr);
 		//free(line);
 	}
 	return (0);
