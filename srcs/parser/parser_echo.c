@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_echo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:50:46 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/26 14:53:22 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/27 09:34:11 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_echo	*init_list_echo(t_echo *new)
 	new = (t_echo *)malloc(sizeof(t_echo));
 	new->fd = (char **)malloc(sizeof(char *) * 1);
 	new->flag_v = (char **)malloc(sizeof(char *) * 1);
-	new->line = ft_strdup("\0");
+	new->line = ft_strdup("");
 	new->fd[0] = NULL;
 	new->flag_v[0] = NULL;
 	new->flag_n = 0;
@@ -74,7 +74,7 @@ int 	parser_echo(char **line, t_ptr *ptr, char **space)
 		{
 			new->flag_v = ft_realloc_mass(new->flag_v, line[i]);
 			if (!line[i + 1] || ft_strcmp("|", line[i + 1]) == 0 || ft_strcmp(";", line[i + 1]) == 0)
-				error("Syntex error");
+				error("Syntex error", ptr);
 			else
 				new->fd = ft_realloc_mass(new->fd, line[++i]);
 			i++;
