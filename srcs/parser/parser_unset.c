@@ -14,8 +14,9 @@
 
 t_unset	*init_struct_unset(t_unset *new)
 {
-	new = (t_unset *)malloc(sizeof(t_unset));
-	new->arg = (char **)malloc(sizeof(char *) * 1);
+	if (!(new = (t_unset *)malloc(sizeof(t_unset))) ||
+		!(new->arg = (char **)malloc(sizeof(char *) * 1)))
+		return (NULL);
 	new->arg[0] = NULL;
 	new->next = NULL;
 	return (new);
@@ -42,7 +43,8 @@ int			parser_unset(char **line, t_ptr *ptr)
 	t_unset	*new;
 
 	i = 1;
-	new = init_struct_unset(new);
+	if (!(new = init_struct_unset(new)))
+		error("Allocation problem!", ptr);
 	while (line[i])
 	{
 		if (ft_strcmp(";", line[i]) != 0 && ft_strcmp("|", line[i]) != 0)

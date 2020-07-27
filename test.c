@@ -11,9 +11,41 @@ void    test_parsing(t_ptr *ptr)
 	char **base;
 	int c;
 
-		/*
-		** Start test ECHO	
-		
+	/*
+	** Start Test base element
+	*/
+	if (ptr->base != NULL)
+	{
+		printf("\n_________________________\n");
+		printf("Start test base element... \n");
+		j = 0;
+		base = ptr->base->flag_base;
+		printf("Base element[;][|]: \n");
+		while (base[j])
+		{
+			printf("%d - %s\n", j + 1, base[j]);
+			j++;
+		}
+		j = 0;
+		base = ptr->base->ar_base;
+		printf("Base command[echo][cd][pwd][...]: \n");
+		while (base[j])
+		{
+			printf("%d - %s\n", j + 1, base[j]);
+			j++;
+		}
+		printf("End test base element...\n");
+		printf("_________________________\n");
+	}
+	/*
+	** End Test base element
+	*/
+
+	/*
+	** Start test ECHO	
+	*/
+	if (ptr->ec != NULL)
+	{
 		ct = 1;
 		printf("\nStart test ECHO... \n");
 		while (ptr->ec)
@@ -39,40 +71,17 @@ void    test_parsing(t_ptr *ptr)
 			ct++;
 		}
 		printf("End test ECHO... \n\n");
-		
-		** End Test echo
-		*/
+	}
+	/*
+	** End Test echo
+	*/
 
 
-		/*
-		** Start Test base element
-		
-		printf("\n\nStart test base element... \n");
-		j = 0;
-		base = ptr->base->flag_base;
-		printf("Base element[;][|]: \n");
-		while (base[j])
-		{
-			printf("%d - %s\n", j + 1, base[j]);
-			j++;
-		}
-		j = 0;
-		base = ptr->base->ar_base;
-		printf("Base command[echo][cd][pwd][...]: \n");
-		while (base[j])
-		{
-			printf("%d - %s\n", j + 1, base[j]);
-			j++;
-		}
-		printf("End test base element... \n\n");
-		
-		** End Test base element
-		*/
-
-
-		/*
-		** Start Test cd
-		
+	/*
+	** Start Test cd
+	*/
+	if (ptr->cd != NULL)
+	{
 		printf("\nStart test cd... \n");
 		c = 0;
 		base = ptr->cd->path;
@@ -87,15 +96,18 @@ void    test_parsing(t_ptr *ptr)
 			}
 		}
 		printf("End test cd... \n\n");
-		
-		** End Test cd
-		*/
+	}
+	/*
+	** End Test cd
+	*/
 
 
-		/*
-		** Start Test pwd
-		
-		printf("\n\nStart test pwd... \n\n");
+	/*
+	** Start Test pwd
+	*/
+	if (ptr->pwd != NULL)
+	{
+		printf("\nStart test pwd... \n");
 		c = 0;
 		base = ptr->pwd->arg;
 		pwd_command(base);
@@ -106,16 +118,19 @@ void    test_parsing(t_ptr *ptr)
 				printf("%d - %s\n", c + 1, base[c]);
 				c++;
 			}
-		printf("\n\nEnd test pwd... \n\n");
-		
-		** End Test pwd
-		*/
+		printf("End test pwd... \n\n");
+	}
+	/*
+	** End Test pwd
+	*/
 
 
-		/*
-		** Start Test export
-		
-		printf("\n\nStart test export... \n\n");
+	/*
+	** Start Test export
+	*/
+	if (ptr->exp != NULL)
+	{
+		printf("\nStart test export... \n");
 		c = 0;
 		base = ptr->exp->arg;
 		printf("export ARGV: \n");
@@ -125,16 +140,19 @@ void    test_parsing(t_ptr *ptr)
 				printf("%d - %s\n", c + 1, base[c]);
 				c++;
 			}
-		printf("\n\nEnd test export... \n\n");
-		
-		** End Test export
-		*/
+		printf("End test export... \n\n");
+	}
+	/*
+	** End Test export
+	*/
 
 
-		/*
-		** Start Test unset
-		
-		printf("\n\nStart test unset... \n\n");
+	/*
+	** Start Test unset
+	*/
+	if (ptr->un != NULL)
+	{
+		printf("\nStart test unset... \n");
 		c = 0;
 		base = ptr->un->arg;
 		printf("unset ARGV: \n");
@@ -144,16 +162,19 @@ void    test_parsing(t_ptr *ptr)
 				printf("%d - %s\n", c + 1, base[c]);
 				c++;
 			}
-		printf("\n\nEnd test unset... \n\n");
-		
-		** End Test unset
-		*/
+		printf("End test unset... \n\n");
+	}
+	/*
+	** End Test unset
+	*/
 
 
-		/*
-		** Start Test env
-		
-		printf("\n\nStart test env... \n\n");
+	/*
+	** Start Test env
+	*/
+	if (ptr->env != NULL)
+	{
+		printf("\nStart test env... \n");
 		c = 0;
 		base = ptr->env->arg;
 		printf("env ARGV: \n");
@@ -163,16 +184,19 @@ void    test_parsing(t_ptr *ptr)
 				printf("%d - %s\n", c + 1, base[c]);
 				c++;
 			}
-		printf("\n\nEnd test env... \n\n");
-		
-		** End Test env
-		*/
+		printf("End test env... \n\n");
+	}
+	/*
+	** End Test env
+	*/
 
 
-		/*
-		** Start Test exit
-		
-		printf("\n\nStart test exit... \n\n");
+	/*
+	** Start Test exit
+	*/
+	if (ptr->ec != NULL)
+	{
+		printf("\nStart test exit... \n");
 		c = 0;
 		base = ptr->exit->arg;
 		printf("exit ARGV: \n");
@@ -182,17 +206,18 @@ void    test_parsing(t_ptr *ptr)
 				printf("%d - %s\n", c + 1, base[c]);
 				c++;
 			}
-		printf("\n\nEnd test exit... \n\n");
-		
-		** End Test exit
-		*/
+		printf("End test exit... \n\n");
+	}
+	/*
+	** End Test exit
+	*/
 
-
-		/*
-		** Start test external
-		
-		printf("\n\n_______________________\n");
-		printf("Start test external... \n\n");
+	/*
+	** Start test external
+	*/
+	if (ptr->external != NULL)
+	{
+		printf("\nStart test external... \n");
 		c = 0;
 		base = ptr->external->arg;
 		printf("external ARGV: \n");
@@ -202,12 +227,12 @@ void    test_parsing(t_ptr *ptr)
 				printf("%d - %s\n", c + 1, base[c]);
 				c++;
 			}
-		printf("\nEnd test env...\n");
-		printf("_______________________\n\n");
-
-		**
-		*/
-}
+		printf("End test external...\n\n");
+	}
+	/*
+	** End Test external
+	*/
+	}
 
 void    test_clear_malloc(t_ptr *ptr)
 {

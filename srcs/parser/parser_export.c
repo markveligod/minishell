@@ -14,8 +14,9 @@
 
 t_export	*init_struct_export(t_export *new)
 {
-	new = (t_export *)malloc(sizeof(t_export));
-	new->arg = (char **)malloc(sizeof(char *) * 1);
+	if (!(new = (t_export *)malloc(sizeof(t_export))) ||
+		!(new->arg = (char **)malloc(sizeof(char *) * 1)))
+		return (NULL);
 	new->arg[0] = NULL;
 	new->next = NULL;
 	return (new);
@@ -42,7 +43,8 @@ int			parser_export(char **line, t_ptr *ptr)
 	t_export	*new;
 
 	i = 1;
-	new = init_struct_export(new);
+	if (!(new = init_struct_export(new)))
+		error("Allocation problem!", ptr);
 	while (line[i])
 	{
 		if (ft_strcmp(";", line[i]) != 0 && ft_strcmp("|", line[i]) != 0)

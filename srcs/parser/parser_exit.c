@@ -14,8 +14,9 @@
 
 t_exit	*init_struct_exit(t_exit *new)
 {
-	new = (t_exit *)malloc(sizeof(t_exit));
-	new->arg = (char **)malloc(sizeof(char *) * 1);
+	if (!(new = (t_exit *)malloc(sizeof(t_exit))) ||
+		!(new->arg = (char **)malloc(sizeof(char *) * 1)))
+		return (NULL);
 	new->arg = NULL;
 	new->next = NULL;
 	return (new);
@@ -42,7 +43,8 @@ int			parser_exit(char **line, t_ptr *ptr)
 	t_exit	*new;
 
 	i = 1;
-	new = init_struct_exit(new);
+	if (!(new = init_struct_exit(new)))
+		error("Allocation problem!", ptr);
 	while (line[i])
 	{
 		if (ft_strcmp(";", line[i]) != 0 && ft_strcmp("|", line[i]) != 0)

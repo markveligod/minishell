@@ -14,8 +14,9 @@
 
 t_cd	*init_struct_cd(t_cd *new)
 {
-	new = (t_cd *)malloc(sizeof(t_cd));
-	new->path = (char **)malloc(sizeof(char *) * 1);
+	if (!(new = (t_cd *)malloc(sizeof(t_cd))) ||
+		!(new->path = (char **)malloc(sizeof(char *) * 1)))
+		return (NULL);
 	new->path[0] = NULL;
 	new->next = NULL;
 	return (new);
@@ -42,7 +43,8 @@ int		parser_cd(char **line, t_ptr *ptr)
 	t_cd *new;
 
 	i = 1;
-	new = init_struct_cd(new);
+	if (!(new = init_struct_cd(new)))
+		error("Allocation problem!", ptr);
 	while (line[i])
 	{
 		if (ft_strcmp(";", line[i]) != 0 && ft_strcmp("|", line[i]) != 0)

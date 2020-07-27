@@ -14,8 +14,9 @@
 
 t_pwd	*init_struct_pwd(t_pwd *new)
 {
-	new = (t_pwd *)malloc(sizeof(t_pwd));
-	new->arg = (char **)malloc(sizeof(char *) * 1);
+	if (!(new = (t_pwd *)malloc(sizeof(t_pwd))) ||
+		!(new->arg = (char **)malloc(sizeof(char *) * 1)))
+		return (NULL);
 	new->arg[0] = NULL;
 	new->next = NULL;
 	return (new);
@@ -42,7 +43,8 @@ int		parser_pwd(char **line, t_ptr *ptr)
 	t_pwd *new;
 
 	i = 1;
-	new = init_struct_pwd(new);
+	if (!(new = init_struct_pwd(new)))
+		error("Allocation problem!", ptr);
 	while (line[i])
 	{
 		if (ft_strcmp(";", line[i]) != 0 && ft_strcmp("|", line[i]) != 0)

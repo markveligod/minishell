@@ -14,9 +14,10 @@
 
 t_echo	*init_list_echo(t_echo *new)
 {
-	new = (t_echo *)malloc(sizeof(t_echo));
-	new->fd = (char **)malloc(sizeof(char *) * 1);
-	new->flag_v = (char **)malloc(sizeof(char *) * 1);
+	if (!(new = (t_echo *)malloc(sizeof(t_echo))) ||
+		!(new->fd = (char **)malloc(sizeof(char *) * 1)) ||
+		!(new->flag_v = (char **)malloc(sizeof(char *) * 1)))
+		return (NULL);
 	new->line = ft_strdup("");
 	new->fd[0] = NULL;
 	new->flag_v[0] = NULL;
@@ -64,7 +65,8 @@ int 	parser_echo(char **line, t_ptr *ptr, char **space)
 	t_echo *new;
 
 	i = 1;
-	new = init_list_echo(new);
+	if (!(new = init_list_echo(new)))
+		error("Allocation problem!", ptr);
 	i += check_nnn(&line[i], new);
 	while (line[i])
 	{

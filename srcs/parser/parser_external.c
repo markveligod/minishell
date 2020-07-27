@@ -14,8 +14,8 @@
 
 t_external	*init_struct_external(t_external *external)
 {
-	if (!(external = (t_external *)malloc(sizeof(t_external)))
-		|| !(external->arg = (char **)malloc(sizeof(char *) * 1)))
+	if (!(external = (t_external *)malloc(sizeof(t_external))) ||
+		!(external->arg = (char **)malloc(sizeof(char *) * 1)))
 		return (NULL);
 	external->arg[0] = NULL;
 	external->next = NULL;

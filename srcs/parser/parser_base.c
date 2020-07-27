@@ -14,9 +14,10 @@
 
 void	init_struct_base(t_ptr *ptr)
 {
-	ptr->base = (t_base *)malloc(sizeof(t_base));
-	ptr->base->flag_base = (char **)malloc(sizeof(char *) * 1);
-	ptr->base->ar_base = (char **)malloc(sizeof(char *) * 1);
+	if (!(ptr->base = (t_base *)malloc(sizeof(t_base))) ||
+		!(ptr->base->flag_base = (char **)malloc(sizeof(char *) * 1)) ||
+		!(ptr->base->ar_base = (char **)malloc(sizeof(char *) * 1)))
+		error("Allocation problem!", ptr);
 	ptr->base->flag_base[0] = NULL;
 	ptr->base->ar_base[0] = NULL;
 }

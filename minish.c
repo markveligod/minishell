@@ -47,6 +47,12 @@ void	check_param(char *line, t_ptr *ptr)
 	space = line_space_counter(dup_line, ft_mass_len(mass), ptr);
 	while (mass[i])
 	{
+		if ((ft_strcmp(";", mass[i]) == 0) || (ft_strcmp("|", mass[i]) == 0))
+		{
+			ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
+			i++;
+			continue;
+		}
 		if ((ft_strcmp("echo", mass[i])) == 0)
 		{
 			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);

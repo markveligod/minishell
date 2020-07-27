@@ -14,8 +14,9 @@
 
 t_env	*init_struct_env(t_env *new)
 {
-	new = (t_env *)malloc(sizeof(t_env));
-	new->arg = (char **)malloc(sizeof(char *) * 1);
+	if (!(new = (t_env *)malloc(sizeof(t_env))) ||
+		!(new->arg = (char **)malloc(sizeof(char *) * 1)))
+		return (NULL);
 	new->arg[0] = NULL;
 	new->next = NULL;
 	return (new);
@@ -42,7 +43,8 @@ int			parser_env(char **line, t_ptr *ptr)
 	t_env		*new;
 
 	i = 1;
-	new = init_struct_env(new);
+	if (!(new = init_struct_env(new)))
+		error("Allocation problem!", ptr);
 	while (line[i])
 	{
 		if (ft_strcmp(";", line[i]) != 0 && ft_strcmp("|", line[i]) != 0)
