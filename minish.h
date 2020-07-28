@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <errno.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <string.h>
 
 # include <stdio.h> //delete
 
@@ -60,6 +62,7 @@ char					*ft_strdup(const char *s1);
 char					**ft_realloc_mass(char **map, char *line);
 int						ft_mass_len(char **mass);
 void					ft_free_array(char **arr);
+void					ft_putstr_fd(char *s, int fd);
 
 
 /*

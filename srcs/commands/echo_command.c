@@ -12,6 +12,10 @@
 
 #include "../../minish.h"
 
+/*
+** Проверяет на наличие -n флагов
+*/
+
 int check_nnn(char **str, char **spaces, int *flag)
 {
 	int i;
@@ -50,5 +54,5 @@ void	echo_command(t_command *command)
 	}
 	if (flag == 0)
 		line = ft_strjoin(line, "\n");
-	printf("%s", line);
+	write_in_file(command, line);
 }

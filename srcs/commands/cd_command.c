@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../minish.h"
-#include <errno.h>
-#include <string.h>
 
 void cd_command(t_command *command)
 {

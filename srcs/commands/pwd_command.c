@@ -11,31 +11,34 @@
 /* ************************************************************************** */
 
 #include "../../minish.h"
-#include <errno.h>
-#include <string.h>
 
 void	pwd_command(t_command *command)
 {
 	char		*p;
 	errno_t		error_num;
+	char		*error;
 	char		*output;
 
+	output = ft_strdup("");
 	if (command->args[0] != NULL)
-		output = ft_strdup("pwd: Too many arguments");
+		ft_putstr_fd("pwd: Too many arguments\n", 0);
 	else
 	{
 		errno = 0;
 		if ((p = getcwd(NULL, 10)) == NULL)
 		{
 			error_num = errno;
-			output = ftstrjoin("pwd: ", (char *)strerror(error_num));
+			error = ftstrjoin("pwd: ", (char *)strerror(error_num));
+			error = ft_strjoin(error, "\n");
+			ft_putstr_fd(error, 0);
+			free(error);
 		}
 		else
 		{
 			output = ft_strdup(p);
+			output = ft_strjoin(output, "\n");
 			free(p);
 		}
 	}
-	output = ft_strjoin(output, "\n");
-	printf("%s", output);
+	write_in_file(command, output);
 }
