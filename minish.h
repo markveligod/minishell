@@ -20,74 +20,26 @@
 
 # include <stdio.h> //delete
 
-typedef struct			s_echo
-{
-	char				**fd;
-	char				*line;
-	int					flag_n;
-	char				**flag_v;
-	struct s_echo		*next;
-}						t_echo;
-
 typedef struct			s_base
 {
 	char				**flag_base;
 	char				**ar_base;
 }						t_base;
 
-typedef struct			s_cd
+typedef struct			s_command
 {
-	char				**path;
-	struct s_cd			*next;
-}						t_cd;
-
-typedef struct			s_pwd
-{
-	char				**arg;
-	struct s_pwd		*next;
-}						t_pwd;
-
-typedef struct			s_export
-{
-	char				**arg;
-	struct s_export		*next;
-}						t_export;
-
-typedef struct			s_unset
-{
-	char				**arg;
-	struct s_unset		*next;
-}						t_unset;
-
-typedef struct			s_env
-{
-	char				**arg;
-	struct s_env		*next;
-}						t_env;
-
-typedef struct			s_exit
-{
-	char				**arg;
-	struct s_exit		*next;
-}						t_exit;
-
-typedef struct			s_external
-{
-	char				**arg;
-	struct s_external	*next;
-}						t_external;
+	char				*command;
+	char				**args;
+	char				**spaces;
+	char				**filename;
+	char				**flag_v;
+	struct s_command	*next;
+}						t_command;
 
 typedef struct			s_ptr
 {
-	t_echo				*ec;
 	t_base				*base;
-	t_cd				*cd;
-	t_pwd				*pwd;
-	t_export			*exp;
-	t_unset				*un;
-	t_env				*env;
-	t_exit				*exit;
-	t_external			*external;
+	t_command			*command;
 }						t_ptr;
 
 
@@ -120,7 +72,7 @@ void					clear_malloc();
 char					*read_line(char *line);
 int						main(void);
 void					error(char *str, t_ptr *ptr);
-void					init_struct_base(t_ptr *ptr);
+int						parser_command(char **line, t_ptr *ptr, char **spaces);
 
 /*
 ** parsing input line
@@ -131,23 +83,20 @@ char					**line_space_counter(char *line, int len, t_ptr *ptr);
 int						line_skip_quote(int i, char *line, t_ptr *ptr);
 
 /*
-** parser [echo][cd][pwd][export][unset][env][exit]
+** initialization of structures and lists
 */
-int 					parser_echo(char **line, t_ptr *ptr, char **space);
-int						parser_cd(char **line, t_ptr *ptr);
-int						parser_pwd(char **line, t_ptr *ptr);
-int						parser_export(char **line, t_ptr *ptr);
-int						parser_unset(char **line, t_ptr *ptr);
-int						parser_env(char **line, t_ptr *ptr);
-int						parser_exit(char **line, t_ptr *ptr);
-int						parser_external(char **line, t_ptr *ptr);
+void					init_struct_ptr(t_ptr *ptr);
+void					init_struct_base(t_ptr *ptr);
+t_command				*init_list_command(t_command *new);
+
 
 /*
-** commands
+** commands (srcs/commands)
 */
-void					cd_command(char **path);
-void					pwd_command(char **args);
-int						external_command(char **args);
+void					do_command(t_command *command);
+void					cd_command(t_command *command);
+void					pwd_command(t_command *command);
+int						external_command(t_command *command);
 
 /*
 ** TEST'S

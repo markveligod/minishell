@@ -41,210 +41,53 @@ void    test_parsing(t_ptr *ptr)
 	** End Test base element
 	*/
 
+
 	/*
-	** Start test ECHO	
+	** Start test commands	
 	*/
-	if (ptr->ec != NULL)
+	if (ptr->command != NULL)
 	{
 		ct = 1;
-		printf("\nStart test ECHO... \n");
-		while (ptr->ec)
+		printf("\nStart test commands... \n");
+		while (ptr->command)
 		{
-			printf("List: #%d\n", ct);
-			printf("Str: %s\n", ptr->ec->line);
-			printf("Flag -n: %d\n", ptr->ec->flag_n);
-			fd = ptr->ec->fd;
+			base = ptr->command->args;
+			printf("\nNumber: #%d\n", ct);
+			printf("Command: %s\n", ptr->command->command);
+			printf("ARGS: \n");
+			c = 0;
+			if (*base)
+			{
+				while (base[c])
+				{
+					printf("%d - %s\n", c + 1, base[c]);
+					c++;
+				}
+			}
+			fd = ptr->command->filename;
 			k = 0;
 			while (fd[k])
 			{
 				printf("File: #%d Name: %s\n", k+1, fd[k]);
 				k++;
 			}
-			flag = ptr->ec->flag_v;
+			flag = ptr->command->flag_v;
 			k = 0;
 			while (flag[k])
 			{
 				printf("Flag: #%d - %s\n", k+1, flag[k]);
 				k++;
 			}
-			ptr->ec = ptr->ec->next;
+			printf("Doing:\n");
+			do_command(ptr->command);
+			printf("\n");
+			ptr->command = ptr->command->next;
 			ct++;
 		}
-		printf("End test ECHO... \n\n");
+		printf("End test command... \n\n");
 	}
 	/*
-	** End Test echo
-	*/
-
-
-	/*
-	** Start Test cd
-	*/
-	if (ptr->cd != NULL)
-	{
-		printf("\nStart test cd... \n");
-		while (ptr->cd)
-		{
-			base = ptr->cd->path;
-			c = 0;
-			cd_command(base);
-			printf("CD PATH ARGV: \n");
-			if (*base)
-			{
-				while (base[c])
-				{
-					printf("%d - %s\n", c + 1, base[c]);
-					c++;
-				}
-			}
-			ptr->cd = ptr->cd->next;
-		}
-		printf("End test cd... \n\n");
-	}
-	/*
-	** End Test cd
-	*/
-
-
-	/*
-	** Start Test pwd
-	*/
-	if (ptr->pwd != NULL)
-	{
-		printf("\nStart test pwd... \n");
-		while (ptr->pwd)
-		{
-			c = 0;
-			base = ptr->pwd->arg;
-			pwd_command(base);
-			printf("PWD ARGV: \n");
-			if (*base)
-				while (base[c])
-				{
-					printf("%d - %s\n", c + 1, base[c]);
-					c++;
-				}
-			ptr->pwd = ptr->pwd->next;
-		}
-		printf("End test pwd... \n\n");
-	}
-	/*
-	** End Test pwd
-	*/
-
-
-	/*
-	** Start Test export
-	*/
-	if (ptr->exp != NULL)
-	{
-		printf("\nStart test export... \n");
-		c = 0;
-		base = ptr->exp->arg;
-		printf("export ARGV: \n");
-		if (*base)
-			while (base[c])
-			{
-				printf("%d - %s\n", c + 1, base[c]);
-				c++;
-			}
-		printf("End test export... \n\n");
-	}
-	/*
-	** End Test export
-	*/
-
-
-	/*
-	** Start Test unset
-	*/
-	if (ptr->un != NULL)
-	{
-		printf("\nStart test unset... \n");
-		c = 0;
-		base = ptr->un->arg;
-		printf("unset ARGV: \n");
-		if (*base)
-			while (base[c])
-			{
-				printf("%d - %s\n", c + 1, base[c]);
-				c++;
-			}
-		printf("End test unset... \n\n");
-	}
-	/*
-	** End Test unset
-	*/
-
-
-	/*
-	** Start Test env
-	*/
-	if (ptr->env != NULL)
-	{
-		printf("\nStart test env... \n");
-		c = 0;
-		base = ptr->env->arg;
-		printf("env ARGV: \n");
-		if (*base)
-			while (base[c])
-			{
-				printf("%d - %s\n", c + 1, base[c]);
-				c++;
-			}
-		printf("End test env... \n\n");
-	}
-	/*
-	** End Test env
-	*/
-
-
-	/*
-	** Start Test exit
-	*/
-	if (ptr->ec != NULL)
-	{
-		printf("\nStart test exit... \n");
-		c = 0;
-		base = ptr->exit->arg;
-		printf("exit ARGV: \n");
-		if (*base)
-			while (base[c])
-			{
-				printf("%d - %s\n", c + 1, base[c]);
-				c++;
-			}
-		printf("End test exit... \n\n");
-	}
-	/*
-	** End Test exit
-	*/
-
-	/*
-	** Start test external
-	*/
-	if (ptr->external != NULL)
-	{
-		printf("\nStart test external... \n");
-		while (ptr->external)
-		{
-			c = 0;
-			base = ptr->external->arg;
-			printf("\nARGV: \n");
-			if (*base)
-				while (base[c])
-				{
-					printf("%d - %s\n", c + 1, base[c]);
-					c++;
-				}
-			printf("\nRESULT: \n");
-			external_command(ptr->external->arg);
-			ptr->external = ptr->external->next;
-		}
-		printf("End test external...\n\n");
-	}
-	/*
-	** End Test external
+	** End test commands
 	*/
 	}
 
@@ -275,38 +118,21 @@ void    check_split(char **mass, char *dup_line, char *line, char **space)
 }
 
 /*
-** testing fork
-
-#define _GNU_SOURSE
-int main(void)
+int		check_nnn(char **str, t_echo *new)
 {
-	pid_t pid;
-	pid_t wpid;
-	int count;
-	char *line;
-	t_ptr ptr;
-	int status;
+	int i;
 
-	while (1)
+	i = 0;
+	while (str[i])
 	{
-		line = read_line(line);
-		//check_param(line, &ptr);
-		pid = fork();
-		if (pid == 0)
-		{
-			char *args[] = {"/bin/ls", NULL};
-			execve("/bin/ls", args, NULL);
-
-		}
+		if (ft_strcmp("-n", str[i]) != 0)
+			break;
 		else
 		{
-				wpid = waitpid(pid, &status, WUNTRACED);
+			new->flag_n = 1;
+			i++;
 		}
-
-		//test_parsing(&ptr);
-		//free(line);
 	}
+	return (i);
 }
-
-** end of testing fork
 */

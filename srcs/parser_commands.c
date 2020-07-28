@@ -10,43 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minish.h"
+#include "../minish.h"
 
-t_echo	*init_list_echo(t_echo *new)
+/*
+** adding an element to the end of a list
+*/
+
+void	lstadd_back_command(t_command **lst, t_command *new)
 {
-	if (!(new = (t_echo *)malloc(sizeof(t_echo))) ||
-		!(new->fd = (char **)malloc(sizeof(char *) * 1)) ||
-		!(new->flag_v = (char **)malloc(sizeof(char *) * 1)))
-		return (NULL);
-	new->line = ft_strdup("");
-	new->fd[0] = NULL;
-	new->flag_v[0] = NULL;
-	new->flag_n = 0;
-	new->next = NULL;
-	return (new);
-}
-
-int		check_nnn(char **str, t_echo *new)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_strcmp("-n", str[i]) != 0)
-			break;
-		else
-		{
-			new->flag_n = 1;
-			i++;
-		}
-	}
-	return (i);
-}
-
-void	lstadd_back_echo(t_echo **lst, t_echo *new)
-{
-	t_echo	*temp;
+	t_command	*temp;
 
 	if (!(*lst))
 		*lst = new;
@@ -59,15 +31,19 @@ void	lstadd_back_echo(t_echo **lst, t_echo *new)
 	}
 }
 
-int 	parser_echo(char **line, t_ptr *ptr, char **space)
+/*
+** parsing input array of arguments into a command structure
+*/
+
+int 	parser_command(char **line, t_ptr *ptr, char **spaces)
 {
-	int i;
-	t_echo *new;
+	int			i;
+	t_command	*new;
 
 	i = 1;
-	if (!(new = init_list_echo(new)))
+	if (!(new = init_list_command(new)))
 		error("Allocation problem!", ptr);
-	i += check_nnn(&line[i], new);
+	new->command = ft_strdup(line[0]);
 	while (line[i])
 	{
 		if (ft_strcmp(";", line[i]) == 0 || ft_strcmp("|", line[i]) == 0)
@@ -78,14 +54,14 @@ int 	parser_echo(char **line, t_ptr *ptr, char **space)
 			if (!line[i + 1] || ft_strcmp("|", line[i + 1]) == 0 || ft_strcmp(";", line[i + 1]) == 0)
 				error("Syntex error", ptr);
 			else
-				new->fd = ft_realloc_mass(new->fd, line[++i]);
+				new->filename = ft_realloc_mass(new->filename, line[++i]);
 			i++;
 			continue ;
 		}
-		line[i] = ft_strjoin(line[i], space[i]);
-		new->line = ft_strjoin(new->line, line[i]);
+		new->spaces = ft_realloc_mass(new->spaces, spaces[i]);
+		new->args = ft_realloc_mass(new->args, line[i]);
 		i++;
 	}
-	lstadd_back_echo(&(ptr->ec), new);
+	lstadd_back_command(&(ptr->command), new);
 	return (i);
 }

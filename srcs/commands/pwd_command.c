@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minish.h"
+#include "../../minish.h"
 #include <errno.h>
 #include <string.h>
 
-void	pwd_command(char **args)
+void	pwd_command(t_command *command)
 {
 	char		*p;
 	errno_t		error_num;
 
-	if (args[0] != NULL)
+	if (command->args[0] != NULL)
 		printf("pwd: Too many arguments\n");
 	else
 	{

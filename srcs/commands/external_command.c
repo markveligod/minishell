@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minish.h"
+#include "../../minish.h"
 #include <errno.h>
 #include <string.h>
 
@@ -46,7 +46,7 @@ char	*ftstrjoin(char *remains, char *buffer)
 	return (array);
 }
 
-int		external_command(char **args)
+int		external_command(t_command *command)
 {
 	int			i;
 	pid_t		pid;
@@ -60,8 +60,9 @@ int		external_command(char **args)
 	if (!(mass = (char **)malloc(sizeof(char *))))
 		return (0);
 	mass[0] = NULL;
-	while (args[i])
-		mass = ft_realloc_mass(mass, args[i++]);
+	mass = ft_realloc_mass(mass, command->command);
+	while (command->args[i])
+		mass = ft_realloc_mass(mass, command->args[i++]);
 	mass[0] = ftstrjoin("/bin/", mass[0]);
 	pid = fork();
 	if (pid == 0)

@@ -13,11 +13,11 @@
 NAME = minishell
 FLAGS = -Wall -Werror -Wextra
 HDRS = ./minish.h
-SRCS = ./srcs/clear_malloc.c ./minish.c ./srcs/error.c ./srcs/line_space.c ./srcs/line_parse.c  ./srcs/line_space_counter.c ./srcs/cd_command.c ./srcs/pwd_command.c ./srcs/external_command.c
-SRCS_PARS = ./srcs/parser/parser_echo.c ./srcs/parser/parser_base.c ./srcs/parser/parser_cd.c ./srcs/parser/parser_pwd.c ./srcs/parser/parser_export.c ./srcs/parser/parser_unset.c ./srcs/parser/parser_env.c ./srcs/parser/parser_exit.c ./srcs/parser/parser_external.c
+SRCS = ./srcs/clear_malloc.c ./minish.c ./srcs/error.c ./srcs/line_space.c ./srcs/line_parse.c  ./srcs/line_space_counter.c ./srcs/init_structs.c ./srcs/parser_commands.c
+SRCS_COMM = ./srcs/commands/cd_command.c ./srcs/commands/pwd_command.c ./srcs/commands/external_command.c ./srcs/commands/do_command.c
 SRCS_UTILS = ./utils/ft_strlcpy.c ./utils/ft_strchr.c ./utils/ft_strcmp.c ./utils/ft_putstr.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/get_next_line.c ./utils/ft_mass_len.c ./utils/ft_realloc_mass.c ./utils/ft_strdup.c ./utils/ft_free_array.c
 TESTS = ./test.c
-OBJ = $(SRCS:.c=.o) $(SRCS_UTILS:.c=.o) $(SRCS_PARS:.c=.o) $(TESTS:.c=.o)
+OBJ = $(SRCS:.c=.o) $(SRCS_UTILS:.c=.o) $(TESTS:.c=.o) $(SRCS_COMM:.c=.o)
 
 %.o:%.c
 	@$(CC) -o $@ -c $<

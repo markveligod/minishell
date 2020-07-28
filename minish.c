@@ -13,22 +13,6 @@
 #include "minish.h"
 
 /*
-** иницилизирует структуру ptr
-*/
-
-void	init_struct_ptr(t_ptr *ptr)
-{
-	ptr->ec = NULL;
-	ptr->base = NULL;
-	ptr->cd = NULL;
-	ptr->pwd = NULL;
-	ptr->exp = NULL;
-	ptr->un = NULL;
-	ptr->env = NULL;
-	ptr->exit = NULL;
-}
-
-/*
 ** Проверяет параметры в строке
 */
 
@@ -51,47 +35,11 @@ void	check_param(char *line, t_ptr *ptr)
 		{
 			ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
 			i++;
-			continue;
-		}
-		if ((ft_strcmp("echo", mass[i])) == 0)
-		{
-			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
-			i += parser_echo(&mass[i], ptr, &space[i]);
-		}
-		else if ((ft_strcmp("cd", mass[i])) == 0)
-		{
-			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
-			i += parser_cd(&mass[i], ptr);
-		}
-		else if ((ft_strcmp("pwd", mass[i])) == 0)
-		{
-			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
-			i += parser_pwd(&mass[i], ptr);
-		}
-		else if ((ft_strcmp("export", mass[i])) == 0)
-		{
-			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
-			i += parser_export(&mass[i], ptr);
-		}
-		else if ((ft_strcmp("unset", mass[i])) == 0)
-		{
-			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
-			i += parser_unset(&mass[i], ptr);
-		}
-		else if ((ft_strcmp("env", mass[i])) == 0)
-		{
-			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
-			i += parser_env(&mass[i], ptr);
-		}
-		else if ((ft_strcmp("exit", mass[i])) == 0)
-		{
-			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
-			i += parser_exit(&mass[i], ptr);
 		}
 		else
 		{
 			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
-			i += parser_external(&mass[i], ptr);
+			i += parser_command(&mass[i], ptr, space);
 		}
 	}
 }
