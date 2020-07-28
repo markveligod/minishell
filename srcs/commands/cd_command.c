@@ -18,12 +18,17 @@ void cd_command(t_command *command)
 {
 	errno_t		error_num;
 	int			len;
+	char		*output;
+	char		*infile;
 
 	errno = 0;
 	len = ft_mass_len(command->args);
+	infile = ft_strdup("");
 	if (len != 1 && len != 0)
 	{
-		printf("cd: Too many arguments\n");
+		output = ft_strdup("cd: Too many arguments");
+		output = ft_strjoin(output, "\n");
+		printf("%s", output);
 		return ;
 	}
 	if (len == 0)
@@ -31,6 +36,8 @@ void cd_command(t_command *command)
 	if (chdir(command->args[0]) != 0)
 	{
 		error_num = errno;
-		printf("cd: %s\n", (char *)strerror(error_num));
+		output = ftstrjoin("cd: ", (char *) strerror(error_num));
+		output = ft_strjoin(output, "\n");
+		printf("%s", output);
 	}
 }

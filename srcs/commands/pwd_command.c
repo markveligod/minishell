@@ -18,21 +18,24 @@ void	pwd_command(t_command *command)
 {
 	char		*p;
 	errno_t		error_num;
+	char		*output;
 
 	if (command->args[0] != NULL)
-		printf("pwd: Too many arguments\n");
+		output = ft_strdup("pwd: Too many arguments");
 	else
 	{
 		errno = 0;
 		if ((p = getcwd(NULL, 10)) == NULL)
 		{
 			error_num = errno;
-			printf("pwd: %s\n", (char *)strerror(error_num));
+			output = ftstrjoin("pwd: ", (char *)strerror(error_num));
 		}
 		else
 		{
-			printf("%s\n", p);
+			output = ft_strdup(p);
 			free(p);
 		}
 	}
+	output = ft_strjoin(output, "\n");
+	printf("%s", output);
 }

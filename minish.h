@@ -49,6 +49,7 @@ typedef struct			s_ptr
 int						get_next_line(char **line);
 void					ft_putstr(char *str);
 char					*ft_strjoin(char *remains, char *buffer);
+char					*ftstrjoin(char *remains, char *buffer);
 int						ft_strlen(char *str);
 int						get_next_line(char **line);
 int						ft_strcmp(char *str1, char *str2);
@@ -73,6 +74,7 @@ char					*read_line(char *line);
 int						main(void);
 void					error(char *str, t_ptr *ptr);
 int						parser_command(char **line, t_ptr *ptr, char **spaces);
+void					write_in_file(t_command *command, char *line);
 
 /*
 ** parsing input line
@@ -96,6 +98,7 @@ t_command				*init_list_command(t_command *new);
 void					do_command(t_command *command);
 void					cd_command(t_command *command);
 void					pwd_command(t_command *command);
+void					echo_command(t_command *command);
 int						external_command(t_command *command);
 
 /*

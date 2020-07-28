@@ -15,7 +15,7 @@
 void do_command(t_command *command)
 {
 	if (ft_strcmp(command->command, "echo") == 0)
-		; //echo_command(command);
+		echo_command(command);
 	else if (ft_strcmp(command->command, "cd") == 0)
 		cd_command(command);
 	else if (ft_strcmp(command->command, "pwd") == 0)
