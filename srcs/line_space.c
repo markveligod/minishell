@@ -50,12 +50,17 @@ char		*add_spaces(char *line, int *i, t_ptr *ptr)
 	j = *i;
 	new_line[j++] = ' ';
 	new_line[j++] = line[*i];
-	if ((line[*i] == '>' && line[*i + 1] == '>') ||
-		(line[*i] == '<' && line[*i + 1] == '<'))
+	while (line[*i + 1] == '>' || line[*i + 1] == '<')
 	{
 		new_line[j++] = line[*i];
 		*i = *i + 1;
 	}
+	/*if ((line[*i] == '>' && line[*i + 1] == '>') ||
+		(line[*i] == '<' && line[*i + 1] == '<'))
+	{
+		new_line[j++] = line[*i];
+		*i = *i + 1;
+	}*/
 	new_line[j++] = ' ';
 	now = j;
 	while (line[(*i = *i + 1)])

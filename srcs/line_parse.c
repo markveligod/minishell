@@ -69,17 +69,6 @@ static int		ft_symb(char const *s, char c, int i, char c2)
 	return (symb);
 }
 
-static void		*mass_free(char **mass)
-{
-	int		w;
-
-	w = 0;
-	while (mass[w])
-		free(mass[w++]);
-	free(mass);
-	return (NULL);
-}
-
 static int		if_quote(int *i, int *symb, char *mass, char *s)
 {
 	if (s[*i] == '\"')
@@ -128,7 +117,10 @@ char			**line_parse(char const *s, char c, char c2)
 		{
 			if ((mass[w] = (char *)malloc(sizeof(char) *
 						(ft_symb(s, c, i, c2) + 1))) == NULL)
-				return (mass_free(mass));
+			{
+				ft_free_array(mass);
+				return (NULL);
+			}
 			if (!(if_quote(&i, &symb, mass[w], (char *)s)))
 				while (s[i] != c && s[i] && s[i] != c2)
 					mass[w][symb++] = s[i++];

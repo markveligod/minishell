@@ -16,7 +16,6 @@ void	pwd_command(t_command *command)
 {
 	char		*p;
 	errno_t		error_num;
-	char		*error;
 	char		*output;
 
 	output = ft_strdup("");
@@ -26,13 +25,7 @@ void	pwd_command(t_command *command)
 	{
 		errno = 0;
 		if ((p = getcwd(NULL, 10)) == NULL)
-		{
-			error_num = errno;
-			error = ftstrjoin("pwd: ", (char *)strerror(error_num));
-			error = ft_strjoin(error, "\n");
-			ft_putstr_fd(error, 0);
-			free(error);
-		}
+			errno_error(command->command, errno);
 		else
 		{
 			output = ft_strdup(p);

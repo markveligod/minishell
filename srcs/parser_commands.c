@@ -13,7 +13,7 @@
 #include "../minish.h"
 
 /*
-** adding an element to the end of a list
+** Добавление элемента в конец списка
 */
 
 void	lstadd_back_command(t_command **lst, t_command *new)
@@ -32,10 +32,23 @@ void	lstadd_back_command(t_command **lst, t_command *new)
 }
 
 /*
-** parsing input array of arguments into a command structure
+** Проверяет, корректны ли перенаправления и нет ли после них разделителя
 */
 
-int 	parser_command(char **line, t_ptr *ptr, char **spaces)
+void	if_error(char **line, int i, t_ptr *ptr)
+{
+	if ((ft_strcmp(">>", line[i]) != 0 && ft_strcmp(">", line[i]) != 0
+		&& ft_strcmp("<", line[i]) != 0) || (!line[i + 1]
+		|| ft_strcmp("|", line[i + 1]) == 0
+		|| ft_strcmp(";", line[i + 1]) == 0))
+		error("Syntax error", ptr);
+}
+
+/*
+** Парсинг входного двумерного массива в структуру команды
+*/
+
+int		parser_command(char **line, t_ptr *ptr, char **spaces)
 {
 	int			i;
 	t_command	*new;
@@ -47,14 +60,12 @@ int 	parser_command(char **line, t_ptr *ptr, char **spaces)
 	while (line[i])
 	{
 		if (ft_strcmp(";", line[i]) == 0 || ft_strcmp("|", line[i]) == 0)
-			break;
-		if (ft_strcmp(">>", line[i]) == 0 || ft_strcmp(">", line[i]) == 0 || ft_strcmp("<", line[i]) == 0)
+			break ;
+		if (line[i][0] == '>' || line[i][0] == '<')
 		{
 			new->flag_v = ft_realloc_mass(new->flag_v, line[i]);
-			if (!line[i + 1] || ft_strcmp("|", line[i + 1]) == 0 || ft_strcmp(";", line[i + 1]) == 0)
-				error("Syntex error", ptr);
-			else
-				new->filename = ft_realloc_mass(new->filename, line[++i]);
+			if_error(line, i, ptr);
+			new->filename = ft_realloc_mass(new->filename, line[++i]);
 			i++;
 			continue ;
 		}

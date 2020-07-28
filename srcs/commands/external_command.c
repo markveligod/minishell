@@ -34,10 +34,7 @@ int		external_command(t_command *command)
 	if (pid == 0)
 		execve(mass[0], mass, NULL);
 	else if (pid == -1)
-	{
-		error_num = errno;
-		printf("ERROR %s\n", (char *)strerror(error_num));
-	}
+		errno_error(command->command, errno);
 	else
 		wpid = waitpid(pid, &status, WUNTRACED);
 	ft_free_array(mass);

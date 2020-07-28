@@ -68,16 +68,16 @@ char	**line_space_counter(char *line, int len, t_ptr *ptr)
 				 line[i] == '>' || line[i] == '<')
 		{
 			i++;
-			if (line[i - 1] == '>' && line[i] == '>')
-				i++;
+			if (line[i - 1] == '>' || line[i - 1] == '<')
+				while (line[i] == '>' || line[i] == '<')
+					i++;
 		}
 		else
 			while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != ';' &&
 				   line[i] != '|' && line[i] != '>' && line[i] != '<' &&
 				   line[i] != '\"' && line[i] != '\'')
 				i++;
-		i = if_space(&len, i, spaces, line);
-		if (i < 0)
+		if ((i = if_space(&len, i, spaces, line)) < 0)
 			error("Allocation problem!", ptr);
 	}
 	free(line);

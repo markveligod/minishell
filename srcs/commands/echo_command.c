@@ -16,9 +16,9 @@
 ** Проверяет на наличие -n флагов
 */
 
-int check_nnn(char **str, char **spaces, int *flag)
+int			check_nnn(char **str, char **spaces, int *flag)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	*flag = 0;
@@ -35,7 +35,7 @@ int check_nnn(char **str, char **spaces, int *flag)
 	return (i);
 }
 
-void	echo_command(t_command *command)
+void		echo_command(t_command *command)
 {
 	char	*line;
 	char	*word;

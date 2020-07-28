@@ -12,7 +12,7 @@
 
 #include "../../minish.h"
 
-void do_command(t_command *command)
+void	do_command(t_command *command)
 {
 	if (ft_strcmp(command->command, "echo") == 0)
 		echo_command(command);
