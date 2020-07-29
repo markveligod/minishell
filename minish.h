@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/27 09:33:58 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/29 07:30:36 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 # include <fcntl.h>
 # include <string.h>
 
-# include <stdio.h> //delete
+#include <stdio.h> //delete
 
 typedef struct			s_base
 {
 	char				**flag_base;
 	char				**ar_base;
+	char				**is_env;
 }						t_base;
 
 typedef struct			s_command
@@ -74,7 +75,7 @@ void					ft_putstr_fd(char *s, int fd);
 */
 void					clear_malloc();
 char					*read_line(char *line);
-int						main(void);
+//int						main(void);
 void					error(char *str, t_ptr *ptr);
 int						parser_command(char **line, t_ptr *ptr, char **spaces);
 void					write_in_file(t_command *command, char *line);
@@ -87,6 +88,7 @@ char					**line_parse(char const *s, char c, char c2);
 char					**line_space(char *line, t_ptr *ptr);
 char					**line_space_counter(char *line, int len, t_ptr *ptr);
 int						line_skip_quote(int i, char *line, t_ptr *ptr);
+char					**parser_env(char **env);
 
 /*
 ** initialization of structures and lists
@@ -99,11 +101,12 @@ t_command				*init_list_command(t_command *new);
 /*
 ** commands (srcs/commands)
 */
-void					do_command(t_command *command);
+void					do_command(t_command *command, t_ptr *ptr);
 void					cd_command(t_command *command);
 void					pwd_command(t_command *command);
 void					echo_command(t_command *command);
 int						external_command(t_command *command);
+void					env_command(char **env);
 
 /*
 ** TEST'S

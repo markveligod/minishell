@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   parser_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/24 07:48:29 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 06:48:18 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/07/29 06:57:04 by ckakuna           #+#    #+#             */
+/*   Updated: 2020/07/29 07:41:36 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minish.h"
 
-void	error(char *str, t_ptr *ptr)
+/*
+** Функция для парсинга переменных окружения в структуру base
+*/
+
+char		**parser_env(char **env)
 {
-	ft_putstr("Error: ");
-	ft_putstr(str);
-	ft_putstr("\n");
-	clear_malloc(ptr);
-	//main();
+	char	**new_env;
+	int		i;
+	int		j;
+	char	*temp;
+	
+	new_env = (char **)malloc(sizeof(char *) * (ft_mass_len(env) + 1));
+	new_env[0] = NULL;
+	i = 0;
+	while (env[i])
+	{
+		temp = ft_strdup(env[i]);
+		new_env = ft_realloc_mass(new_env, temp);
+		i++;
+	}
+	return (new_env);
 }

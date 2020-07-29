@@ -34,6 +34,14 @@ void    test_parsing(t_ptr *ptr)
 			printf("%d - %s\n", j + 1, base[j]);
 			j++;
 		}
+		j = 0;
+		base = ptr->base->is_env;
+		printf("Base env: \n");
+		while (base[j])
+		{
+			printf("%d - %s\n", j + 1, base[j]);
+			j++;
+		}
 		printf("End test base element...\n");
 		printf("_________________________\n\n");
 	}
@@ -79,7 +87,7 @@ void    test_parsing(t_ptr *ptr)
 				k++;
 			}
 			printf("Doing:\n");
-			do_command(ptr->command);
+			do_command(ptr->command, ptr);
 			printf("\n");
 			ptr->command = ptr->command->next;
 			ct++;

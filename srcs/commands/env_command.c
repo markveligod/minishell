@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   env_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/24 07:48:29 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 06:48:18 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/07/29 06:47:03 by ckakuna           #+#    #+#             */
+/*   Updated: 2020/07/29 07:41:00 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minish.h"
+#include "../../minish.h"
 
-void	error(char *str, t_ptr *ptr)
+/*
+** Функция для печати переменных окружения
+*/
+
+void		env_command(char **env)
 {
-	ft_putstr("Error: ");
-	ft_putstr(str);
-	ft_putstr("\n");
-	clear_malloc(ptr);
-	//main();
+	int		i;
+
+	i = 0;
+	while (env[i])
+	{
+		ft_putstr(env[i]);
+		ft_putstr("\n");
+		i++;
+	}
 }
