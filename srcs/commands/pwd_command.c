@@ -28,10 +28,11 @@ void	pwd_command(t_command *command)
 			errno_error(command->command, errno);
 		else
 		{
+			free(output);
 			output = ft_strdup(p);
 			output = ft_strjoin(output, "\n");
-			free(p);
 		}
+		free(p);
 	}
 	write_in_file(command, output);
 }

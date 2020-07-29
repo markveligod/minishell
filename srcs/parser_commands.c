@@ -56,6 +56,7 @@ int		parser_command(char **line, t_ptr *ptr, char **spaces)
 	i = 1;
 	if (!(new = init_list_command(new)))
 		error("Allocation problem!", ptr);
+	free(new->command);
 	new->command = ft_strdup(line[0]);
 	while (line[i])
 	{

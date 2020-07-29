@@ -24,6 +24,7 @@ void		errno_error(char *com_name, errno_t error_num)
 	message = ft_strjoin(message, (char *)strerror(error_num));
 	message = ft_strjoin(message, "\n");
 	ft_putstr_fd(message, 0);
+	free(message);
 }
 
 /*

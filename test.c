@@ -13,7 +13,7 @@ void    test_parsing(t_ptr *ptr)
 
 	/*
 	** Start Test base element
-	*/
+	
 	if (ptr->base != NULL)
 	{
 		t_base *bas;
@@ -46,7 +46,7 @@ void    test_parsing(t_ptr *ptr)
 		printf("End test base element...\n");
 		printf("_________________________\n\n");
 	}
-	/*
+	
 	** End Test base element
 	*/
 
