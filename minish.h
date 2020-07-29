@@ -106,7 +106,7 @@ void					cd_command(t_command *command);
 void					pwd_command(t_command *command);
 void					echo_command(t_command *command);
 int						external_command(t_command *command);
-void					env_command(char **env);
+void					env_command(char **env, t_command *command);
 void					export_command(t_ptr *ptr, t_command *t_command);
 void					unset_command(t_ptr *ptr, t_command *t_command);
 void					exit_command(t_ptr *ptr);

@@ -27,7 +27,7 @@ void	do_command(t_command *command, t_ptr *ptr)
 	else if (ft_strcmp(command->command, "unset") == 0)
 		unset_command(ptr, command);
 	else if (ft_strcmp(command->command, "env") == 0)
-		env_command(ptr->is_env);
+		env_command(ptr->is_env, command);
 	else
 		external_command(command);
 }
