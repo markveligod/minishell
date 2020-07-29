@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 13:52:01 by leweathe          #+#    #+#             */
-/*   Updated: 2020/07/29 08:37:51 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/29 10:47:35 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	do_command(t_command *command, t_ptr *ptr)
 	else if (ft_strcmp(command->command, "pwd") == 0)
 		pwd_command(command);
 	else if (ft_strcmp(command->command, "exit") == 0)
-		; //exit_command(command);
+		exit_command(ptr);
 	else if (ft_strcmp(command->command, "export") == 0)
 		export_command(ptr, command);
 	else if (ft_strcmp(command->command, "unset") == 0)

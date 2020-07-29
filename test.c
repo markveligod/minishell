@@ -97,11 +97,6 @@ void    test_parsing(t_ptr *ptr)
 	/*
 	** End test commands
 	*/
-	}
-
-void    test_clear_malloc(t_ptr *ptr)
-{
-
 }
 
 void    check_split(char **mass, char *dup_line, char *line, char **space)
