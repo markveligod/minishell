@@ -52,6 +52,7 @@ void	cd_command(t_command *command, char **env)
 		free(env[++i]);
 		env[i] = NULL;
 		env[i] = ft_strdup(path);
+		free(path);
 	}
 	write_in_file(command, infile);
 }

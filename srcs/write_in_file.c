@@ -64,13 +64,16 @@ void		write_in_file(t_command *command, char *line)
 		if ((fd = open(command->filename[i], flag, 0666)) == -1)
 		{
 			errno_error(command->command, errno);
-			return ;
+			free(line);
+			return;
 		}
 		ft_putstr_fd(line, fd);
 		if (close(fd) == -1)
 		{
 			errno_error(command->command, errno);
-			return ;
+			free(line);
+			return;
 		}
 	}
+	free(line);
 }
