@@ -102,7 +102,7 @@ t_command				*init_list_command(t_command *new);
 ** commands (srcs/commands)
 */
 void					do_command(t_command *command, t_ptr *ptr);
-void					cd_command(t_command *command);
+void					cd_command(t_command *command, char **env);
 void					pwd_command(t_command *command);
 void					echo_command(t_command *command);
 int						external_command(t_command *command);

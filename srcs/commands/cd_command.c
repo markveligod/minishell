@@ -12,11 +12,13 @@
 
 #include "../../minish.h"
 
-void	cd_command(t_command *command)
+void	cd_command(t_command *command, char **env)
 {
 	errno_t		error_num;
 	int			len;
 	char		*infile;
+	int			i;
+	char		*path;
 
 	errno = 0;
 	len = ft_mass_len(command->args);
@@ -27,8 +29,29 @@ void	cd_command(t_command *command)
 		return ;
 	}
 	if (len == 0)
-		command->args[0] = ft_strdup("/");
+	{
+		i = 0;
+		while (ft_strcmp(env[i], "HOME") != 0)
+			i++;
+		command->args[0] = ft_strdup(env[++i]);
+	}
 	if (chdir(command->args[0]) != 0)
 		errno_error(command->command, errno);
+	else
+	{
+		i = 0;
+		while (ft_strcmp(env[i], "PWD") != 0)
+			i++;
+		path = ft_strdup(env[++i]);
+		free(env[i]);
+		env[i] = NULL;
+		env[i] = ft_strdup(getcwd(NULL, 10));
+		i = 0;
+		while (ft_strcmp(env[i], "OLDPWD") != 0)
+			i++;
+		free(env[++i]);
+		env[i] = NULL;
+		env[i] = ft_strdup(path);
+	}
 	write_in_file(command, infile);
 }
