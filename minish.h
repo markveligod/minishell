@@ -64,6 +64,8 @@ char					**ft_realloc_mass(char **map, char *line);
 int						ft_mass_len(char **mass);
 void					ft_free_array(char **arr);
 void					ft_putstr_fd(char *s, int fd);
+int						ft_one_of_them(char c, char *str);
+int						ft_one_of_them_mass(char **map, char *set);
 
 
 /*

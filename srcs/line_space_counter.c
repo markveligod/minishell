@@ -65,17 +65,23 @@ char	**line_space_counter(char *line, int len, t_ptr *ptr)
 		if ((j = line_skip_quote(i, line, ptr)) != i)
 			i = j + 1;
 		else if (line[i] == ';' || line[i] == '|' ||
-				 line[i] == '>' || line[i] == '<')
+				 line[i] == '>' || line[i] == '<' ||
+				 (line[i] == '$' && line[i + 1] &&
+				  ft_one_of_them(line[i + 1], " \t;|\0") == 0))
 		{
 			i++;
 			if (line[i - 1] == '>' || line[i - 1] == '<')
 				while (line[i] == '>' || line[i] == '<')
 					i++;
+			else if (line[i - 1] == '$')
+				while (line[i] && ft_one_of_them(line[i], " ;|\t\0") != 1)
+					i++;
 		}
 		else
 			while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != ';' &&
 				   line[i] != '|' && line[i] != '>' && line[i] != '<' &&
-				   line[i] != '\"' && line[i] != '\'')
+				   line[i] != '\"' && line[i] != '\'' &&
+				   !(line[i] == '$' && line[i + 1] && ft_one_of_them(line[i + 1], " \t;|\0") == 0))
 				i++;
 		if ((i = if_space(&len, i, spaces, line)) < 0)
 			error("Allocation problem!", ptr);

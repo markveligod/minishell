@@ -50,21 +50,34 @@ char		*add_spaces(char *line, int *i, t_ptr *ptr)
 	j = *i;
 	new_line[j++] = ' ';
 	new_line[j++] = line[*i];
-	while (line[*i + 1] == '>' || line[*i + 1] == '<')
+	if (line[*i] == '>' || line[*i] == '<')
 	{
-		new_line[j++] = line[*i];
 		*i = *i + 1;
+		while (line[*i] == '>' || line[*i] == '<')
+		{
+			new_line[j++] = line[*i];
+			*i = *i + 1;
+		}
 	}
-	/*if ((line[*i] == '>' && line[*i + 1] == '>') ||
-		(line[*i] == '<' && line[*i + 1] == '<'))
+	else if (line[*i] == '$')
 	{
-		new_line[j++] = line[*i];
 		*i = *i + 1;
-	}*/
+		while (line[*i] && ft_one_of_them(line[*i], " ;|\t\0") != 1)
+		{
+			new_line[j++] = line[*i];
+			*i = *i + 1;
+		}
+	}
+	else
+		*i = *i + 1;
 	new_line[j++] = ' ';
 	now = j;
-	while (line[(*i = *i + 1)])
-		new_line[j++] = line[*i];
+	if (line[*i])
+		while (line[*i])
+		{
+			new_line[j++] = line[*i];
+			*i = *i + 1;
+		}
 	new_line[j] = '\0';
 	free(line);
 	if (!(line = ft_strdup(new_line)))
@@ -119,7 +132,9 @@ char		**line_space(char *line, t_ptr *ptr)
 				line = add_one_space(line, &i, 'a', ptr);
 		}
 		else if (line[i] == ';' || line[i] == '|' ||
-				line[i] == '>' || line[i] == '<')
+				 line[i] == '>' || line[i] == '<' ||
+				 (line[i] == '$' && line[i + 1] &&
+				 ft_one_of_them(line[i + 1], " \t;|\0") == 0))
 			line = add_spaces(line, &i, ptr);
 		else
 			i++;
