@@ -13,7 +13,7 @@ void    test_parsing(t_ptr *ptr)
 
 	/*
 	** Start Test base element
-	
+	*/
 	if (ptr->base != NULL)
 	{
 		t_base *bas;
@@ -36,17 +36,17 @@ void    test_parsing(t_ptr *ptr)
 			j++;
 		}
 		j = 0;
-		base = ptr->is_env;
+		/*base = ptr->is_env;
 		printf("Base env: \n");
 		while (base[j])
 		{
 			printf("%d - %s\n", j + 1, base[j]);
 			j++;
-		}
+		}*/
 		printf("End test base element...\n");
 		printf("_________________________\n\n");
 	}
-	
+	/*
 	** End Test base element
 	*/
 

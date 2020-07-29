@@ -26,7 +26,8 @@ void		unset_command(t_ptr *ptr, t_command *t_command)
 	if (t_command->args[0] == NULL)
 		return ;
 	i = 0;
-	new_env = (char **)malloc(sizeof(char *) * 1);
+	if (!(new_env = (char **)malloc(sizeof(char *) * 1)))
+		error("Allocation problem!", ptr);
 	new_env[0] = NULL;
 	while (ptr->is_env[i])
 	{

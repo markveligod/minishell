@@ -49,7 +49,7 @@ void	check_param(char *line, t_ptr *ptr)
 ** Функция цикличного чтения строки
 */
 
-void	main_while(t_ptr *ptr)
+void	read_input(t_ptr *ptr)
 {
 	char *line;
 
@@ -65,12 +65,10 @@ void	main_while(t_ptr *ptr)
 
 int		main(int ac, char **av, char **env)
 {
-	int 	count;
-	char 	*line;
 	t_ptr 	ptr;
 
 	init_struct_ptr(&ptr);
 	ptr.is_env = parser_env(env);
-	main_while(&ptr);
+	read_input(&ptr);
 	return (0);
 }

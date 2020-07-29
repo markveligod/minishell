@@ -20,6 +20,7 @@ int		external_command(t_command *command)
 	errno_t		error_num;
 	char		**mass;
 	int			status;
+	char		*temp;
 
 	i = 0;
 	errno = 0;
@@ -29,7 +30,10 @@ int		external_command(t_command *command)
 	mass = ft_realloc_mass(mass, command->command);
 	while (command->args[i])
 		mass = ft_realloc_mass(mass, command->args[i++]);
-	mass[0] = ftstrjoin("/bin/", mass[0]);
+	temp = ft_strdup(mass[0]);
+	free(mass[0]);
+	mass[0] = ftstrjoin("/bin/", temp);
+	free(temp);
 	pid = fork();
 	if (pid == 0)
 		execve(mass[0], mass, NULL);

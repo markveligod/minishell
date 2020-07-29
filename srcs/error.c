@@ -18,5 +18,5 @@ void	error(char *str, t_ptr *ptr)
 	ft_putstr(str);
 	ft_putstr("\n");
 	clear_malloc(ptr);
-	main_while(ptr);
+	read_input(ptr);
 }

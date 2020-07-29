@@ -23,7 +23,11 @@ char		**parser_env(char **env)
 	int		j;
 	char	*temp;
 	
-	new_env = (char **)malloc(sizeof(char *) * (ft_mass_len(env) + 1));
+	if (!(new_env = (char **)malloc(sizeof(char *) * (ft_mass_len(env) + 1))))
+	{
+		ft_putstr_fd("Allocation error!\n", 0);
+		exit(1);
+	}
 	new_env[0] = NULL;
 	i = 0;
 	while (env[i])

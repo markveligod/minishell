@@ -76,7 +76,7 @@ void					ft_putstr_fd(char *s, int fd);
 void					clear_malloc();
 char					*read_line(char *line);
 //int						main(void);
-void					main_while(t_ptr *ptr);
+void					read_input(t_ptr *ptr);
 void					error(char *str, t_ptr *ptr);
 int						parser_command(char **line, t_ptr *ptr, char **spaces);
 void					write_in_file(t_command *command, char *line);
