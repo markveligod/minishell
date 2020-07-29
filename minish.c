@@ -46,14 +46,21 @@ void	check_param(char *line, t_ptr *ptr)
 }
 
 /*
-** Функция для чтения из строки еще раз возвращает line
+** Функция цикличного чтения строки
 */
 
-char	*read_line(char *line)
-{	
-	ft_putstr("(^_^)> ");
-	get_next_line(&line);
-	return (line);
+void	main_while(t_ptr *ptr)
+{
+	char *line;
+
+	while (1)
+	{
+		ft_putstr("(^_^)> ");
+		get_next_line(&line);
+		check_param(line, ptr);
+		test_parsing(ptr);
+		clear_malloc(ptr);
+	}
 }
 
 int		main(int ac, char **av, char **env)
@@ -64,13 +71,6 @@ int		main(int ac, char **av, char **env)
 
 	init_struct_ptr(&ptr);
 	ptr.is_env = parser_env(env);
-	while (1)
-	{
-		line = read_line(line);
-		check_param(line, &ptr);
-		test_parsing(&ptr);
-		clear_malloc(&ptr);
-		//free(line);
-	}
+	main_while(&ptr);
 	return (0);
 }

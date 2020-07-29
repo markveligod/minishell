@@ -38,6 +38,7 @@ char		**parser_env(char **env)
 		free(temp);
 		temp = ft_strdup(&env[i][j]);
 		new_env = ft_realloc_mass(new_env, temp);
+		free(temp);
 		i++;
 	}
 	return (new_env);
