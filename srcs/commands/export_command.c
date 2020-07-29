@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 07:47:47 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 10:37:06 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/29 12:04:16 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,10 @@ void		export_command(t_ptr *ptr, t_command *t_command)
 			j++;
 		if (t_command->args[i][j] != '\0')
 		{
-			if (check_args(ptr->base->is_env, t_command->args[i]) == 1)
-				ptr->base->is_env = change_env(ptr->base->is_env, t_command->args[i]);
+			if (check_args(ptr->is_env, t_command->args[i]) == 1)
+				ptr->is_env = change_env(ptr->is_env, t_command->args[i]);
 			else
-				ptr->base->is_env = add_args(ptr->base->is_env, t_command->args[i]);
+				ptr->is_env = add_args(ptr->is_env, t_command->args[i]);
 		}
 		i++;
 	}

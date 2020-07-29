@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 09:01:31 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 10:50:34 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/29 12:00:50 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	clear_malloc(t_ptr *ptr)
 	{
 		ft_free_array(ptr->base->flag_base);
 		ft_free_array(ptr->base->ar_base);
+		free(ptr->base);
 	}
 }

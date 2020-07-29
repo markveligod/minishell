@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 10:40:24 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 11:02:06 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/29 12:01:32 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		exit_command(t_ptr *ptr)
 {
 	clear_malloc(ptr);
-	ft_free_array(ptr->base->is_env);
-	free(ptr->base);
+	ft_free_array(ptr->is_env);
+	free(ptr);
 	exit(1);
 }

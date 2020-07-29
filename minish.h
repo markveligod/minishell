@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 11:00:48 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/29 11:59:46 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct			s_base
 {
 	char				**flag_base;
 	char				**ar_base;
-	char				**is_env;
 }						t_base;
 
 typedef struct			s_command
@@ -43,6 +42,7 @@ typedef struct			s_ptr
 {
 	t_base				*base;
 	t_command			*command;
+	char				**is_env;
 }						t_ptr;
 
 

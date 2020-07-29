@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 13:52:01 by leweathe          #+#    #+#             */
-/*   Updated: 2020/07/29 10:47:35 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/29 12:02:03 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	do_command(t_command *command, t_ptr *ptr)
 	else if (ft_strcmp(command->command, "unset") == 0)
 		unset_command(ptr, command);
 	else if (ft_strcmp(command->command, "env") == 0)
-		env_command(ptr->base->is_env);
+		env_command(ptr->is_env);
 	else
 		external_command(command);
 }

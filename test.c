@@ -35,7 +35,7 @@ void    test_parsing(t_ptr *ptr)
 			j++;
 		}
 		j = 0;
-		base = ptr->base->is_env;
+		base = ptr->is_env;
 		printf("Base env: \n");
 		while (base[j])
 		{

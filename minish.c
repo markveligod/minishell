@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 08:23:41 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/29 12:00:33 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	check_param(char *line, t_ptr *ptr)
 	char	*dup_line;
 
 	i = 0;
+	init_struct_base(ptr);
 	dup_line = ft_strdup(line);
 	mass = line_space(line, ptr);
 	space = line_space_counter(dup_line, ft_mass_len(mass), ptr);
@@ -60,13 +61,13 @@ int		main(int ac, char **av, char **env)
 	t_ptr 	ptr;
 
 	init_struct_ptr(&ptr);
-	init_struct_base(&ptr);
-	ptr.base->is_env = parser_env(env);
+	ptr.is_env = parser_env(env);
 	while (1)
 	{
 		line = read_line(line);
 		check_param(line, &ptr);
 		test_parsing(&ptr);
+		clear_malloc(&ptr);
 		//free(line);
 	}
 	return (0);
