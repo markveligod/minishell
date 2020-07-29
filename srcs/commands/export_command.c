@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 07:47:47 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 08:21:41 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/29 09:21:03 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void		export_command(t_ptr *ptr, t_command *t_command)
 	i = 0;
 	while (t_command->args[i])
 	{
-		printf("%s\n", t_command->args[i]);
 		j = 0;
 		while (t_command->args[i][j] && t_command->args[i][j] != '=')
 			j++;
