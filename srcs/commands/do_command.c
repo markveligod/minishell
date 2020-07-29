@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 13:52:01 by leweathe          #+#    #+#             */
-/*   Updated: 2020/07/29 07:26:46 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/29 07:55:43 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	do_command(t_command *command, t_ptr *ptr)
 	else if (ft_strcmp(command->command, "exit") == 0)
 		; //exit_command(command);
 	else if (ft_strcmp(command->command, "export") == 0)
-		; //export_command(command);
+		; //export_command(ptr, command);
 	else if (ft_strcmp(command->command, "unset") == 0)
 		; //unset_command(command);
 	else if (ft_strcmp(command->command, "env") == 0)

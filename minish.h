@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 07:30:36 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/07/29 07:54:47 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void					pwd_command(t_command *command);
 void					echo_command(t_command *command);
 int						external_command(t_command *command);
 void					env_command(char **env);
+//void					export_command(t_ptr *ptr, t_command *t_command);
 
 /*
 ** TEST'S

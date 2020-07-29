@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_command.c                                      :+:      :+:    :+:   */
+/*   export_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/29 06:47:03 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 07:54:36 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/07/29 07:47:47 by ckakuna           #+#    #+#             */
+/*   Updated: 2020/07/29 07:49:33 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minish.h"
 
-/*
-** Функция для печати переменных окружения
-*/
-
-void		env_command(char **env)
+void		export_command(t_ptr *ptr, t_command *t_command)
 {
-	int		i;
-
-	i = 0;
-	while (env[i])
-	{
-		ft_putstr(env[i]);
-		ft_putstr("=");
-		i++;
-		ft_putstr(env[i]);
-		ft_putstr("\n");
-		i++;
-	}
+	
 }
