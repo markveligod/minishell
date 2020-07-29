@@ -31,7 +31,7 @@ int				skip_quote(int i, char *line)
 	return (i);
 }
 
-static int		ft_words(char const *s, char c, char c2)
+static int		ft_words(char *s, char c, char c2)
 {
 	int		i;
 	int		w;
@@ -51,7 +51,7 @@ static int		ft_words(char const *s, char c, char c2)
 	return (w);
 }
 
-static int		ft_symb(char const *s, char c, int i, char c2)
+static int		ft_symb(char *s, char c, int i, char c2)
 {
 	int		symb;
 	int		j;
@@ -96,7 +96,7 @@ static int		if_quote(int *i, int *symb, char *mass, char *s)
 	return (0);
 }
 
-char			**line_parse(char const *s, char c, char c2)
+char			**line_parse(char *s, char c, char c2)
 {
 	char	**mass;
 	int		i;
@@ -129,5 +129,6 @@ char			**line_parse(char const *s, char c, char c2)
 		i++;
 	}
 	mass[w] = NULL;
+	free(s);
 	return (mass);
 }

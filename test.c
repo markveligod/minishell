@@ -16,6 +16,7 @@ void    test_parsing(t_ptr *ptr)
 	*/
 	if (ptr->base != NULL)
 	{
+		t_base *bas;
 		printf("\n_________________________\n");
 		printf("Start test base element... \n");
 		j = 0;
@@ -57,11 +58,13 @@ void    test_parsing(t_ptr *ptr)
 	{
 		ct = 1;
 		printf("\nStart test commands... \n");
-		while (ptr->command)
+		t_command *com;
+		com = ptr->command;
+		while (com)
 		{
-			base = ptr->command->args;
+			base = com->args;
 			printf("\nNumber: #%d\n", ct);
-			printf("Command: %s\n", ptr->command->command);
+			printf("Command: %s\n", com->command);
 			printf("ARGS: \n");
 			c = 0;
 			if (*base)
@@ -72,14 +75,14 @@ void    test_parsing(t_ptr *ptr)
 					c++;
 				}
 			}
-			fd = ptr->command->filename;
+			fd = com->filename;
 			k = 0;
 			while (fd[k])
 			{
 				printf("File: #%d Name: %s\n", k+1, fd[k]);
 				k++;
 			}
-			flag = ptr->command->flag_v;
+			flag = com->flag_v;
 			k = 0;
 			while (flag[k])
 			{
@@ -87,9 +90,9 @@ void    test_parsing(t_ptr *ptr)
 				k++;
 			}
 			printf("Doing:\n");
-			do_command(ptr->command, ptr);
+			do_command(com, ptr);
 			printf("\n");
-			ptr->command = ptr->command->next;
+			com = com->next;
 			ct++;
 		}
 		printf("End test command... \n\n");

@@ -84,7 +84,7 @@ void					errno_error(char *com_name, errno_t error_num);
 /*
 ** parsing input line
 */
-char					**line_parse(char const *s, char c, char c2);
+char					**line_parse(char *s, char c, char c2);
 char					**line_space(char *line, t_ptr *ptr);
 char					**line_space_counter(char *line, int len, t_ptr *ptr);
 int						line_skip_quote(int i, char *line, t_ptr *ptr);

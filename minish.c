@@ -28,6 +28,7 @@ void	check_param(char *line, t_ptr *ptr)
 	dup_line = ft_strdup(line);
 	mass = line_space(line, ptr);
 	space = line_space_counter(dup_line, ft_mass_len(mass), ptr);
+	//free(line);
 	while (mass[i])
 	{
 		if ((ft_strcmp(";", mass[i]) == 0) || (ft_strcmp("|", mass[i]) == 0))
@@ -41,6 +42,8 @@ void	check_param(char *line, t_ptr *ptr)
 			i += parser_command(&mass[i], ptr, space);
 		}
 	}
+	ft_free_array(mass);
+	ft_free_array(space);
 }
 
 /*

@@ -24,6 +24,7 @@ void	clear_malloc(t_ptr *ptr)
 			ft_free_array(ptr->command->flag_v);
 			ft_free_array(ptr->command->args);
 			ft_free_array(ptr->command->spaces);
+			free(ptr->command->command);
 			free(ptr->command);
 			ptr->command = temp_com;
 		}

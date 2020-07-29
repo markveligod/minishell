@@ -16,6 +16,5 @@ void		exit_command(t_ptr *ptr)
 {
 	clear_malloc(ptr);
 	ft_free_array(ptr->is_env);
-	free(ptr);
 	exit(1);
 }
