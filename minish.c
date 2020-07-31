@@ -115,12 +115,25 @@ void		read_input(t_ptr *ptr)
 	}
 }
 
+/*
+** Обработка сигнала на ctrl + D, ctrl + C и ctrl + \
+*/
+
+void		sighandler(int signum)
+{
+	if (signum == SIGINT)
+			ft_putstr("\n");
+	else if (signum == SIGQUIT)
+			ft_putstr("Quit: 3\n");
+}
+
 int			main(int ac, char **av, char **env)
 {
 	t_ptr 	ptr;
 
 	init_struct_ptr(&ptr);
 	ptr.is_env = parser_env(env);
+	signal(SIGINT, sighandler);
 	read_input(&ptr);
 	return (0);
 }
