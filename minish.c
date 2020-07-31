@@ -134,6 +134,7 @@ int			main(int ac, char **av, char **env)
 	init_struct_ptr(&ptr);
 	ptr.is_env = parser_env(env);
 	signal(SIGINT, sighandler);
+	signal(SIGQUIT, sighandler);
 	read_input(&ptr);
 	return (0);
 }
