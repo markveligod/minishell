@@ -66,6 +66,11 @@ void					ft_free_array(char **arr);
 void					ft_putstr_fd(char *s, int fd);
 int						ft_one_of_them(char c, char *str);
 int						ft_one_of_them_mass(char **map, char *set);
+int						ft_isalnum(int c);
+int						ft_isalpha(int c);
+int						ft_isdigit(int c);
+char					*ft_delete_array_elem(char *arr, int i);
+void					ft_lst_add_back(t_command **lst, t_command *new);
 
 
 /*
@@ -77,21 +82,21 @@ int						ft_one_of_them_mass(char **map, char *set);
 */
 void					clear_malloc();
 char					*read_line(char *line);
-//int						main(void);
 void					read_input(t_ptr *ptr);
 void					error(char *str, t_ptr *ptr);
-int						parser_command(char **line, t_ptr *ptr, char **spaces);
 void					write_in_file(t_command *command, char *line);
 void					errno_error(char *com_name, errno_t error_num);
+
 
 /*
 ** parsing input line
 */
-char					**line_parse(char *s, char c, char c2);
-char					**line_space(char *line, t_ptr *ptr);
-char					**line_space_counter(char *line, int len, t_ptr *ptr);
-int						line_skip_quote(int i, char *line, t_ptr *ptr);
+void					line_parsing(char *line, t_ptr *ptr);
+char					**line_split_into_words(char *line, char ***spaces);
+int						line_parse_by_command(char **line, t_ptr *ptr, char **spaces);
+char					*inplace_env(char *word, char **env, int *j);
 char					**parser_env(char **env);
+char					*modify_word(char *word, char **env);
 
 /*
 ** initialization of structures and lists

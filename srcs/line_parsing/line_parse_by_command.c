@@ -1,41 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_echo.c                                      :+:      :+:    :+:   */
+/*   line_parse_into_commands.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/24 16:50:46 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/27 09:34:11 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/07/31 21:05:42 by leweathe          #+#    #+#             */
+/*   Updated: 2020/07/31 21:05:46 by leweathe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minish.h"
-
-/*
-** Добавление элемента в конец списка
-*/
-
-void	lstadd_back_command(t_command **lst, t_command *new)
-{
-	t_command	*temp;
-
-	if (!(*lst))
-		*lst = new;
-	else
-	{
-		temp = *lst;
-		while (temp->next)
-			temp = temp->next;
-		temp->next = new;
-	}
-}
+#include "../../minish.h"
 
 /*
 ** Проверяет, корректны ли перенаправления и нет ли после них разделителя
 */
 
-void	if_error(char **line, int i, t_ptr *ptr)
+void	error_redirections(char **line, int i, t_ptr *ptr)
 {
 	if ((ft_strcmp(">>", line[i]) != 0 && ft_strcmp(">", line[i]) != 0
 		&& ft_strcmp("<", line[i]) != 0) || (!line[i + 1]
@@ -45,10 +26,12 @@ void	if_error(char **line, int i, t_ptr *ptr)
 }
 
 /*
+** _______________________________________________________
 ** Парсинг входного двумерного массива в структуру команды
+** _______________________________________________________
 */
 
-int		parser_command(char **line, t_ptr *ptr, char **spaces)
+int		line_parse_by_command(char **line, t_ptr *ptr, char **spaces)
 {
 	int			i;
 	t_command	*new;
@@ -57,23 +40,27 @@ int		parser_command(char **line, t_ptr *ptr, char **spaces)
 	if (!(new = init_list_command(new)))
 		error("Allocation problem!", ptr);
 	free(new->command);
+	line[0] = modify_word(line[0], ptr->is_env);
 	new->command = ft_strdup(line[0]);
 	while (line[i])
 	{
-		if (ft_strcmp(";", line[i]) == 0 || ft_strcmp("|", line[i]) == 0)
+		if ((ft_strcmp(";", line[i]) == 0 || ft_strcmp("|", line[i]) == 0))
 			break ;
 		if (line[i][0] == '>' || line[i][0] == '<')
 		{
 			new->flag_v = ft_realloc_mass(new->flag_v, line[i]);
-			if_error(line, i, ptr);
+			error_redirections(line, i, ptr);
 			new->filename = ft_realloc_mass(new->filename, line[++i]);
 			i++;
-			continue ;
 		}
-		new->spaces = ft_realloc_mass(new->spaces, spaces[i]);
-		new->args = ft_realloc_mass(new->args, line[i]);
-		i++;
+		if (line[i])
+		{
+			line[i] = modify_word(line[i], ptr->is_env);
+			new->spaces = ft_realloc_mass(new->spaces, spaces[i]);
+			new->args = ft_realloc_mass(new->args, line[i]);
+			i++;
+		}
 	}
-	lstadd_back_command(&(ptr->command), new);
+	ft_lst_add_back(&(ptr->command), new);
 	return (i);
 }
