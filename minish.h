@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <string.h>
+# include <signal.h>
 
 #include <stdio.h> //delete
 
@@ -85,7 +86,7 @@ char					*read_line(char *line);
 void					read_input(t_ptr *ptr);
 void					error(char *str, t_ptr *ptr);
 void					write_in_file(t_command *command, char *line);
-void					errno_error(char *com_name, errno_t error_num);
+//void					errno_error(char *com_name, errno_t error_num);
 
 
 /*
