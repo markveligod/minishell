@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   external_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 22:23:06 by leweathe          #+#    #+#             */
-/*   Updated: 2020/07/27 22:23:07 by leweathe         ###   ########.fr       */
+/*   Updated: 2020/08/02 07:27:44 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minish.h"
+
+int		check_path(char *line)
+{
+	return (line[0] == '/' && line[1] == 'b' && line[2] == 'i' && line[3] == 'n'
+	&& line[4] == '/');
+}
 
 int		external_command(t_command *command)
 {
@@ -32,7 +38,10 @@ int		external_command(t_command *command)
 		mass = ft_realloc_mass(mass, command->args[i++]);
 	temp = ft_strdup(mass[0]);
 	free(mass[0]);
-	mass[0] = ftstrjoin("/bin/", temp);
+	if (check_path(temp))
+		mass[0] = ft_strdup(temp);
+	else
+		mass[0] = ftstrjoin("/bin/", temp);
 	free(temp);
 	pid = fork();
 	if (pid == 0)
