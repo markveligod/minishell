@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:55:15 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 08:04:29 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/02 08:59:06 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,13 @@ char	*cut_next_line(char *remains)
 	return (array);
 }
 
-int		check_remains(char *remains)
+int		check_eof(char c)
 {
-	int i;
-
-	i = -1;
-	if (!remains)
-		return (0);
-	while (remains[++i])
-		if (remains[i] == '\n')
-			return (1);
+	if (c == 0)
+	{
+		ft_putstr("logout\n");
+		exit(1);
+	}
 	return (0);
 }
 
@@ -79,18 +76,20 @@ int		get_next_line(char **line)
 	char		*buffer;
 	static char	*remains;
 	int			count;
-	int			fd;
+	int			flag;
 
 	count = 1;
-	fd = 0;
+	flag = 1;
 	if (!line)
 		return (-1);
 	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
-	while (!check_remains(remains) && count != 0)
+	while (buffer[0] != '\n' && count != 0)
 	{
-		if ((count = read(fd, buffer, BUFFER_SIZE)) == (-1))
+		if ((count = read(0, buffer, BUFFER_SIZE)) == (-1))
 			return (-1);
+		if (flag == 1)
+			flag = check_eof(buffer[0]);
 		buffer[count] = '\0';
 		remains = ft_strjoin(remains, buffer);
 	}

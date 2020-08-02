@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/02 07:28:14 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/02 08:48:38 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,13 @@ void		read_input(t_ptr *ptr)
 }
 
 /*
-** Обработка сигнала на ctrl + D, ctrl + C и ctrl + \
+** Обработка сигнала на ctrl + C (SIGINT) и ctrl + \ (SIGQUIT)
 */
 
 void		sighandler(int signum)
 {
 	if (signum == SIGINT)
-	{
 		ft_putstr("\n");
-	}
 	else if (signum == SIGQUIT)
 		ft_putstr("Quit: 3\n");
 }
