@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   minish.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 12:00:33 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/02 05:39:14 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
+
+/*
+** 
+*/
+
+char		*get_pwd(char **env)
+{
+	int i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strcmp(env[i], "PWD") == 0)
+			return (ft_strdup(env[++i]));
+		i++;
+	}
+	return (NULL);
+}
 
 /*
 ** Функция цикличного чтения строки
@@ -19,10 +37,14 @@
 void		read_input(t_ptr *ptr)
 {
 	char	*line;
+	char	*pwd;
 
 	while (1)
 	{
-		ft_putstr("(^_^)> ");
+		pwd = get_pwd(ptr->is_env);
+		ft_putstr(pwd);
+		ft_putstr(" $> ");
+		free(pwd);
 		get_next_line(&line);
 		line_parsing(line, ptr);
 		test_parsing(ptr);
@@ -37,9 +59,9 @@ void		read_input(t_ptr *ptr)
 void		sighandler(int signum)
 {
 	if (signum == SIGINT)
-			ft_putstr("\n");
+		ft_putstr("\n");
 	else if (signum == SIGQUIT)
-			ft_putstr("Quit: 3\n");
+		ft_putstr("Quit: 3\n");
 }
 
 int			main(int ac, char **av, char **env)
