@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_malloc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 09:01:31 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 12:00:50 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/02 11:46:22 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	clear_malloc(t_ptr *ptr)
 {
 	t_command		*temp_com;
 	
+	g_flag = 0;
 	if (ptr->command != NULL)
 		while (ptr->command)
 		{

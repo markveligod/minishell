@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 22:23:06 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/02 07:35:12 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/02 11:45:58 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		external_command(t_command *command)
 		mass[0] = ftstrjoin("/bin/", temp);
 	free(temp);
 	pid = fork();
+	g_flag = 1;
 	if (pid == 0)
 		execve(mass[0], mass, NULL);
 	else if (pid == -1)
