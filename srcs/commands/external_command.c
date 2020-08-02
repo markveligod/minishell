@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 22:23:06 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/02 07:27:44 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/02 07:35:12 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int		external_command(t_command *command)
 	else
 		wpid = waitpid(pid, &status, WUNTRACED);
 	ft_free_array(mass);
+	kill(pid, SIGKILL);
 	return (1);
 }
