@@ -105,7 +105,8 @@ int						line_parse_by_command(char **line, t_ptr *ptr, char **spaces);
 char					*inplace_env(char *word, char **env, int *j);
 char					**parser_env(char **env);
 char					*modify_word(char *word, char **env);
-void					keep_reading(char *line);
+void					line_check(char **line);
+int						line_skip_quote(int i, char *line);
 
 /*
 ** initialization of structures and lists

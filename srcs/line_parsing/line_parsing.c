@@ -26,6 +26,7 @@ void		line_parsing(char *line, t_ptr *ptr)
 	char	**spaces;
 
 	init_struct_base(ptr);
+	line_check(&line);
 	mass = line_split_into_words(line, &spaces);
 	i = 0;
 	while (mass[i])
