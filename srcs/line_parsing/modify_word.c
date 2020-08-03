@@ -49,7 +49,8 @@ char	*modify_word(char *word, char **env)
 					line = ft_delete_array_elem(line, i);
 					i++;
 				}
-				else if (line[i] == '$' && ft_isalnum(line[i + 1]))
+				else if (line[i] == '$' && (ft_isalnum(line[i + 1]) ||
+						line[i + 1] == '?'))
 				{
 					line = inplace_env(line, env, &i);
 					i++;
@@ -74,7 +75,8 @@ char	*modify_word(char *word, char **env)
 		/*
 		** Заменяет переменные среды
 		*/
-		else if (line[i] == '$' && ft_isalnum(line[i + 1]))
+		else if (line[i] == '$' && (ft_isalnum(line[i + 1]) ||
+				line[i + 1] == '?'))
 		{
 			line = inplace_env(line, env, &i);
 			i++;

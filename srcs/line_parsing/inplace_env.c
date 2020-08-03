@@ -25,15 +25,23 @@ char		*inplace_env(char *word, char **env, int *j)
 	char	*end;
 	char	*value;
 	int		tmp_j;
+	char	flag;
 
 	/*
 	** Выделяем из строки имя переменной среды
 	** В end заносим оставшийся кусочек строки
 	*/
 	k = 0;
+	flag = 0;
 	name = ft_strdup(word + *j + 1);
-	while (ft_isalnum(name[k]))
+	if (name[k] == '?')
+	{
+		flag = '?';
 		k++;
+	}
+	else
+		while (ft_isalnum(name[k]))
+			k++;
 	end = ft_strdup(name + k);
 	name[k] = '\0';
 	/*
@@ -57,7 +65,9 @@ char		*inplace_env(char *word, char **env, int *j)
 		tmp_j++;
 	}
 	value[tmp_j] = '\0';
-	if (env[k] && env[++k])
+	if (flag == '?')
+		value = ft_strjoin(value, g_curr_err);
+	else if (env[k] && env[++k])
 		value = ft_strjoin(value, env[k]);
 	*j = ft_strlen(value) - 1;
 	value = ft_strjoin(value, end);
