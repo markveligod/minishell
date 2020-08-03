@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 13:52:01 by leweathe          #+#    #+#             */
-/*   Updated: 2020/07/29 12:02:03 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/03 10:50:47 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	do_command(t_command *command, t_ptr *ptr)
 {
 	if (ft_strcmp(command->command, "echo") == 0)
-		echo_command(command);
+		echo_command(command, ptr);
 	else if (ft_strcmp(command->command, "cd") == 0)
 		cd_command(command, ptr->is_env);
 	else if (ft_strcmp(command->command, "pwd") == 0)
@@ -28,6 +28,8 @@ void	do_command(t_command *command, t_ptr *ptr)
 		unset_command(ptr, command);
 	else if (ft_strcmp(command->command, "env") == 0)
 		env_command(ptr->is_env, command);
+	else if (ft_strcmp(command->command, "$?") == 0)
+		curr_err_command(1);
 	else
 		external_command(command);
 }

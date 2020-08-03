@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 13:25:35 by leweathe          #+#    #+#             */
-/*   Updated: 2020/07/26 13:25:37 by leweathe         ###   ########.fr       */
+/*   Updated: 2020/08/03 10:23:06 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	cd_command(t_command *command, char **env)
 
 	errno = 0;
 	len = ft_mass_len(command->args);
-	if (len != 1 && len != 0)
+	if (len > 2)
 	{
+		g_curr_err = "1";
 		ft_putstr_fd("cd: Too many arguments\n", 0);
 		return ;
 	}
@@ -37,7 +38,10 @@ void	cd_command(t_command *command, char **env)
 	else
 		path = ft_strdup(command->args[0]);
 	if (chdir(path) != 0)
+	{
+		g_curr_err = "1";
 		errno_error(command->command, errno);
+	}
 	else
 	{
 		i = 0;
@@ -59,4 +63,5 @@ void	cd_command(t_command *command, char **env)
 	}
 	free(path);
 	write_in_file(command, ft_strdup(""));
+	g_curr_err = "0";
 }

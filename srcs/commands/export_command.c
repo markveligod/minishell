@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 07:47:47 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 12:04:16 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/03 10:22:06 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,37 @@ char		**add_args(char **env, char *value)
 ** Проверка на правильный аргумент
 */
 
-void		export_command(t_ptr *ptr, t_command *t_command)
+int			equal_args(char **args)
 {
 	int i;
-	int j;
 
 	i = 0;
+	while (args[i])
+	{
+		if (args[i][0] == '=')
+			return (1);
+		i++;		
+	}
+	return (0);
+}
+
+void		export_command(t_ptr *ptr, t_command *t_command)
+{
+	int		i;
+	int		j;
+	errno_t	errno_num;
+
+	i = 0;
+	if (t_command->args[0] == NULL)
+		env_command(ptr->is_env, t_command);
+	else
+		if ((equal_args(t_command->args)) == 1)
+		{
+			g_curr_err = "1";
+			errno_num = 1;
+			errno_error(t_command->command, errno_num);
+			return ;
+		}
 	while (t_command->args[i])
 	{
 		j = 0;
@@ -124,4 +149,5 @@ void		export_command(t_ptr *ptr, t_command *t_command)
 		}
 		i++;
 	}
+	g_curr_err = "0";
 }

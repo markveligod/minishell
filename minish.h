@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
+/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/02 11:49:00 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/03 10:50:55 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct			s_ptr
 
 int						g_flag;
 char					*g_pwd;
+char					*g_curr_err;
 
 /*
 ** _____________________prototype utils__________________________
@@ -119,12 +120,13 @@ t_command				*init_list_command(t_command *new);
 void					do_command(t_command *command, t_ptr *ptr);
 void					cd_command(t_command *command, char **env);
 void					pwd_command(t_command *command);
-void					echo_command(t_command *command);
+void					echo_command(t_command *command, t_ptr *ptr);
 int						external_command(t_command *command);
 void					env_command(char **env, t_command *command);
 void					export_command(t_ptr *ptr, t_command *t_command);
 void					unset_command(t_ptr *ptr, t_command *t_command);
 void					exit_command(t_ptr *ptr);
+void					curr_err_command();
 
 /*
 ** TEST'S

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 10:21:42 by leweathe          #+#    #+#             */
-/*   Updated: 2020/07/27 10:21:44 by leweathe         ###   ########.fr       */
+/*   Updated: 2020/08/03 10:21:53 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 void	pwd_command(t_command *command)
 {
 	char		*p;
-	errno_t		error_num;
 	char		*output;
 
 	output = ft_strdup("");
 	if (command->args[0] != NULL)
+	{
+		g_curr_err = "1";
 		ft_putstr_fd("pwd: Too many arguments\n", 0);
+		return ;
+	}
 	else
 	{
 		errno = 0;
@@ -35,4 +38,5 @@ void	pwd_command(t_command *command)
 		free(p);
 	}
 	write_in_file(command, output);
+	g_curr_err = "0";
 }

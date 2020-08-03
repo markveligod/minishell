@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 06:47:03 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 07:54:36 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/03 10:22:17 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ void		env_command(char **env, t_command *command)
 	i = 0;
 	line = ft_strdup("");
 	if (command->args[0] != NULL)
-		ft_putstr_fd("pwd: Too many arguments\n", 0);
+	{
+		g_curr_err = "127";
+		ft_putstr_fd("env: Too many arguments\n", 0);
+		return ;
+	}
 	else
 		while (env[i])
 		{
@@ -34,4 +38,5 @@ void		env_command(char **env, t_command *command)
 			line = ft_strjoin(line, "\n");
 		}
 	write_in_file(command, line);
+	g_curr_err = "0";
 }

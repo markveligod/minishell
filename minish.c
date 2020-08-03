@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minish.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
+/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/02 11:55:04 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/03 10:24:16 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
 /*
-** 
+** Функция для получения path к текущей директории
 */
 
 char		*get_pwd(char **env)
@@ -87,6 +87,8 @@ int			main(int ac, char **av, char **env)
 	t_ptr 	ptr;
 
 	g_flag = 0;
+	g_curr_err = "0";
+	g_pwd = NULL;
 	init_struct_ptr(&ptr);
 	ptr.is_env = parser_env(env);
 	signal(SIGINT, sighandler);

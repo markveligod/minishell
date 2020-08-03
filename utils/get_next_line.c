@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
+/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:55:15 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/02 08:59:06 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/03 09:06:41 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ char	*cut_next_line(char *remains)
 	free(remains);
 	return (array);
 }
+
+/*
+** Функция для обработки ctrl + D
+*/
 
 int		check_eof(char c)
 {
