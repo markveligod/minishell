@@ -64,7 +64,11 @@ int			line_skip_quote(int i, char *line)
 				i++;
 		}
 		if (!(line[i]))
-			printf("ERROR\n");
+		{
+			keep_reading(line);
+			//printf("%s\n", line);
+			//line_skip_quote(j, line);
+		}
 	}
 	return (i);
 }
