@@ -68,6 +68,7 @@ int		line_parse_by_command(char **line, t_ptr *ptr, char **spaces)
 	}
 	if (!(new->command))
 		new->command = ft_strdup(line[0]);
+	ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, new->command);
 	ft_lst_add_back(&(ptr->command), new);
 	return (i);
 }
