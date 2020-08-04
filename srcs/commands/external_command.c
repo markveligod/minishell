@@ -20,33 +20,58 @@ int		check_path(char *line)
 
 void	fork_exec(char *file_name, char *flag, char **mass)
 {
-	int		fd[2];
 	pid_t	cpid;
-	int		file_dsptr;
+	pid_t	wpid;
+	int		fd;
+	int		status;
+	int pipefd[2];
 
-	close(1); /* so that output file should get file descriptor 1 */
+	int out = dup(1);
+	close(1);
 	if (ft_strcmp(flag, ">") == 0)
-		file_dsptr = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0664); /* file should be exist in current directory, otherwise use O_CREAT | O_TRUNC */
+		fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0664);
 	else if (ft_strcmp(flag, ">>") == 0)
-		file_dsptr = open(file_name, O_CREAT | O_TRUNC | O_WRONLY | O_APPEND, 0664);
-	pipe(fd);
+		fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0664);
 	cpid = fork();
+	/*
+	** _________________v1_____________________________
+	*/
+	pipe(pipefd);
+	pipefd[1] = dup(fd);
 	if (cpid == 0)
-	{							 /*child process */
-		close(fd[0]);			 /* close read end of pipe */
-		dup2(fd[1], file_dsptr); /* duplicate fd[1] to fd where data.txt points */
-		close(fd[1]);
-		exit(1);
+	{
+		dup2(pipefd[1], 0);
+		close(pipefd[0]);
+		close(pipefd[1]);
+		execve(mass[0], mass, NULL);
+	}
+	else
+	{
+		wpid = waitpid(cpid, &status, WUNTRACED);
+		dup2(out, 1);
+		close(out);
+	}
+	/*
+	** ________________________________________________
+	*/
+
+	/*
+	** ________________v2______________________________
+
+	if (cpid == 0)
+	{
+		dup2(fd, 1);
+		execve(mass[0], mass, NULL);
 	}
 	else if (cpid > 0)
 	{
-		wait(NULL);	  /* wait for child to completes */
-		close(fd[1]); /* close write end of pipe */
-		dup2(fd[0], STDIN_FILENO);
-		execve(mass[0], mass, NULL);
-		close(fd[0]);
-		exit(1);
+		wpid = waitpid(cpid, &status, WUNTRACED);
+		dup2(out, 1);
+		close(out);
 	}
+
+	** ________________________________________________
+	*/
 }
 
 int		external_command(t_command *command)

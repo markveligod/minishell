@@ -22,7 +22,7 @@ void	cd_command(t_command *command, char **env)
 
 	errno = 0;
 	len = ft_mass_len(command->args);
-	if (len > 2)
+	if (len > 1)
 	{
 		g_curr_err = "1";
 		ft_putstr_fd("cd: Too many arguments\n", 0);

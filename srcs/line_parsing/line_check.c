@@ -47,13 +47,14 @@ int line_skip_quote(int i, char *line)
 ** ____________________________________________
 */
 
-char		*keep_reading(char *line)
+char		*keep_reading(char *line, char *message)
 {
 	char	*newline;
 	char	*new;
 	int		i;
 
-	ft_putstr("quote $> ");
+	ft_putstr(message);
+	ft_putstr(" $> ");
 	get_next_line(&newline);
 	new = ft_strjoin(line, newline);
 	return (new);
@@ -83,7 +84,7 @@ void		line_check(char **line)
 			i = j + 1;
 			if (!(newline[j]))
 			{
-				newline = keep_reading(newline);
+				newline = keep_reading(newline, "quote");
 				i = 0;
 			}	
 		}
@@ -92,7 +93,7 @@ void		line_check(char **line)
 			i = i + 2;
 			if (!(newline[i - 1]))
 			{
-				newline = keep_reading(newline);
+				newline = keep_reading(newline, "");
 				i = 0;
 			}
 		}
