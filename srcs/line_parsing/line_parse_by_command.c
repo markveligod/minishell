@@ -34,18 +34,18 @@ void	error_redirections(char **line, int i, t_ptr *ptr)
 int		line_parse_by_command(char **line, t_ptr *ptr, char **spaces)
 {
 	int			i;
+	int			j;
 	t_command	*new;
 
-	i = 1;
 	if (!(new = init_list_command(new)))
 		error("Allocation problem!", ptr);
 	free(new->command);
-	line[0] = modify_word(line[0], ptr->is_env);
-	new->command = ft_strdup(line[0]);
+	new->command = NULL;
+	i = 0;
 	while (line[i])
 	{
 		if ((ft_strcmp(";", line[i]) == 0 || ft_strcmp("|", line[i]) == 0))
-			break ;
+			break;
 		if (line[i][0] == '>' || line[i][0] == '<')
 		{
 			new->flag_v = ft_realloc_mass(new->flag_v, line[i]);
@@ -53,14 +53,21 @@ int		line_parse_by_command(char **line, t_ptr *ptr, char **spaces)
 			new->filename = ft_realloc_mass(new->filename, line[++i]);
 			i++;
 		}
-		if (line[i])
+		else
 		{
 			line[i] = modify_word(line[i], ptr->is_env);
-			new->spaces = ft_realloc_mass(new->spaces, spaces[i]);
-			new->args = ft_realloc_mass(new->args, line[i]);
+			if (!(new->command))
+				new->command = ft_strdup(line[i]);
+			else
+			{
+				new->spaces = ft_realloc_mass(new->spaces, spaces[i]);
+				new->args = ft_realloc_mass(new->args, line[i]);
+			}
 			i++;
 		}
 	}
+	if (!(new->command))
+		new->command = ft_strdup(line[0]);
 	ft_lst_add_back(&(ptr->command), new);
 	return (i);
 }

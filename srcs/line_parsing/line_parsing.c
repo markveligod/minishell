@@ -23,6 +23,7 @@ void		line_parsing(char *line, t_ptr *ptr)
 {
 	char 	**mass;
 	int		i;
+	int		j;
 	char	**spaces;
 
 	init_struct_base(ptr);
@@ -33,12 +34,18 @@ void		line_parsing(char *line, t_ptr *ptr)
 	{
 		if ((ft_strcmp(";", mass[i]) == 0 || ft_strcmp("|", mass[i]) == 0))
 		{
+			if (i == 0 || ((ft_strcmp(";", mass[i - 1]) == 0 ||
+				ft_strcmp("|", mass[i - 1]) == 0)))
+				ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, "\'");
 			ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
 			i++;
 		}
 		else
 		{
-			ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[i]);
+			//j = i;
+			//while (mass[j] && ft_one_of_them(mass[j][0], "><"))
+			//	j = j + 2;
+			//ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, mass[j]);
 			i += line_parse_by_command(&mass[i], ptr, spaces);
 		}
 	}
