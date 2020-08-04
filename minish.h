@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/03 12:03:33 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/04 12:30:16 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@
 # include <fcntl.h>
 # include <string.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 
 #include <stdio.h> //delete
+
+typedef int errno_t; //linux edit
 
 typedef struct			s_base
 {
@@ -129,6 +133,7 @@ void					export_command(t_ptr *ptr, t_command *t_command);
 void					unset_command(t_ptr *ptr, t_command *t_command);
 void					exit_command(t_ptr *ptr);
 void					curr_err_command();
+void					file_command(t_command *command);
 
 /*
 ** TEST'S
