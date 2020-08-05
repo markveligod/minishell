@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <ckakuna@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/04 12:30:16 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/05 10:32:34 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 #include <stdio.h> //delete
 
-typedef int errno_t; //linux edit
+//typedef int errno_t; //linux edit
 
 typedef struct			s_base
 {
@@ -133,7 +133,7 @@ void					export_command(t_ptr *ptr, t_command *t_command);
 void					unset_command(t_ptr *ptr, t_command *t_command);
 void					exit_command(t_ptr *ptr);
 void					curr_err_command();
-void					file_command(t_command *command);
+void					file_command(t_command *command, char **env);
 
 /*
 ** TEST'S
