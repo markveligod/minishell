@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:25:24 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/03 10:46:28 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/06 11:10:38 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 void	curr_err_command()
 {
 	char *str;
-	
-	str = NULL;
-	str = ft_strjoin(str, "minish: command not found: ");
+
+	str = ft_strdup("minish: command not found: ");
 	str = ft_strjoin(str, g_curr_err);
 	ft_putstr(str);
 	free(str);
