@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
+/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 10:48:27 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/05 11:38:44 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/06 11:02:42 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,21 +90,13 @@ int			check_stat(t_command *command, char *filename)
 	{
 		g_curr_err = "1";
 		errno_error(command->command, errno);
-		return (flag);
+		return (flag = (-1));
 	}
 	fstat(fd, &buff);
-	if ((buff.st_mode & S_IRWXG) == (S_IRGRP + S_IWGRP + S_IXGRP) ||
-	(buff.st_mode & S_IRWXG) == (S_IWGRP + S_IXGRP) ||
-	(buff.st_mode & S_IRWXG) == (S_IRGRP + S_IXGRP) ||
-	(buff.st_mode & S_IRWXG) == (S_IXGRP) ||
-	(buff.st_mode & S_IRWXU) == (S_IXUSR) ||
+	if ((buff.st_mode & S_IRWXU) == (S_IXUSR) ||
 	(buff.st_mode & S_IRWXU) == (S_IXUSR + S_IWUSR) ||
 	(buff.st_mode & S_IRWXU) == (S_IXUSR + S_IRUSR) ||
-	(buff.st_mode & S_IRWXU) == (S_IXUSR + S_IRUSR + S_IWUSR) ||
-	(buff.st_mode & S_IRWXO) == (S_IXOTH + S_IROTH + S_IWOTH) ||
-	(buff.st_mode & S_IRWXO) == (S_IXOTH + S_IROTH) ||
-	(buff.st_mode & S_IRWXO) == (S_IXOTH + S_IWOTH) ||
-	(buff.st_mode & S_IRWXO) == (S_IXOTH))
+	(buff.st_mode & S_IRWXU) == (S_IXUSR + S_IRUSR + S_IWUSR))
 		flag = 1;
 	close(fd);
 	return (flag);
@@ -114,12 +106,36 @@ void		file_command(t_command *command, char **env)
 {
 	char **mass;
 	int i;
+	int flag;
 
+	i = ft_strlen(command->command);
+	if (command->command[i - 1] == '/')
+	{
+		if (command->command[i - 2] == '.')
+		{
+			g_curr_err = "126";
+			errno = 13;
+			errno_error(command->command, errno);
+		}
+		else
+		{
+			g_curr_err = "127";
+			errno = 20;
+			errno_error(command->command, errno);
+		}
+		return ;
+	}
 	mass = get_mass(command, env);
-	if (check_stat(command, mass[0]) == 1)
+	if ((flag = check_stat(command, mass[0])) == 1)
 		run_pid(command, mass);
 	else
 	{
+		g_curr_err = "1";
+		if (flag == 0)
+		{
+			errno = 13;
+			errno_error(command->command, errno);
+		}
 		ft_free_array(mass);
 		return ;
 	}
