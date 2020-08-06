@@ -6,7 +6,7 @@
 /*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/03 10:24:16 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/06 09:32:39 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,39 @@
 
 char		*get_pwd(char **env)
 {
-	int i;
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strcmp(env[i], "PWD") == 0)
-			return (ft_strdup(env[++i]));
+		if (ft_strcmp(env[i], "LOGNAME") == 0)
+		{
+			temp = ft_strdup(env[++i]);
+			break ;
+		}
 		i++;
 	}
-	return (NULL);
+	temp = ft_strjoin(temp, ":");
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strcmp(env[i], "PWD") == 0)
+		{
+			i++;
+			j = ft_strlen(env[i]);
+			while (env[i][--j])
+				if (env[i][j] == '/')
+				{
+					temp = ft_strjoin(temp, &env[i][++j]);
+					break ;
+				}
+			break ;
+		}
+		i++;
+	}
+	return (ft_strjoin(temp, " $> "));
 }
 
 /*
@@ -44,7 +67,6 @@ void		read_input(t_ptr *ptr)
 			free(g_pwd);
 		g_pwd = get_pwd(ptr->is_env);
 		ft_putstr(g_pwd);
-		ft_putstr(" $> ");
 		get_next_line(&line);
 		line_parsing(line, ptr);
 		test_parsing(ptr);
