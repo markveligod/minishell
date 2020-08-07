@@ -134,6 +134,7 @@ void					unset_command(t_ptr *ptr, t_command *t_command);
 void					exit_command(t_ptr *ptr);
 void					curr_err_command();
 void					file_command(t_command *command);
+void					redirect_command(t_command *command);
 
 /*
 ** TEST'S

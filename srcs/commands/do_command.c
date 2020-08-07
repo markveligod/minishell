@@ -30,6 +30,8 @@ void	do_command(t_command *command, t_ptr *ptr)
 		env_command(ptr->is_env, command);
 	else if (ft_strcmp(command->command, "$?") == 0)
 		curr_err_command(1);
+	else if (ft_strcmp(command->command, ">") == 0)
+		redirect_command(command);
 	else if (command->command[0] == '.' && command->command[1] == '/')
 		file_command(command);
 	else
