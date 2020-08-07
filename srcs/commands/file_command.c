@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 10:48:27 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/06 11:02:42 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/07 13:26:19 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,6 @@ char		**get_mass(t_command *command, char **env)
 	return (mass);
 }
 
-void		run_pid(t_command *command, char **mass)
-{
-	pid_t pid;
-	pid_t wpid;
-	int status;
-	
-	errno = 0;
-	pid = fork();
-	if (pid == 0)
-		execve(mass[0], mass, NULL);
-	else if (pid == -1)
-		errno_error(command->command, errno);
-	else
-		wpid = waitpid(pid, &status, WUNTRACED);
-	kill(pid, SIGKILL);
-}
-
 int			check_stat(t_command *command, char *filename)
 {
 	int fd;
@@ -100,6 +83,23 @@ int			check_stat(t_command *command, char *filename)
 		flag = 1;
 	close(fd);
 	return (flag);
+}
+
+void		run_pid(t_command *command, char **mass)
+{
+	pid_t pid;
+	pid_t wpid;
+	int status;
+	
+	errno = 0;
+	pid = fork();
+	if (pid == 0)
+		execve(mass[0], mass, NULL);
+	else if (pid == -1)
+		errno_error(command->command, errno);
+	else
+		wpid = waitpid(pid, &status, WUNTRACED);
+	kill(pid, SIGKILL);
 }
 
 void		file_command(t_command *command, char **env)
@@ -126,7 +126,15 @@ void		file_command(t_command *command, char **env)
 		return ;
 	}
 	mass = get_mass(command, env);
-	if ((flag = check_stat(command, mass[0])) == 1)
+	i = 0;
+	flag = check_stat(command, mass[0]);
+	if (flag == 1 && command->filename[i] != NULL)
+		while (command->filename[i])
+		{
+			fork_exec(command->filename[i], command->flag_v[i], mass);
+			i++;
+		}
+	else if (flag == 1 && command->filename[i] == NULL)
 		run_pid(command, mass);
 	else
 	{

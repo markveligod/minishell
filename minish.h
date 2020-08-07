@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/05 10:32:34 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/07 13:19:37 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void					unset_command(t_ptr *ptr, t_command *t_command);
 void					exit_command(t_ptr *ptr);
 void					curr_err_command();
 void					file_command(t_command *command, char **env);
+void					fork_exec(char *file_name, char *flag, char **mass);
 
 /*
 ** TEST'S
