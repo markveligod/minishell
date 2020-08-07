@@ -27,29 +27,55 @@ void	fork_exec(char *file_name, char *flag, char **mass)
 	int pipefd[2];
 
 	int out = dup(1);
+	int in = dup(0);
 	close(1);
 	if (ft_strcmp(flag, ">") == 0)
 		fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0664);
 	else if (ft_strcmp(flag, ">>") == 0)
 		fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0664);
+	else if (ft_strcmp(flag, "<") == 0)
+		fd = open(file_name, O_RDONLY);
 	cpid = fork();
 	/*
 	** _________________v1_____________________________
 	*/
 	pipe(pipefd);
-	pipefd[1] = dup(fd);
-	if (cpid == 0)
+	if (ft_strcmp(flag, ">") == 0 || ft_strcmp(flag, ">>") == 0)
 	{
-		dup2(pipefd[1], 0);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		execve(mass[0], mass, NULL);
+		pipefd[1] = dup(fd);
+		if (cpid == 0)
+		{
+			dup2(pipefd[1], STDOUT_FILENO);
+			close(pipefd[0]);
+			close(pipefd[1]);
+			execve(mass[0], mass, NULL);
+		}
+		else
+		{
+			wpid = waitpid(cpid, &status, WUNTRACED);
+			dup2(out, 1);
+			close(out);
+		}
 	}
-	else
-	{
-		wpid = waitpid(cpid, &status, WUNTRACED);
-		dup2(out, 1);
-		close(out);
+	else if (ft_strcmp(flag, "<") == 0)
+	{ 
+		printf("HHHHHH\n");
+		pipefd[0] = dup(fd);
+		if (cpid == 0)
+		{
+			dup2(pipefd[0], STDIN_FILENO);
+			close(pipefd[1]);
+			close(pipefd[0]);
+			execve(mass[0], mass, NULL);
+		}
+		else
+		{
+			close(pipefd[1]);
+			close(pipefd[0]);
+			wpid = waitpid(cpid, &status, WUNTRACED);
+			dup2(in, STDIN_FILENO);
+			close(in);
+		}
 	}
 	/*
 	** ________________________________________________
