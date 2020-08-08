@@ -102,4 +102,5 @@ void		line_check(char **line)
 	}
 	free(*line);
 	*line = ft_strdup(newline);
+	free(newline);
 }

@@ -56,9 +56,78 @@ void	fork_run(t_command *command, char **mass)
 	kill(pid, SIGKILL);
 }
 
+
+void	fork_redirect(char *file_name, char *flag, char **mass)
+{
+	pid_t	cpid;
+	pid_t	wpid;
+	int		fd;
+	int		status;
+	int 	child[2];
+	int		parent[2];
+
+	pipe(child);
+	pipe(parent);
+	if (ft_strcmp(flag, ">") == 0)
+		fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0664);
+	else if (ft_strcmp(flag, ">>") == 0)
+		fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0664);
+	else if (ft_strcmp(flag, "<") == 0)
+		fd = open(file_name, O_RDONLY);
+	cpid = fork();
+	if (ft_strcmp(flag, ">") == 0 || ft_strcmp(flag, ">>") == 0)
+	{
+		if (cpid == 0)
+		{
+			close(child[1]);
+			close(parent[0]);
+			child[0] = fd;
+			//dup2(pipefd[1], STDOUT_FILENO);
+			//close(child_to_parent[1]);
+			//close(pipefd[1]);
+			execve(mass[0], mass, NULL);
+		}
+		else
+		{
+			close(child[0]);
+			close(parent[1]);
+			wpid = waitpid(cpid, &status, WUNTRACED);
+			//dup2(out, 1);
+			//close(out);
+		}
+	}
+	else if (ft_strcmp(flag, "<") == 0)
+	{
+		int in = dup(0);
+		close(0);
+		int ffd[2];
+		char buf[11];
+		pipe(ffd);
+		if (cpid == 0)
+		{
+			dup2(ffd[0], 0);
+			close(ffd[0]);
+			close(ffd[1]);
+			//while (read(0, buf, 10) > 0)
+			//	write(ffd[0], buf, 10);
+			execve(mass[0], mass, NULL);
+		}
+		else
+		{
+			close(ffd[0]);
+			while (read(fd, buf, 10) > 0)
+				write(ffd[1], buf, 10);
+			wpid = waitpid(cpid, &status, WUNTRACED);
+			close(ffd[1]);
+			dup2(in, 0);
+			close(in);
+		}
+	}
+}
+
 /*
-** Запуск дочернего процесса с учетом редиректов в файлы
-*/
+** Запуск дочернего процесса  с учетом редиректов в файлы
+
 
 void	fork_redirect(char *file_name, char *flag, char **mass)
 {
@@ -71,17 +140,18 @@ void	fork_redirect(char *file_name, char *flag, char **mass)
 	int out = dup(1);
 	int in = dup(0);
 	close(1);
+	close(0);
 	if (ft_strcmp(flag, ">") == 0)
 		fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0664);
 	else if (ft_strcmp(flag, ">>") == 0)
 		fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0664);
 	else if (ft_strcmp(flag, "<") == 0)
 		fd = open(file_name, O_RDONLY);
-	cpid = fork();
+	cpid = fork();*/
 	/*
 	** _________________v1_____________________________
 	*/
-	
+	/*
 	if (ft_strcmp(flag, ">") == 0 || ft_strcmp(flag, ">>") == 0)
 	{
 		pipe(pipefd);
@@ -107,20 +177,23 @@ void	fork_redirect(char *file_name, char *flag, char **mass)
 		if (cpid == 0)
 		{
 			close(pipefd[1]);
+			//pipefd[0] = fd;
+			//close(pipefd[0]);
+			//close(fd);
 			//STDIN_FILENO = dup(pipefd[0]);
-			dup2(STDIN_FILENO, pipefd[0]);
-			//while (read(pipefd[0], buf, 1) > 0)
-			//	write(STDIN_FILENO, buf, 1);
+			//dup2(pipefd[0], STDIN_FILENO);
+			while (read(pipefd[0], buf, 1) > 0)
+				write(STDIN_FILENO, buf, 1);
 			close(pipefd[0]);
 			execve(mass[0], mass, NULL);
 		}
 		else
 		{
 			close(pipefd[0]);
-			pipefd[1] = dup(fd);
+			//pipefd[1] = fd;
 			//dup2(fd, pipefd[1]);
-			//while (read(fd, buf, 1) > 0)
-			//	write(pipefd[1], buf, 1);
+			while (read(fd, buf, 1) > 0)
+				write(pipefd[1], buf, 1);
 			close(pipefd[1]);
 			close(fd);
 			wpid = waitpid(cpid, &status, WUNTRACED);
@@ -128,7 +201,7 @@ void	fork_redirect(char *file_name, char *flag, char **mass)
 			close(in);
 		}
 		close(fd);
-	}
+	}*/
 	/*
 	** ________________________________________________
 	*/
@@ -150,4 +223,4 @@ void	fork_redirect(char *file_name, char *flag, char **mass)
 
 	** ________________________________________________
 	*/
-}
+//}
