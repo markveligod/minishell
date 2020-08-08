@@ -29,7 +29,7 @@ char	**create_args(t_command *command)
 
 void	get_path(char **mass, int *flag)
 {
-	char *temp;
+	char	*temp;
 
 	*flag = 0;
 	if (ft_one_of_them(mass[0][0], "/."))
@@ -50,28 +50,13 @@ void	external_command(t_command *command, char **env)
 	int			i;
 	char		**mass;
 	int			name_flag;
+	int			flag;
 
 	mass = create_args(command);
 	get_path(mass, &name_flag);
 	g_flag = 1;
 	g_curr_err = "0";
-	int flag = check_stat(command, mass[0], name_flag);
-	if (flag == 1 && command->filename[0] != NULL)
-	{
-		i = 0;
-		while (command->filename[i])
-		{
-			fork_redirect(command->filename[i], command->flag_v[i], mass);
-			i++;
-		}
-	}
-	else if (flag == 1)
-		fork_run(command, mass);
-	else if (flag == 0)
-	{
-		g_curr_err = "1";
-		errno = 13;
-		errno_error(command->command, errno);
-	}
+	flag = check_stat(command, mass[0], name_flag);
+	run_forks(flag, command, mass);
 	ft_free_array(mass);
 }

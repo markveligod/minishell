@@ -12,6 +12,29 @@
 
 #include "../../minish.h"
 
+void	run_forks(int flag, t_command *command, char **mass)
+{
+	int i;
+
+	i = 0;
+	if (flag == 1 && command->filename[i] != NULL)
+		while (command->filename[i])
+		{
+			fork_redirect(command->filename[i], command->flag_v[i], mass);
+			i++;
+		}
+	else if (flag == 1 && command->filename[i] == NULL)
+		fork_run(command, mass);
+	else
+	{
+		g_curr_err = "1";
+		if (flag == 0)
+		{
+			errno = 13;
+			errno_error(command->command, errno);
+		}
+	}
+}
 
 /*
 ** Запуск дочернего процесса без редиректов

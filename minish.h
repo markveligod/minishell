@@ -143,8 +143,8 @@ void					external_command(t_command *command, char **env);
 void					file_command(t_command *command, char **env);
 void					fork_redirect(char *file_name, char *flag, char **mass);
 void					fork_run(t_command *command, char **mass);
-char					**create_args(t_command *command);
-int			check_stat(t_command *command, char *filename, int name_flag);
+void					run_forks(int flag, t_command *command, char **mass);
+int						check_stat(t_command *command, char *filename, int name_flag);
 
 /*
 ** TEST'S

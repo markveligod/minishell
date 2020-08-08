@@ -118,26 +118,7 @@ void		file_command(t_command *command, char **env)
 		return ;
 	}
 	mass = get_mass(command, env);
-	i = 0;
 	flag = check_stat(command, mass[0], name_flag);
-	if (flag == 1 && command->filename[i] != NULL)
-		while (command->filename[i])
-		{
-			fork_redirect(command->filename[i], command->flag_v[i], mass);
-			i++;
-		}
-	else if (flag == 1 && command->filename[i] == NULL)
-		fork_run(command, mass);
-	else
-	{
-		g_curr_err = "1";
-		if (flag == 0)
-		{
-			errno = 13;
-			errno_error(command->command, errno);
-		}
-		ft_free_array(mass);
-		return ;
-	}
+	run_forks(flag, command, mass);
 	ft_free_array(mass);
 }
