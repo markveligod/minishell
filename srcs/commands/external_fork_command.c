@@ -56,7 +56,7 @@ void	fork_run(t_command *command, char **mass)
 	kill(pid, SIGKILL);
 }
 
-
+/*
 void	fork_redirect(char *file_name, char *flag, char **mass)
 {
 	pid_t	cpid;
@@ -124,10 +124,10 @@ void	fork_redirect(char *file_name, char *flag, char **mass)
 		}
 	}
 }
-
+*/
 /*
 ** Запуск дочернего процесса  с учетом редиректов в файлы
-
+*/
 
 void	fork_redirect(char *file_name, char *flag, char **mass)
 {
@@ -140,18 +140,18 @@ void	fork_redirect(char *file_name, char *flag, char **mass)
 	int out = dup(1);
 	int in = dup(0);
 	close(1);
-	close(0);
+	//close(0);
 	if (ft_strcmp(flag, ">") == 0)
 		fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0664);
 	else if (ft_strcmp(flag, ">>") == 0)
 		fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0664);
 	else if (ft_strcmp(flag, "<") == 0)
 		fd = open(file_name, O_RDONLY);
-	cpid = fork();*/
+	cpid = fork();
 	/*
 	** _________________v1_____________________________
 	*/
-	/*
+	
 	if (ft_strcmp(flag, ">") == 0 || ft_strcmp(flag, ">>") == 0)
 	{
 		pipe(pipefd);
@@ -170,7 +170,7 @@ void	fork_redirect(char *file_name, char *flag, char **mass)
 			close(out);
 		}
 	}
-	else if (ft_strcmp(flag, "<") == 0)
+	/*else if (ft_strcmp(flag, "<") == 0)
 	{
 		char buf[2];
 		pipe(pipefd);
@@ -223,4 +223,4 @@ void	fork_redirect(char *file_name, char *flag, char **mass)
 
 	** ________________________________________________
 	*/
-//}
+}
