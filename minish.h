@@ -127,16 +127,24 @@ void					do_command(t_command *command, t_ptr *ptr);
 void					cd_command(t_command *command, char **env);
 void					pwd_command(t_command *command);
 void					echo_command(t_command *command);
-int						external_command(t_command *command);
 void					env_command(char **env, t_command *command);
 void					export_command(t_ptr *ptr, t_command *t_command);
 void					unset_command(t_ptr *ptr, t_command *t_command);
 void					exit_command(t_ptr *ptr);
 void					curr_err_command();
-//void					file_command(t_command *command);
 void					redirect_command(t_command *command);
+
+
+
+/*
+** extarnal command
+*/
+void					external_command(t_command *command, char **env);
 void					file_command(t_command *command, char **env);
-void					fork_exec(char *file_name, char *flag, char **mass);
+void					fork_redirect(char *file_name, char *flag, char **mass);
+void					fork_run(t_command *command, char **mass);
+char					**create_args(t_command *command);
+int			check_stat(t_command *command, char *filename, int name_flag);
 
 /*
 ** TEST'S

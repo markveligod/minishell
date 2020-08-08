@@ -62,7 +62,7 @@ char		**get_mass(t_command *command, char **env)
 	return (mass);
 }
 
-int			check_stat(t_command *command, char *filename)
+int			check_stat(t_command *command, char *filename, int name_flag)
 {
 	int fd;
 	int flag;
@@ -71,7 +71,13 @@ int			check_stat(t_command *command, char *filename)
 	flag = 0;
 	if((fd = open(filename, O_RDONLY)) == (-1))
 	{
-		g_curr_err = "1";
+		if (name_flag == 1)
+		{
+			g_curr_err = "127";
+			errno = -5;
+		}
+		else
+			g_curr_err = "1";
 		errno_error(command->command, errno);
 		return (flag = (-1));
 	}
@@ -85,29 +91,15 @@ int			check_stat(t_command *command, char *filename)
 	return (flag);
 }
 
-void		run_pid(t_command *command, char **mass)
-{
-	pid_t pid;
-	pid_t wpid;
-	int status;
-	
-	errno = 0;
-	pid = fork();
-	if (pid == 0)
-		execve(mass[0], mass, NULL);
-	else if (pid == -1)
-		errno_error(command->command, errno);
-	else
-		wpid = waitpid(pid, &status, WUNTRACED);
-	kill(pid, SIGKILL);
-}
-
 void		file_command(t_command *command, char **env)
 {
 	char **mass;
 	int i;
 	int flag;
+	int name_flag;
 
+	name_flag = 0;
+	g_curr_err = "0";
 	i = ft_strlen(command->command);
 	if (command->command[i - 1] == '/')
 	{
@@ -127,15 +119,15 @@ void		file_command(t_command *command, char **env)
 	}
 	mass = get_mass(command, env);
 	i = 0;
-	flag = check_stat(command, mass[0]);
+	flag = check_stat(command, mass[0], name_flag);
 	if (flag == 1 && command->filename[i] != NULL)
 		while (command->filename[i])
 		{
-			fork_exec(command->filename[i], command->flag_v[i], mass);
+			fork_redirect(command->filename[i], command->flag_v[i], mass);
 			i++;
 		}
 	else if (flag == 1 && command->filename[i] == NULL)
-		run_pid(command, mass);
+		fork_run(command, mass);
 	else
 	{
 		g_curr_err = "1";
@@ -148,5 +140,4 @@ void		file_command(t_command *command, char **env)
 		return ;
 	}
 	ft_free_array(mass);
-	g_curr_err = "0";
 }

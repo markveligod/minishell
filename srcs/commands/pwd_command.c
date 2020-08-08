@@ -18,6 +18,7 @@ void	pwd_command(t_command *command)
 	char		*output;
 
 	output = ft_strdup("");
+	g_curr_err = "0";
 	if (command->args[0] != NULL)
 	{
 		g_curr_err = "1";
@@ -38,5 +39,4 @@ void	pwd_command(t_command *command)
 		free(p);
 	}
 	write_in_file(command, output);
-	g_curr_err = "0";
 }

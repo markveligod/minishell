@@ -12,140 +12,66 @@
 
 #include "../../minish.h"
 
-int		check_path(char *line)
+char	**create_args(t_command *command)
 {
-	return (line[0] == '/' && line[1] == 'b' && line[2] == 'i' && line[3] == 'n'
-	&& line[4] == '/');
-}
-
-void	fork_exec(char *file_name, char *flag, char **mass)
-{
-	pid_t	cpid;
-	pid_t	wpid;
-	int		fd;
-	int		status;
-	int pipefd[2];
-
-	int out = dup(1);
-	int in = dup(0);
-	close(1);
-	if (ft_strcmp(flag, ">") == 0)
-		fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0664);
-	else if (ft_strcmp(flag, ">>") == 0)
-		fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0664);
-	else if (ft_strcmp(flag, "<") == 0)
-		fd = open(file_name, O_RDONLY);
-	cpid = fork();
-	/*
-	** _________________v1_____________________________
-	*/
-	pipe(pipefd);
-	if (ft_strcmp(flag, ">") == 0 || ft_strcmp(flag, ">>") == 0)
-	{
-		pipefd[1] = dup(fd);
-		if (cpid == 0)
-		{
-			dup2(pipefd[1], STDOUT_FILENO);
-			close(pipefd[0]);
-			close(pipefd[1]);
-			execve(mass[0], mass, NULL);
-		}
-		else
-		{
-			wpid = waitpid(cpid, &status, WUNTRACED);
-			dup2(out, 1);
-			close(out);
-		}
-	}
-	else if (ft_strcmp(flag, "<") == 0)
-	{ 
-		printf("HHHHHH\n");
-		pipefd[0] = dup(fd);
-		if (cpid == 0)
-		{
-			dup2(pipefd[0], STDIN_FILENO);
-			close(pipefd[1]);
-			close(pipefd[0]);
-			execve(mass[0], mass, NULL);
-		}
-		else
-		{
-			close(pipefd[1]);
-			close(pipefd[0]);
-			wpid = waitpid(cpid, &status, WUNTRACED);
-			dup2(in, STDIN_FILENO);
-			close(in);
-		}
-	}
-	/*
-	** ________________________________________________
-	*/
-
-	/*
-	** ________________v2______________________________
-
-	if (cpid == 0)
-	{
-		dup2(fd, 1);
-		execve(mass[0], mass, NULL);
-	}
-	else if (cpid > 0)
-	{
-		wpid = waitpid(cpid, &status, WUNTRACED);
-		dup2(out, 1);
-		close(out);
-	}
-
-	** ________________________________________________
-	*/
-}
-
-int		external_command(t_command *command)
-{
-	int			i;
-	pid_t		pid;
-	pid_t		wpid;
-	errno_t		error_num;
-	char		**mass;
-	int			status;
-	char		*temp;
+	char	**mass;
+	int		i;
 
 	i = 0;
-	errno = 0;
 	if (!(mass = (char **)malloc(sizeof(char *))))
-		return (0);
+		return (NULL);
 	mass[0] = NULL;
 	mass = ft_realloc_mass(mass, command->command);
 	while (command->args[i])
 		mass = ft_realloc_mass(mass, command->args[i++]);
-	temp = ft_strdup(mass[0]);
-	free(mass[0]);
-	if (check_path(temp))
-		mass[0] = ft_strdup(temp);
-	else
+	return (mass);
+}
+
+void	get_path(char **mass, int *flag)
+{
+	char *temp;
+
+	*flag = 0;
+	if (ft_one_of_them(mass[0][0], "/."))
+		*flag = 0;
+	else if (!(mass[0][0] == '/' && mass[0][1] == 'b' && mass[0][2] == 'i' && mass[0][3] == 'n'
+		&& mass[0][4] == '/'))
+	{
+		temp = ft_strdup(mass[0]);
+		free(mass[0]);
 		mass[0] = ftstrjoin("/bin/", temp);
-	free(temp);
+		free(temp);
+		*flag = 1;
+	}
+}
+
+void	external_command(t_command *command, char **env)
+{
+	int			i;
+	char		**mass;
+	int			name_flag;
+
+	mass = create_args(command);
+	get_path(mass, &name_flag);
 	g_flag = 1;
-	if (command->filename[0] != NULL)
+	g_curr_err = "0";
+	int flag = check_stat(command, mass[0], name_flag);
+	if (flag == 1 && command->filename[0] != NULL)
 	{
 		i = 0;
 		while (command->filename[i])
 		{
-			fork_exec(command->filename[i], command->flag_v[i], mass);
+			fork_redirect(command->filename[i], command->flag_v[i], mass);
 			i++;
 		}
 	}
-	else
+	else if (flag == 1)
+		fork_run(command, mass);
+	else if (flag == 0)
 	{
-		pid = fork();
-		if (pid == 0)
-			execve(mass[0], mass, NULL);
-		else if (pid == -1)
-			errno_error(command->command, errno);
-		else
-			wpid = waitpid(pid, &status, WUNTRACED);
+		g_curr_err = "1";
+		errno = 13;
+		errno_error(command->command, errno);
 	}
 	ft_free_array(mass);
-	kill(pid, SIGKILL);
-	return (1);
 }

@@ -21,6 +21,7 @@ void	cd_command(t_command *command, char **env)
 	char		*cwd;
 
 	errno = 0;
+	g_curr_err = "0";
 	len = ft_mass_len(command->args);
 	if (len > 1)
 	{
@@ -63,5 +64,4 @@ void	cd_command(t_command *command, char **env)
 	}
 	free(path);
 	write_in_file(command, ft_strdup(""));
-	g_curr_err = "0";
 }

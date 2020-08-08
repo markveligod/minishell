@@ -88,19 +88,19 @@ void		sighandler(int signum)
 		{
 			ft_putstr("\n");
 			ft_putstr(g_pwd);
-			ft_putstr(" $> ");
+			//ft_putstr(" $> ");
 		}
 	}
 	else if (signum == SIGQUIT)
 	{
 		if (g_flag == 1)
 			ft_putstr("Quit: 3\n");
-		else
+		/*else
 		{
-			ft_putstr("\n");
-			ft_putstr(g_pwd);
-			ft_putstr(" $> ");
-		}
+			//ft_putstr("\n");
+			//ft_putstr(g_pwd);
+			//ft_putstr(" $> ");
+		}*/
 	}
 }
 

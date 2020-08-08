@@ -55,5 +55,4 @@ void		echo_command(t_command *command)
 	if (flag == 0)
 		line = ft_strjoin(line, "\n");
 	write_in_file(command, line);
-	g_curr_err = "0";
 }
