@@ -66,7 +66,7 @@ void	fork_redirect(char *file_name, char *flag, char **mass)
 	pid_t	wpid;
 	int		fd;
 	int		status;
-	int		ffd[2];
+	int		pipefd[2];
 	char	buf[11];
 
 	if (ft_strcmp(flag,	">") == 0)
@@ -76,39 +76,38 @@ void	fork_redirect(char *file_name, char *flag, char **mass)
 	else if (ft_strcmp(flag, "<") == 0)
 		fd = open(file_name, O_RDONLY);
 	cpid = fork();
-	pipe(ffd);
+	pipe(pipefd);
 	if (ft_strcmp(flag, ">") == 0 || ft_strcmp(flag, ">>") == 0)
 	{
-		close(ffd[1]);
-		ffd[1] = fd;
+		close(pipefd[1]);
+		pipefd[1] = fd;
 		if (cpid == 0)
 		{
-			dup2(ffd[1], 1);
-			close(ffd[0]);
-			close(ffd[1]);
+			dup2(pipefd[1], 1);
+			close(pipefd[0]);
+			close(pipefd[1]);
 			execve(mass[0], mass, NULL);
 		}
 		else
 		{
-			close(ffd[0]);
+			close(pipefd[0]);
 			wpid = waitpid(cpid, &status, WUNTRACED);
 		}
 	}
 	else if (ft_strcmp(flag, "<") == 0)
 	{
-		pipe(ffd);
-		close(ffd[0]);
-		ffd[0] = fd;
+		close(pipefd[0]);
+		pipefd[0] = fd;
 		if (cpid == 0)
 		{
-			dup2(ffd[0], 0);
-			close(ffd[0]);
-			close(ffd[1]);
+			dup2(pipefd[0], 0);
+			close(pipefd[0]);
+			close(pipefd[1]);
 			execve(mass[0], mass, NULL);
 		}
 		else
 		{
-			close(ffd[1]);
+			close(pipefd[1]);
 			wpid = waitpid(cpid, &status, WUNTRACED);
 		}
 	}

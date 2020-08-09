@@ -1,0 +1,15 @@
+Makefile
+README.md
+a.out
+file
+minish.c
+minish.h
+minish.o
+minishell
+srcs
+subject.txt
+test.c
+test.o
+test_a_out.c
+test_redir
+utils

@@ -27,21 +27,19 @@ char	**create_args(t_command *command)
 	return (mass);
 }
 
-void	get_path(char **mass, int *flag)
+void	get_path(char **mass, int *name_flag, char **env)
 {
 	char	*temp;
 
-	*flag = 0;
-	if (ft_one_of_them(mass[0][0], "/."))
-		*flag = 0;
-	else if (!(mass[0][0] == '/' && mass[0][1] == 'b' && mass[0][2] == 'i' && mass[0][3] == 'n'
-		&& mass[0][4] == '/'))
+	*name_flag = 0;
+	if (mass[0][0] == '/')
+		*name_flag = 0;
+	else if (ft_one_of_them('/', mass[0]))
+		relative_path(mass, env);
+	else
 	{
-		temp = ft_strdup(mass[0]);
-		free(mass[0]);
-		mass[0] = ftstrjoin("/bin/", temp);
-		free(temp);
-		*flag = 1;
+		command_path(mass, env);
+		*name_flag = 1;
 	}
 }
 
@@ -53,7 +51,7 @@ void	external_command(t_command *command, char **env)
 	int			flag;
 
 	mass = create_args(command);
-	get_path(mass, &name_flag);
+	get_path(mass, &name_flag, env);
 	g_flag = 1;
 	g_curr_err = "0";
 	flag = check_stat(command, mass[0], name_flag);
