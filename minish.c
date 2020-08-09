@@ -23,10 +23,12 @@ char		*get_pwd(char **env)
 	char	*temp;
 
 	i = 0;
+	temp = ft_strdup("");
 	while (env[i])
 	{
 		if (ft_strcmp(env[i], "LOGNAME") == 0)
 		{
+			free(temp);
 			temp = ft_strdup(env[++i]);
 			break ;
 		}
