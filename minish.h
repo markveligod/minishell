@@ -146,6 +146,7 @@ void					fork_redirect(char *file_name, char *flag, char **mass);
 void					fork_run(t_command *command, char **mass);
 void					run_forks(int flag, t_command *command, char **mass);
 int						check_stat(t_command *command, char *filename, int name_flag);
+char					*relative_path(char *path, char **env);
 
 /*
 ** TEST'S

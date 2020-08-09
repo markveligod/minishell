@@ -65,7 +65,7 @@ void	get_path(char **mass, int *name_flag, char **env)
 	if (mass[0][0] == '/')
 		*name_flag = 0;
 	else if (ft_one_of_them('/', mass[0]))
-		;//mass[0] = relative_path(mass[0], env);
+		mass[0] = relative_path(mass[0], env);
 	else
 	{
 		mass[0] = command_path(mass[0], env);
