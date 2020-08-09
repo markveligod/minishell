@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 22:23:06 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/07 13:24:01 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/09 12:07:42 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	get_path(char **mass, int *name_flag, char **env)
 	if (mass[0][0] == '/')
 		*name_flag = 0;
 	else if (ft_one_of_them('/', mass[0]))
-		relative_path(mass, env);
+		mass[0] = relative_path(mass[0], env);
 	else
 	{
 		command_path(mass, env);

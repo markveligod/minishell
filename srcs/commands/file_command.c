@@ -6,60 +6,15 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 10:48:27 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/07 13:26:19 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/09 12:07:59 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minish.h"
 
-char		*get_path_filename(char *command, char **env)
+char		*relative_path(char *command, char **env)
 {
-	char *path;
-	char *temp;
-	int i;
-	int size;
 
-	i = 0;
-	while (ft_strcmp(env[i], "PWD") != 0)
-		i++;
-	temp = ft_strdup(env[++i]);
-	size = ft_strlen(temp);
-	i = 0;
-	while (command[i])
-	{
-		if (command[i] == '.' && command[i + 1] == '.' && command[i + 2] == '/')
-		{
-			while (temp[--size] != '/')
-				NULL ;
-			temp[size] = '\0';
-			i += 3;
-			continue ;
-		}
-		else
-			break ;
-	}
-	path = ft_strjoin(temp, "/");
-	path = ft_strjoin(path, ((command[i] == '.') ? &command[2] : &command[i]));
-	return (path);
-}
-
-char		**get_mass(t_command *command, char **env)
-{
-	char **mass;
-	char *temp;
-	int i;
-	
-	mass = (char **)malloc(sizeof(char *) * 1);
-	mass[0] = (char *)malloc(sizeof(char) * 1);
-	mass[0] = NULL;
-	temp = get_path_filename(command->command, env);
-	mass = ft_realloc_mass(mass, temp);
-	free(temp);
-	i = 0;
-	if (command->args)
-		while (command->args[i])
-			mass = ft_realloc_mass(mass, command->args[i++]);
-	return (mass);
 }
 
 int			check_stat(t_command *command, char *filename, int name_flag)
@@ -89,36 +44,4 @@ int			check_stat(t_command *command, char *filename, int name_flag)
 		flag = 1;
 	close(fd);
 	return (flag);
-}
-
-void		file_command(t_command *command, char **env)
-{
-	char **mass;
-	int i;
-	int flag;
-	int name_flag;
-
-	name_flag = 0;
-	g_curr_err = "0";
-	i = ft_strlen(command->command);
-	if (command->command[i - 1] == '/')
-	{
-		if (command->command[i - 2] == '.')
-		{
-			g_curr_err = "126";
-			errno = 13;
-			errno_error(command->command, errno);
-		}
-		else
-		{
-			g_curr_err = "127";
-			errno = 20;
-			errno_error(command->command, errno);
-		}
-		return ;
-	}
-	mass = get_mass(command, env);
-	flag = check_stat(command, mass[0], name_flag);
-	run_forks(flag, command, mass);
-	ft_free_array(mass);
 }
