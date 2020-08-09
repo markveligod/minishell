@@ -21,6 +21,7 @@ char		*get_pwd(char **env)
 	int		i;
 	int		j;
 	char	*temp;
+	char	*path;
 
 	i = 0;
 	temp = ft_strdup("");
@@ -35,23 +36,15 @@ char		*get_pwd(char **env)
 		i++;
 	}
 	temp = ft_strjoin(temp, ":");
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strcmp(env[i], "PWD") == 0)
+	path = getcwd(NULL, 10);
+	j = ft_strlen(path);
+	while (path[--j])
+		if (path[j] == '/')
 		{
-			i++;
-			j = ft_strlen(env[i]);
-			while (env[i][--j])
-				if (env[i][j] == '/')
-				{
-					temp = ft_strjoin(temp, &env[i][++j]);
-					break ;
-				}
+			temp = ft_strjoin(temp, &path[++j]);
 			break ;
 		}
-		i++;
-	}
+	free(path);
 	return (ft_strjoin(temp, " $> "));
 }
 

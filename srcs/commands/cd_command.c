@@ -12,7 +12,35 @@
 
 #include "../../minish.h"
 
-void	cd_command(t_command *command, char **env)
+void	change_pwd(char **cwd, t_ptr *ptr)
+{
+	int i;
+
+	i = 0;
+	while (ptr->is_env[i] && ft_strcmp(ptr->is_env[i], "OLDPWD") != 0)
+		i++;
+	if (!(ptr->is_env[i]))
+	{
+		ptr->is_env = ft_realloc_mass(ptr->is_env, "OLDPWD");
+		ptr->is_env = ft_realloc_mass(ptr->is_env, "");
+	}
+	free(ptr->is_env[++i]);
+	ptr->is_env[i] = ft_strdup(*cwd);
+	free(*cwd);
+	*cwd = getcwd(NULL, 10);
+	i = 0;
+	while (ptr->is_env[i] && ft_strcmp(ptr->is_env[i], "PWD") != 0)
+		i++;
+	if (!(ptr->is_env[i]))
+	{
+		ptr->is_env = ft_realloc_mass(ptr->is_env, "PWD");
+		ptr->is_env = ft_realloc_mass(ptr->is_env, "");
+	}
+	free(ptr->is_env[++i]);
+	ptr->is_env[i] = ft_strdup(*cwd);
+}
+
+void	cd_command(t_command *command, t_ptr *ptr)
 {
 	errno_t		error_num;
 	int			len;
@@ -23,6 +51,7 @@ void	cd_command(t_command *command, char **env)
 	errno = 0;
 	g_curr_err = "0";
 	len = ft_mass_len(command->args);
+	cwd = getcwd(NULL, 10);
 	if (len > 1)
 	{
 		g_curr_err = "1";
@@ -32,9 +61,9 @@ void	cd_command(t_command *command, char **env)
 	if (len == 0)
 	{
 		i = 0;
-		while (ft_strcmp(env[i], "HOME") != 0)
+		while (ft_strcmp(ptr->is_env[i], "HOME") != 0)
 			i++;
-		path = ft_strdup(env[++i]);
+		path = ft_strdup(ptr->is_env[++i]);
 	}
 	else
 		path = ft_strdup(command->args[0]);
@@ -44,24 +73,8 @@ void	cd_command(t_command *command, char **env)
 		errno_error(command->command, errno);
 	}
 	else
-	{
-		i = 0;
-		while (ft_strcmp(env[i], "PWD") != 0)
-			i++;
-		free(path);
-		path = ft_strdup(env[++i]);
-		free(env[i]);
-		env[i] = NULL;
-		cwd = getcwd(NULL, 10);
-		env[i] = ft_strdup(cwd);
-		free(cwd);
-		i = 0;
-		while (ft_strcmp(env[i], "OLDPWD") != 0)
-			i++;
-		free(env[++i]);
-		env[i] = NULL;
-		env[i] = ft_strdup(path);
-	}
+		change_pwd(&cwd, ptr);
+	free(cwd);
 	free(path);
 	write_in_file(command, ft_strdup(""));
 }

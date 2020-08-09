@@ -125,7 +125,7 @@ t_command				*init_list_command(t_command *new);
 ** commands (srcs/commands)
 */
 void					do_command(t_command *command, t_ptr *ptr);
-void					cd_command(t_command *command, char **env);
+void					cd_command(t_command *command, t_ptr *ptr);
 void					pwd_command(t_command *command);
 void					echo_command(t_command *command);
 void					env_command(char **env, t_command *command);
