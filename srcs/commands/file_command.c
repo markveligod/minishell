@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 10:48:27 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/09 13:38:41 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/09 14:31:13 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char		*get_curr_pwd(char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strcmp(env[i], "PWD"))
+		if (ft_strcmp(env[i], "PWD") == 0)
 			return (ft_strdup(env[++i]));
 		i++;
 	}
@@ -70,6 +70,7 @@ char		*join_path(char *path, char *curr_pwd, int flag)
 		new_path = ft_strjoin(new_path, "/");
 		new_path = ft_strjoin(new_path, path);
 	}
+	printf("%s\n", new_path);
 	return (new_path);
 }
 
