@@ -6,25 +6,11 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 10:48:27 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/09 14:31:13 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/09 14:49:49 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minish.h"
-
-char		*get_curr_pwd(char **env)
-{
-	int i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strcmp(env[i], "PWD") == 0)
-			return (ft_strdup(env[++i]));
-		i++;
-	}
-	return (NULL);
-}
 
 char		*dot_dot_path(char *path, char *curr_pwd)
 {
@@ -74,11 +60,11 @@ char		*join_path(char *path, char *curr_pwd, int flag)
 	return (new_path);
 }
 
-char		*relative_path(char *path, char **env)
+char		*relative_path(char *path)
 {
 	char *curr_pwd;
 
-	if (!(curr_pwd = get_curr_pwd(env)))
+	if (!(curr_pwd = getcwd(NULL, 10)))
 		return (NULL);
 	if (path[0] == '.' && path[1] == '.')
 		return (dot_dot_path(path, curr_pwd));

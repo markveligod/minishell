@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:55:15 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/09 14:24:41 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/09 14:47:32 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,12 @@ char	*cut_next_line(char *remains)
 
 int		get_next_line(char **line)
 {
-	char		*buffer;
+	char		buffer[BUFFER_SIZE + 1];
 	static char	*remains;
 	int			count;
 
 	count = 1;
 	if (!line)
-		return (-1);
-	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
 	while (buffer[0] != '\n' && count != 0)
 	{
@@ -89,7 +87,6 @@ int		get_next_line(char **line)
 		else
 			count = 1;
 	}
-	free(buffer);
 	*line = push_line(remains);
 	remains = cut_next_line(remains);
 	return((count == 0) ? 0 : 1);
