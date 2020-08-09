@@ -12,6 +12,36 @@
 
 #include "../../minish.h"
 
+char	*command_path(char *name, char **env)
+{
+	int		i;
+	int		j;
+	char	**path;
+
+	i = 0;
+	while (env[i] && ft_strcmp(env[i], "PATH") != 0)
+		i++;
+	if (env[i] && env[++i])
+	{
+		path = ft_split(env[i], ':');
+		j = 0;
+		while (path[j])
+		{ 
+			path[j] = ft_strjoin(path[j], "/");
+			path[j] = ft_strjoin(path[j], name);
+			if (open(path[j], O_RDONLY) != -1)
+			{ 
+				free(name);
+				name = ft_strdup(path[j]);
+				break ;
+			}
+			j++;
+		}
+		ft_free_array(path);
+	}
+	return (name);
+}
+
 char	**create_args(t_command *command)
 {
 	char	**mass;
@@ -35,10 +65,10 @@ void	get_path(char **mass, int *name_flag, char **env)
 	if (mass[0][0] == '/')
 		*name_flag = 0;
 	else if (ft_one_of_them('/', mass[0]))
-		mass[0] = relative_path(mass[0], env);
+		;//mass[0] = relative_path(mass[0], env);
 	else
 	{
-		command_path(mass, env);
+		mass[0] = command_path(mass[0], env);
 		*name_flag = 1;
 	}
 }
