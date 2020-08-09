@@ -6,15 +6,86 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 10:48:27 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/09 12:07:59 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/09 13:38:41 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minish.h"
 
-char		*relative_path(char *command, char **env)
+char		*get_curr_pwd(char **env)
 {
+	int i;
 
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strcmp(env[i], "PWD"))
+			return (ft_strdup(env[++i]));
+		i++;
+	}
+	return (NULL);
+}
+
+char		*dot_dot_path(char *path, char *curr_pwd)
+{
+	char	*new_path;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = ft_strlen(curr_pwd) - 1;
+	while (path[i])
+	{
+		if (path[i] == '.' && path[i + 1] == '.' && path[i + 2] == '/')
+		{
+			while (curr_pwd[j] != '/')
+				j--;
+			curr_pwd[j] = '\0';
+			j--;
+			i += 3;
+			continue ;
+		}
+		else if (path[i] == '.' && path[i + 1] == '.' && path[i + 2] != '/')
+			return (NULL);
+		else
+			break ;
+	}
+	new_path = ft_strdup(curr_pwd);
+	free(curr_pwd);
+	new_path = ft_strjoin(new_path, "/");
+	new_path = ft_strjoin(new_path, &path[i]);
+	return (new_path);
+}
+
+char		*join_path(char *path, char *curr_pwd, int flag)
+{
+	char *new_path;
+	
+	new_path = ft_strdup(curr_pwd);
+	free(curr_pwd);
+	if (flag == 1)
+		new_path = ft_strjoin(new_path, &path[1]);
+	else
+	{
+		new_path = ft_strjoin(new_path, "/");
+		new_path = ft_strjoin(new_path, path);
+	}
+	return (new_path);
+}
+
+char		*relative_path(char *path, char **env)
+{
+	char *curr_pwd;
+
+	if (!(curr_pwd = get_curr_pwd(env)))
+		return (NULL);
+	if (path[0] == '.' && path[1] == '.')
+		return (dot_dot_path(path, curr_pwd));
+	else if (path[0] == '.' && path[1] == '/')
+		return (join_path(path, curr_pwd, 1));
+	else
+		return (join_path(path, curr_pwd, 0));
+	return (NULL);
 }
 
 int			check_stat(t_command *command, char *filename, int name_flag)
