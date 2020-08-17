@@ -61,9 +61,9 @@ void	cd_command(t_command *command, t_ptr *ptr)
 	if (len == 0)
 	{
 		i = 0;
-		while (ft_strcmp(ptr->is_env[i], "HOME") != 0)
+		while (ptr->is_env[i] && ft_strcmp(ptr->is_env[i], "HOME") != 0)
 			i++;
-		path = ft_strdup(ptr->is_env[++i]);
+		path = ptr->is_env[i] ? ft_strdup(ptr->is_env[++i]) : ft_strdup(cwd);
 	}
 	else
 		path = ft_strdup(command->args[0]);

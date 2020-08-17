@@ -45,7 +45,10 @@ int		line_parse_by_command(char **line, t_ptr *ptr, char **spaces)
 	while (line[i])
 	{
 		if ((ft_strcmp(";", line[i]) == 0 || ft_strcmp("|", line[i]) == 0))
+		{
+			new->base = line[i][0];
 			break;
+		}
 		if (line[i][0] == '>' || line[i][0] == '<')
 		{
 			new->flag_v = ft_realloc_mass(new->flag_v, line[i]);
@@ -66,6 +69,8 @@ int		line_parse_by_command(char **line, t_ptr *ptr, char **spaces)
 			i++;
 		}
 	}
+	if (!(line[i]))
+		new->base = '\0';
 	if (!(new->command))
 		new->command = ft_strdup(">");
 	ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, new->command);

@@ -90,9 +90,41 @@ void    test_parsing(t_ptr *ptr)
 				k++;
 			}
 			printf("Doing:\n");
-			do_command(com, ptr);
+			if (com->base == '|')
+			{
+				t_command *new;
+				int count;
+				count = 1;
+				new = com;
+				new = new->next;
+				while (new->base == '|')
+				{
+					count++;
+					new = new->next;
+				}
+				count++;
+				printf("%d\n", count);
+				char	***mass;
+				mass = (char ***)malloc(sizeof(char **) * (count + 1));
+				mass[count] = NULL;
+				i = 0;
+				while (com->base == '|')
+				{
+					mass[i] = external_mass(com, ptr->is_env);
+					printf("%s\n", mass[i][1]);
+					com = com->next;
+					i++;
+				}
+				mass[i] = external_mass(com, ptr->is_env);
+				printf("%s\n", mass[i][1]);
+				com = com->next;
+				int mass_red[3];
+				mass_red[0] = 0; // >
+				mass_red[1] = 0;
+				mass_red[2] = 0; // >>
+				process_fork(mass, ptr->is_env, count - 1, mass_red);
+			}
 			printf("\n");
-			com = com->next;
 			ct++;
 		}
 		printf("End test command... \n\n");
@@ -102,9 +134,9 @@ void    test_parsing(t_ptr *ptr)
 	*/
 }
 
+/*
 void    check_split(char **mass, char *dup_line, char *line, char **space)
 {
-    /*
 	** checking split
 	int i = 0;
 	dup_line = ft_strdup(line);
@@ -120,8 +152,9 @@ void    check_split(char **mass, char *dup_line, char *line, char **space)
 	}
 	
 	** end of checking
-	*/
+	
 }
+*/
 
 /*
 int		check_nnn(char **str, t_echo *new)

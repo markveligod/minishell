@@ -40,6 +40,7 @@ typedef struct			s_command
 	char				**spaces;
 	char				**filename;
 	char				**flag_v;
+	char				base;
 	struct s_command	*next;
 }						t_command;
 
@@ -155,4 +156,11 @@ void			    	test_parsing(t_ptr *ptr);
 void  					test_clear_malloc(t_ptr *ptr);
 void					check_split(char **mass, char *dup_line, char *line, char **space);
 
+
+/*
+** NEW FOR PIPES
+*/
+char					**external_mass(t_command *command, char **env); //external_commnad.c
+void					process_fork(char ***mass, char **env, int size, int *mass_red);
+void					test_pipes(t_ptr *ptr);
 #endif

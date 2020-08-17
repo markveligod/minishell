@@ -11,6 +11,23 @@
 /* ************************************************************************** */
 
 #include "minish.h"
+/*
+void	pipe(t_command *com)
+{
+	pid_t pid;
+	int fd[2];
+
+	pipe(fd);
+	pid = fork();
+
+	if (pid == 0)
+	{ 
+		dup2(fd[0], STDOUT_FILENO);
+		close(fd[1]);
+		close(fd[0]);
+		execve(mass[0], mass, NULL);
+	}
+}*/
 
 /*
 ** Функция для получения path к текущей директории
@@ -64,7 +81,8 @@ void		read_input(t_ptr *ptr)
 		ft_putstr(g_pwd);
 		get_next_line(&line);
 		line_parsing(line, ptr);
-		test_parsing(ptr);
+		test_pipes(ptr);
+		//test_parsing(ptr);
 		clear_malloc(ptr);
 	}
 }
