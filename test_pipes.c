@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:59:28 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/17 17:59:29 by leweathe         ###   ########.fr       */
+/*   Updated: 2020/08/17 19:58:39 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void process_fork(char ***mass, char **env, int size, int *mass_red)
 	int prev_pipe;
 
 	i = 0;
-	prev_pipe = STDIN_FILENO; //0
+	prev_pipe = dup(STDIN_FILENO); //0
 	while (i < size)
 	{
 		pipe(fd); //fd[0] fd[1]
@@ -113,11 +113,19 @@ void process_fork(char ***mass, char **env, int size, int *mass_red)
 			i++;
 		}
 	}
-	if (prev_pipe != STDIN_FILENO)
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("FORK ERROR\n");
+	}
+	else if (pid == 0) //child last command
 	{
 		dup2(prev_pipe, STDIN_FILENO);
 		close(prev_pipe);
+		execve(mass[i][0], mass[i], env);
+		exit(1);
 	}
-	execve(mass[i][0], mass[i], env);
+	else
+		waitpid(pid, &status, WUNTRACED);
 	return;
 }
