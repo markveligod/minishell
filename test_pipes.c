@@ -49,9 +49,19 @@ void	test_pipes(t_ptr *ptr)
 				mass = (char ***)malloc(sizeof(char **) * (count + 1));
 				mass[count] = NULL;
 				i = 0;
+				t_command **com_mass;
+
+				com_mass = (t_command **)malloc(sizeof(t_command *) * count);
+				int j = 0;
 				while (com->base == '|')
 				{
-					mass[i] = external_mass(com, ptr->is_env);
+					if (if_internal_command(com, ptr) == 0)
+						mass[i] = external_mass(com, ptr->is_env);
+					else
+					{
+						mass[i] = NULL;
+						com_mass[j++] = com;
+					}
 					com = com->next;
 					i++;
 				}
@@ -62,7 +72,7 @@ void	test_pipes(t_ptr *ptr)
 				i = 0;
 				while (i < count)
 					mass_red[i++] = 0;
-				process_fork(mass, ptr->is_env, count - 1, mass_red);
+				process_fork(mass, ptr->is_env, count - 1, mass_red, com_mass, ptr);
 			}
 			else
 			{
@@ -74,7 +84,7 @@ void	test_pipes(t_ptr *ptr)
 	}
 }
 
-void process_fork(char ***mass, char **env, int size, int *mass_red)
+void process_fork(char ***mass, char **env, int size, int *mass_red, t_command **com_mass, t_ptr *ptr)
 {
 	pid_t pid;
 	int fd[2];
@@ -83,6 +93,7 @@ void process_fork(char ***mass, char **env, int size, int *mass_red)
 	int prev_pipe;
 
 	i = 0;
+	int j = 0;
 	prev_pipe = dup(STDIN_FILENO); //0
 	while (i < size)
 	{
@@ -103,7 +114,10 @@ void process_fork(char ***mass, char **env, int size, int *mass_red)
 				fd[1] = dup(mass_red[i]);
 			dup2(fd[1], STDOUT_FILENO);
 			close(fd[1]);
-			execve(mass[i][0], mass[i], NULL);
+			if (mass[i] != NULL)
+				execve(mass[i][0], mass[i], NULL);
+			else
+				do_command(com_mass[j++], ptr);
 			exit(1);
 		}
 		else //parent
@@ -124,7 +138,10 @@ void process_fork(char ***mass, char **env, int size, int *mass_red)
 	{
 		dup2(prev_pipe, STDIN_FILENO);
 		close(prev_pipe);
-		execve(mass[i][0], mass[i], env);
+		if (mass[i] != NULL)
+			execve(mass[i][0], mass[i], env);
+		else
+			do_command(com_mass[j++], ptr);
 		exit(1);
 	}
 	else

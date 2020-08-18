@@ -41,3 +41,19 @@ void	do_command(t_command *command, t_ptr *ptr)
 	else
 		external_command(command, ptr->is_env);*/
 }
+
+int if_internal_command(t_command *command, t_ptr *ptr)
+{
+	if (ft_strcmp(command->command, "echo") == 0 || 
+		ft_strcmp(command->command, "cd") == 0 ||
+		ft_strcmp(command->command, "pwd") == 0 ||
+		ft_strcmp(command->command, "exit") == 0 ||
+		ft_strcmp(command->command, "export") == 0 ||
+		ft_strcmp(command->command, "unset") == 0 ||
+		ft_strcmp(command->command, "env") == 0 ||
+		ft_strcmp(command->command, "$?") == 0 ||
+		ft_strcmp(command->command, ">") == 0)
+		return (1);
+	else
+		return (0);
+}

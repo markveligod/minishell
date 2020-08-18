@@ -161,6 +161,7 @@ void					check_split(char **mass, char *dup_line, char *line, char **space);
 ** NEW FOR PIPES
 */
 char					**external_mass(t_command *command, char **env); //external_commnad.c
-void					process_fork(char ***mass, char **env, int size, int *mass_red);
-void					test_pipes(t_ptr *ptr);
+void process_fork(char ***mass, char **env, int size, int *mass_red, t_command **com_mass, t_ptr *ptr);
+void test_pipes(t_ptr *ptr);
+int if_internal_command(t_command *command, t_ptr *ptr);
 #endif

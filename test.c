@@ -53,7 +53,7 @@ void    test_parsing(t_ptr *ptr)
 
 	/*
 	** Start test commands	
-	*/
+	
 	if (ptr->command != NULL)
 	{
 		ct = 1;
@@ -129,7 +129,7 @@ void    test_parsing(t_ptr *ptr)
 		}
 		printf("End test command... \n\n");
 	}
-	/*
+	
 	** End test commands
 	*/
 }
