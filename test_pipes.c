@@ -66,6 +66,11 @@ void	test_pipes(t_ptr *ptr)
 				mass_red[2] = 0;
 				process_fork(mass, ptr->is_env, count - 1, mass_red);
 			}
+			else
+			{
+				do_command(com, ptr);
+				com = com->next;
+			}
 			printf("\n");
 			ct++;
 		}
