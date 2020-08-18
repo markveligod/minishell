@@ -20,19 +20,17 @@ void	test_pipes(t_ptr *ptr)
 	int			flag;
 	int			*mass_red;
 	char		***mass;
-	t_command	*com;
 	t_command	*new;
 	t_command	**com_mass;
 	
 	if (ptr->command == NULL)
 		return;
-	com = ptr->command;
-	while (com)
+	while (ptr->command)
 	{
-		if (com->base == '|')
+		if (ptr->command->base == '|')
 		{
 			count = 1;
-			new = com;
+			new = ptr->command;
 			while (new->base == '|')
 			{
 				count++;
@@ -46,30 +44,30 @@ void	test_pipes(t_ptr *ptr)
 			flag = 1;
 			while (flag == 1)
 			{
-				if (if_internal_command(com, ptr) == 0)
-					mass[i] = external_mass(com, ptr->is_env);
+				if (if_internal_command(ptr->command, ptr) == 0)
+					mass[i] = external_mass(ptr->command, ptr->is_env);
 				else
 				{
 					mass[i] = NULL;
-					com_mass[j++] = com;
+					com_mass[j++] = ptr->command;
 				}
-				mass_red[i++] = get_fd(com);
+				mass_red[i++] = get_fd(ptr->command);
 				flag = 0;
-				if (com->base == '|')
+				if (ptr->command->base == '|')
 					flag = 1;
-				com = com->next;
+				ptr->command = ptr->command->next;
 			}
-			process_fork(mass, ptr->is_env, count, mass_red, com_mass, ptr);
+			process_fork(mass, ptr, count, mass_red, com_mass);
 		}
 		else
 		{
-			do_command(com, ptr);
-			com = com->next;
+			do_command(ptr->command, ptr);
+			ptr->command = ptr->command->next;
 		}
 	}
 }
 
-void process_fork(char ***mass, char **env, int size, int *mass_red, t_command **com_mass, t_ptr *ptr)
+void process_fork(char ***mass, t_ptr *ptr, int size, int *mass_red, t_command **com_mass)
 {
 	pid_t pid;
 	int fd[2];
