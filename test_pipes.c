@@ -65,7 +65,6 @@ void	test_pipes(t_ptr *ptr)
 						com_mass[j++] = com;
 					}
 					mass_red[i] = get_fd(com);
-					printf("%d\n", mass_red[i]);
 					com = com->next;
 					i++;
 				}
@@ -77,10 +76,7 @@ void	test_pipes(t_ptr *ptr)
 					com_mass[j++] = com;
 				}
 				mass_red[i] = get_fd(com);
-				printf("%d\n", mass_red[i]);
 				com = com->next;
-				//while (i < count)
-				//	mass_red[i++] = 0;
 				process_fork(mass, ptr->is_env, count - 1, mass_red, com_mass, ptr);
 			}
 			else
@@ -154,10 +150,6 @@ void process_fork(char ***mass, char **env, int size, int *mass_red, t_command *
 			fd[1] = dup(mass_red[i]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		/*dup2(prev_pipe, STDIN_FILENO);
-		close(prev_pipe);
-		if (mass_red[i] != 0)
-			fd[1] = dup(mass_red[i]);*/
 		if (mass[i] != NULL)
 			execve(mass[i][0], mass[i], env);
 		else

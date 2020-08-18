@@ -43,28 +43,32 @@ void		write_in_file(t_command *command, char *line)
 	i = -1;
 	errno = 0;
 	g_curr_err = "0";
-	ft_putstr_fd(line, 1);
-	/*if (command->flag_v[0] == NULL)
+	if (command->base == '|')
 		ft_putstr_fd(line, 1);
-	while (command->flag_v[++i])
+	else
 	{
-		flag = create_open_flag(command->flag_v[i]);
-		if ((fd = open(command->filename[i], flag, 0666)) == -1)
+		if (command->flag_v[0] == NULL)
+			ft_putstr_fd(line, 1);
+		while (command->flag_v[++i])
 		{
-			g_curr_err = "1";
-			errno_error(command->command, errno);
-			free(line);
-			return;
+			flag = create_open_flag(command->flag_v[i]);
+			if ((fd = open(command->filename[i], flag, 0666)) == -1)
+			{
+				g_curr_err = "1";
+				errno_error(command->command, errno);
+				free(line);
+				return;
+			}
+			ft_putstr_fd(line, fd);
+			if (close(fd) == -1)
+			{
+				g_curr_err = "1";
+				errno_error(command->command, errno);
+				free(line);
+				return;
+			}
 		}
-		ft_putstr_fd(line, fd);
-		if (close(fd) == -1)
-		{
-			g_curr_err = "1";
-			errno_error(command->command, errno);
-			free(line);
-			return;
-		}
-	}*/
+	}
 	free(line);
 }
 
