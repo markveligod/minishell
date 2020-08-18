@@ -24,49 +24,47 @@ void	test_pipes(t_ptr *ptr)
 	t_command	*new;
 	t_command	**com_mass;
 	
-	if (ptr->command != NULL)
+	if (ptr->command == NULL)
+		return;
+	com = ptr->command;
+	while (com)
 	{
-		com = ptr->command;
-		while (com)
+		if (com->base == '|')
 		{
-			if (com->base == '|')
+			count = 1;
+			new = com;
+			while (new->base == '|')
 			{
-				count = 1;
-				new = com;
-				while (new->base == '|')
-				{
-					count++;
-					new = new->next;
-				}
-				mass = (char ***)malloc(sizeof(char **) * count);
-				com_mass = (t_command **)malloc(sizeof(t_command *) * count);
-				mass_red = (int *)malloc(sizeof(int) * (count));
-				i = 0;
-				j = 0;
-				flag = 1;
-				while (flag == 1)
-				{
-					printf("%s\n", com->command);
-					if (if_internal_command(com, ptr) == 0)
-						mass[i] = external_mass(com, ptr->is_env);
-					else
-					{
-						mass[i] = NULL;
-						com_mass[j++] = com;
-					}
-					mass_red[i++] = get_fd(com);
-					flag = 0;
-					if (com->base == '|')
-						flag = 1;
-					com = com->next;
-				}
-				process_fork(mass, ptr->is_env, count, mass_red, com_mass, ptr);
+				count++;
+				new = new->next;
 			}
-			else
+			mass = (char ***)malloc(sizeof(char **) * count);
+			com_mass = (t_command **)malloc(sizeof(t_command *) * count);
+			mass_red = (int *)malloc(sizeof(int) * (count));
+			i = 0;
+			j = 0;
+			flag = 1;
+			while (flag == 1)
 			{
-				do_command(com, ptr);
+				if (if_internal_command(com, ptr) == 0)
+					mass[i] = external_mass(com, ptr->is_env);
+				else
+				{
+					mass[i] = NULL;
+					com_mass[j++] = com;
+				}
+				mass_red[i++] = get_fd(com);
+				flag = 0;
+				if (com->base == '|')
+					flag = 1;
 				com = com->next;
 			}
+			process_fork(mass, ptr->is_env, count, mass_red, com_mass, ptr);
+		}
+		else
+		{
+			do_command(com, ptr);
+			com = com->next;
 		}
 	}
 }
