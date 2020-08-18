@@ -45,7 +45,6 @@ void	test_pipes(t_ptr *ptr)
 					new = new->next;
 				}
 				count++;
-				printf("%d\n", count);
 				char ***mass;
 				mass = (char ***)malloc(sizeof(char **) * (count + 1));
 				mass[count] = NULL;
@@ -53,17 +52,16 @@ void	test_pipes(t_ptr *ptr)
 				while (com->base == '|')
 				{
 					mass[i] = external_mass(com, ptr->is_env);
-					printf("%s\n", mass[i][0]);
 					com = com->next;
 					i++;
 				}
 				mass[i] = external_mass(com, ptr->is_env);
-				printf("%s\n", mass[i][0]);
 				com = com->next;
-				int mass_red[3];
-				mass_red[0] = 0;
-				mass_red[1] = 0;
-				mass_red[2] = 0;
+				int *mass_red;
+				mass_red = (int *)malloc(sizeof(int) * (count));
+				i = 0;
+				while (i < count)
+					mass_red[i++] = 0;
 				process_fork(mass, ptr->is_env, count - 1, mass_red);
 			}
 			else
@@ -71,7 +69,6 @@ void	test_pipes(t_ptr *ptr)
 				do_command(com, ptr);
 				com = com->next;
 			}
-			printf("\n");
 			ct++;
 		}
 	}
