@@ -36,9 +36,16 @@ void		line_parsing(char *line, t_ptr *ptr)
 		{
 			if (i == 0 || ((ft_strcmp(";", mass[i - 1]) == 0 ||
 				ft_strcmp("|", mass[i - 1]) == 0)))
+			{
 				ptr->base->ar_base = ft_realloc_mass(ptr->base->ar_base, "\'");
+				error("parse error", ptr);
+			}
 			ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
 			i++;
+			if (!mass[i])
+			{
+				
+			}
 		}
 		else
 			i += line_parse_by_command(&mass[i], ptr, spaces);

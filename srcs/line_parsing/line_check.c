@@ -62,7 +62,7 @@ char		*keep_reading(char *line, char *message)
 
 /*
 ** ____________________________________________
-** Проверяет строку на закрытие кавычек или \
+**  Проверяет строку на закрытие кавычек или \
 ** ____________________________________________
 **   - Если в строке есть незакрытая кавычка или
 **     пустой слэш, то читаем дальше
@@ -100,6 +100,8 @@ void		line_check(char **line)
 		else
 			i++;
 	}
+	if (newline[i - 1] == '|')
+		newline = keep_reading(newline, "pipe");
 	free(*line);
 	*line = ft_strdup(newline);
 	free(newline);
