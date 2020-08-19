@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/24 07:48:29 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 06:48:18 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/08/19 16:29:37 by leweathe          #+#    #+#             */
+/*   Updated: 2020/08/19 16:29:39 by leweathe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minish.h"
 
-void	error(char *str, t_ptr *ptr)
+void		error(char *str, t_ptr *ptr)
 {
 	ft_putstr("Error: ");
 	ft_putstr(str);

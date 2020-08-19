@@ -23,18 +23,15 @@ char		*get_pwd(char **env)
 	char	*temp;
 	char	*path;
 
-	i = 0;
+	i = -1;
 	temp = ft_strdup("");
-	while (env[i])
-	{
+	while (env[++i])
 		if (ft_strcmp(env[i], "LOGNAME") == 0)
 		{
 			free(temp);
 			temp = ft_strdup(env[++i]);
 			break ;
 		}
-		i++;
-	}
 	temp = ft_strjoin(temp, ":");
 	path = getcwd(NULL, 10);
 	j = ft_strlen(path);
@@ -77,21 +74,13 @@ void		read_input(t_ptr *ptr)
 
 void		sighandler(int signum)
 {
-	if (g_signal == 2)
+	if (g_signal == 2 || g_signal == 4)
 	{
-		g_signal = 1;
+		g_signal = (g_signal == 2 ? 1 : 3);
 		if (signum == SIGQUIT)
 			ft_putstr("Quit: 3");
 		write(1, "\n", 1);
 		return ;
-	}
-	else if (g_signal == 4)
-	{
-		printf("SIGNAL 4\n");
-		g_signal = 3;
-		if (signum == SIGQUIT)
-			ft_putstr("Quit: 3");
-		return;
 	}
 	else if (signum == SIGINT)
 	{
@@ -112,7 +101,7 @@ void		sighandler(int signum)
 
 int			main(int ac, char **av, char **env)
 {
-	t_ptr 	ptr;
+	t_ptr	ptr;
 
 	g_flag = 0;
 	g_signal = 0;

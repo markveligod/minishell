@@ -57,7 +57,7 @@ void		write_in_file(t_command *command, char *line)
 				g_curr_err = "1";
 				errno_error(command->command, errno);
 				free(line);
-				return;
+				return ;
 			}
 			ft_putstr_fd(line, fd);
 			if (close(fd) == -1)
@@ -65,7 +65,7 @@ void		write_in_file(t_command *command, char *line)
 				g_curr_err = "1";
 				errno_error(command->command, errno);
 				free(line);
-				return;
+				return ;
 			}
 		}
 	}
