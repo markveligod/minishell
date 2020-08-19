@@ -24,7 +24,7 @@ void	redirect_command(t_command *command)
 	pid = fork();
 	if (pid < 0)
 		return ;
-	else if (pid == 0) //child
+	else if (pid == 0)
 	{
 		signal(SIGINT, exit);
 		signal(SIGQUIT, exit);

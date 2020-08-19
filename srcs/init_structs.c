@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 20:16:50 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/03 09:20:40 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 16:22:39 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ void init_struct_ptr(t_ptr *ptr)
 {
 	ptr->base = NULL;
 	ptr->command = NULL;
+	if (!(ptr->is_export = (char **)malloc(sizeof(char *) * 1)))
+		error("Allocation problem!", ptr);
+	ptr->is_export[0] = NULL;
 }
 
 /*

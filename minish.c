@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/19 14:33:31 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 16:19:14 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,13 @@ void		read_input(t_ptr *ptr)
 	{
 		if (g_pwd)
 			free(g_pwd);
+		g_signal = 0;
 		g_pwd = get_pwd(ptr->is_env);
 		ft_putstr(g_pwd);
 		get_next_line(&line);
 		line_parsing(line, ptr);
-		test_pipes(ptr);
-		//test_parsing(ptr);
+		if (g_signal != 3)
+			run_commands(ptr);
 		clear_malloc(ptr);
 	}
 }
@@ -101,7 +102,15 @@ void		sighandler(int signum)
 		write(1, "\n", 1);
 		return ;
 	}
-	if (signum == SIGINT)
+	else if (g_signal == 4)
+	{
+		printf("SIGNAL 4\n");
+		g_signal = 3;
+		if (signum == SIGQUIT)
+			ft_putstr("Quit: 3");
+		return;
+	}
+	else if (signum == SIGINT)
 	{
 		if (g_flag == 1)
 			ft_putstr("\n");
@@ -109,20 +118,12 @@ void		sighandler(int signum)
 		{
 			ft_putstr("\n");
 			ft_putstr(g_pwd);
-			//ft_putstr(" $> ");
 		}
-		
 	}
 	else if (signum == SIGQUIT)
 	{
 		if (g_flag == 1)
 			ft_putstr("Quit: 3\n");
-		/*else
-		{
-			//ft_putstr("\n");
-			//ft_putstr(g_pwd);
-			//ft_putstr(" $> ");
-		}*/
 	}
 }
 
