@@ -45,11 +45,14 @@ void	test_pipes(t_ptr *ptr)
 			while (flag == 1)
 			{
 				if (if_internal_command(ptr->command, ptr) == 0)
+				{
 					mass[i] = external_mass(ptr->command, ptr->is_env);
+					com_mass[i] = NULL;
+				}
 				else
 				{
 					mass[i] = NULL;
-					com_mass[j++] = ptr->command;
+					com_mass[i] = ptr->command;
 				}
 				mass_red[i++] = get_fd(ptr->command);
 				flag = 0;
@@ -109,7 +112,6 @@ void process_fork(char ***mass, t_ptr *ptr, int size, int *mass_red, t_command *
 	int prev_pipe;
 
 	i = 0;
-	int j = 0;
 	prev_pipe = dup(STDIN_FILENO); //0
 	while (i < size)
 	{
@@ -128,13 +130,13 @@ void process_fork(char ***mass, t_ptr *ptr, int size, int *mass_red, t_command *
 				close(prev_pipe);
 			}
 			if (mass_red[i] != 0)
-				redirect_fork(mass_red[i], mass[i], com_mass[j], ptr);
+				redirect_fork(mass_red[i], mass[i], com_mass[i], ptr);
 			dup2(fd[1], STDOUT_FILENO);
 			close(fd[1]);
 			if (mass[i] != NULL)
 				execve(mass[i][0], mass[i], NULL);
 			else
-				do_command(com_mass[j++], ptr);
+				do_command(com_mass[i], ptr);
 			exit(1);
 		}
 		else //parent
