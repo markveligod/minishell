@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 07:47:47 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/03 10:22:06 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 16:26:41 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,19 @@ int			equal_args(char **args)
 	return (0);
 }
 
+void		print_export(char **is_export)
+{
+	int i;
+
+	i = 0;
+	while (is_export[i] != NULL)
+	{
+		ft_putstr(is_export[i]);
+		ft_putstr("=' '\n");
+		i++;
+	}
+}
+
 void		export_command(t_ptr *ptr, t_command *t_command)
 {
 	int		i;
@@ -126,7 +139,10 @@ void		export_command(t_ptr *ptr, t_command *t_command)
 
 	i = 0;
 	if (t_command->args[0] == NULL)
+	{
 		env_command(ptr->is_env, t_command);
+		print_export(ptr->is_export);
+	}
 	else
 		if ((equal_args(t_command->args)) == 1)
 		{
@@ -147,6 +163,8 @@ void		export_command(t_ptr *ptr, t_command *t_command)
 			else
 				ptr->is_env = add_args(ptr->is_env, t_command->args[i]);
 		}
+		else
+			ptr->is_export = ft_realloc_mass(ptr->is_export, t_command->args[i]);
 		i++;
 	}
 	g_curr_err = "0";

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 10:40:24 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/29 12:01:32 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 15:44:43 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@ void		exit_command(t_ptr *ptr)
 {
 	clear_malloc(ptr);
 	ft_free_array(ptr->is_env);
-	exit(1);
+	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/19 13:26:21 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 16:18:38 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct			s_ptr
 	t_base				*base;
 	t_command			*command;
 	char				**is_env;
+	char				**is_export;
 }						t_ptr;
 
 /*
