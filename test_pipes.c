@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:59:28 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/19 07:27:43 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 11:48:42 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	test_pipes(t_ptr *ptr)
 	}
 }
 
-void redirect_fork(int file, char **mass, char **env)
+void redirect_fork(int file, char **mass, t_command *com_mass, t_ptr *ptr)
 {
     pid_t pid;
     int fd[2];
@@ -85,7 +85,10 @@ void redirect_fork(int file, char **mass, char **env)
         dup2(file, fd[1]);
         dup2(fd[1], STDOUT_FILENO);
         close(fd[0]);
-        execve(mass[0], mass, env);
+        if (mass != NULL)
+			execve(mass[0], mass, ptr->is_env);
+		else
+			do_command(com_mass, ptr);
         close(fd[1]);
         exit(EXIT_SUCCESS);
     }
@@ -96,7 +99,6 @@ void redirect_fork(int file, char **mass, char **env)
     }
     
 }
-
 
 void process_fork(char ***mass, t_ptr *ptr, int size, int *mass_red, t_command **com_mass)
 {
@@ -126,7 +128,7 @@ void process_fork(char ***mass, t_ptr *ptr, int size, int *mass_red, t_command *
 				close(prev_pipe);
 			}
 			if (mass_red[i] != 0)
-				redirect_fork(mass_red[i], mass[i], ptr->is_env);
+				redirect_fork(mass_red[i], mass[i], com_mass[j], ptr);
 			dup2(fd[1], STDOUT_FILENO);
 			close(fd[1]);
 			if (mass[i] != NULL)
