@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 13:25:35 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/03 10:23:06 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 15:19:49 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	cd_command(t_command *command, t_ptr *ptr)
 	char		*cwd;
 
 	errno = 0;
-	g_curr_err = "0";
 	len = ft_mass_len(command->args);
 	cwd = getcwd(NULL, 10);
 	if (len > 1)
@@ -71,10 +70,12 @@ void	cd_command(t_command *command, t_ptr *ptr)
 	{
 		g_curr_err = "1";
 		errno_error(command->command, errno);
+		return ;
 	}
 	else
 		change_pwd(&cwd, ptr);
 	free(cwd);
 	free(path);
 	write_in_file(command, ft_strdup(""));
+	g_curr_err = "0";
 }

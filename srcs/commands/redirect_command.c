@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 20:26:07 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/19 14:27:37 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 14:37:22 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	redirect_command(t_command *command)
 {
-	char	*bigline;
 	char	*line;
 	int fd[2];
 	pid_t pid;
 	int status;
 
-	bigline = ft_strdup("");
 	pipe(fd);
 	g_signal = 2;
 	pid = fork();
@@ -40,12 +38,10 @@ void	redirect_command(t_command *command)
 			free(line);		
 		}
 		close(fd[1]);
-		printf("EXIT\n");
 		exit(1);
 	}
-	else
+	else //parent
 	{
-		printf("PARENT\n");
 		waitpid(pid, &status, WUNTRACED);
 		close(fd[1]);
 		close(fd[0]);
