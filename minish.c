@@ -11,23 +11,6 @@
 /* ************************************************************************** */
 
 #include "minish.h"
-/*
-void	pipe(t_command *com)
-{
-	pid_t pid;
-	int fd[2];
-
-	pipe(fd);
-	pid = fork();
-
-	if (pid == 0)
-	{ 
-		dup2(fd[0], STDOUT_FILENO);
-		close(fd[1]);
-		close(fd[0]);
-		execve(mass[0], mass, NULL);
-	}
-}*/
 
 /*
 ** Функция для получения path к текущей директории
@@ -124,12 +107,6 @@ void		sighandler(int signum)
 	{
 		if (g_flag == 1)
 			ft_putstr("Quit: 3\n");
-		/*else
-		{
-			//ft_putstr("\n");
-			//ft_putstr(g_pwd);
-			//ft_putstr(" $> ");
-		}*/
 	}
 }
 

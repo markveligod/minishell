@@ -138,7 +138,7 @@ void		export_command(t_ptr *ptr, t_command *t_command)
 	while (t_command->args[i])
 	{
 		j = 0;
-		while (t_command->args[i][j] != '=')
+		while (t_command->args[i][j] && t_command->args[i][j] != '=')
 			j++;
 		if (t_command->args[i][j] != '\0')
 		{
