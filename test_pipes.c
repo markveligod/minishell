@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:59:28 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/17 19:58:39 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 07:27:43 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,37 @@ void	test_pipes(t_ptr *ptr)
 	}
 }
 
+void redirect_fork(int file, char **mass, char **env)
+{
+    pid_t pid;
+    int fd[2];
+    int status;
+
+    pipe(fd);
+    pid = fork();
+    if (pid < 0)
+    {
+        perror("FORK ERROR\n");
+        exit(EXIT_FAILURE);
+    }
+    else if (pid == 0) //child
+    {
+        dup2(file, fd[1]);
+        dup2(fd[1], STDOUT_FILENO);
+        close(fd[0]);
+        execve(mass[0], mass, env);
+        close(fd[1]);
+        exit(EXIT_SUCCESS);
+    }
+    else //parent
+    {
+        waitpid(pid, &status, WUNTRACED);
+        return ;
+    }
+    
+}
+
+
 void process_fork(char ***mass, t_ptr *ptr, int size, int *mass_red, t_command **com_mass)
 {
 	pid_t pid;
@@ -95,7 +126,7 @@ void process_fork(char ***mass, t_ptr *ptr, int size, int *mass_red, t_command *
 				close(prev_pipe);
 			}
 			if (mass_red[i] != 0)
-				fd[1] = dup(mass_red[i]);
+				redirect_fork(mass_red[i], mass[i], ptr->is_env);
 			dup2(fd[1], STDOUT_FILENO);
 			close(fd[1]);
 			if (mass[i] != NULL)
