@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 20:26:07 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/19 14:03:59 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 14:27:37 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	redirect_command(t_command *command)
 		return ;
 	else if (pid == 0) //child
 	{
+		signal(SIGINT, exit);
+		signal(SIGQUIT, exit);
 		dup2(get_fd(command), fd[1]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);

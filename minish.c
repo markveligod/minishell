@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/19 14:01:24 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 14:33:31 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,10 @@ void		sighandler(int signum)
 	if (g_signal == 2)
 	{
 		g_signal = 1;
-		printf("Signal == 1\n");
-		exit(1);
+		if (signum == SIGQUIT)
+			ft_putstr("Quit: 3");
+		write(1, "\n", 1);
+		return ;
 	}
 	if (signum == SIGINT)
 	{
