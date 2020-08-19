@@ -56,7 +56,6 @@ char		*join_path(char *path, char *curr_pwd, int flag)
 		new_path = ft_strjoin(new_path, "/");
 		new_path = ft_strjoin(new_path, path);
 	}
-	printf("%s\n", new_path);
 	return (new_path);
 }
 

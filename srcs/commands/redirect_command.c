@@ -20,5 +20,5 @@ void	redirect_command(t_command *command)
 	bigline = ft_strdup("");
 	while (get_next_line(&line) > 0)
 		bigline = ft_strjoin(bigline, line);
-	printf("%s\n", bigline);
+	//!!!!
 }
