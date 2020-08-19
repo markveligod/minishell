@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:55:15 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/09 14:47:32 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 13:58:43 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int		get_next_line(char **line)
 	while (buffer[0] != '\n' && count != 0)
 	{
 		count = read(0, buffer, BUFFER_SIZE);
+		if (g_signal == 1)
+			return (0);
 		buffer[count] = '\0';
 		remains = ft_strjoin(remains, buffer);
 		if (count == 0 && remains[0] == 0)

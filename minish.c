@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/17 20:02:14 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 14:01:24 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,12 @@ void		read_input(t_ptr *ptr)
 
 void		sighandler(int signum)
 {
+	if (g_signal == 2)
+	{
+		g_signal = 1;
+		printf("Signal == 1\n");
+		exit(1);
+	}
 	if (signum == SIGINT)
 	{
 		if (g_flag == 1)
@@ -103,6 +109,7 @@ void		sighandler(int signum)
 			ft_putstr(g_pwd);
 			//ft_putstr(" $> ");
 		}
+		
 	}
 	else if (signum == SIGQUIT)
 	{
@@ -122,6 +129,7 @@ int			main(int ac, char **av, char **env)
 	t_ptr 	ptr;
 
 	g_flag = 0;
+	g_signal = 0;
 	g_curr_err = "0";
 	g_pwd = NULL;
 	init_struct_ptr(&ptr);

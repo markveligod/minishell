@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 10:48:27 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/09 14:49:49 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 12:42:57 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ char		*join_path(char *path, char *curr_pwd, int flag)
 		new_path = ft_strjoin(new_path, "/");
 		new_path = ft_strjoin(new_path, path);
 	}
-	printf("%s\n", new_path);
 	return (new_path);
 }
 

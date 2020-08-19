@@ -6,7 +6,7 @@
 #    By: ckakuna <ck@42.fr>                         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 07:21:41 by ckakuna           #+#    #+#              #
-#    Updated: 2020/08/19 07:28:19 by ckakuna          ###   ########.fr        #
+#    Updated: 2020/08/19 13:14:54 by ckakuna          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ fclean: clean
 
 re: fclean all
 
-start: all clean
+start: all
 	@echo "\033[90m[\033[32mStart\033[90m]\033[32m Start minishell... \033[0m"
 	@./minishell
 

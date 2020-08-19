@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 20:26:07 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/04 20:26:08 by leweathe         ###   ########.fr       */
+/*   Updated: 2020/08/19 13:52:21 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,37 @@ void	redirect_command(t_command *command)
 {
 	char	*bigline;
 	char	*line;
+	int fd[2];
+	pid_t pid;
+	int status;
 
 	bigline = ft_strdup("");
-	while (get_next_line(&line) > 0)
-		bigline = ft_strjoin(bigline, line);
-	printf("%s\n", bigline);
+	pipe(fd);
+	g_signal = 2;
+	pid = fork();
+	if (pid < 0)
+		return ;
+	else if (pid == 0) //child
+	{
+		dup2(get_fd(command), fd[1]);
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[0]);
+		while (get_next_line(&line) > 0)
+		{
+			write(1, line, ft_strlen(line));
+			write(1, "\n", 1);
+			free(line);		
+		}
+		close(fd[1]);
+		printf("EXIT\n");
+		exit(1);
+	}
+	else
+	{
+		printf("PARENT\n");
+		waitpid(pid, &status, WUNTRACED);
+		close(fd[1]);
+		close(fd[0]);
+		g_signal = 0;
+	}
 }

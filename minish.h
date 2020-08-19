@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/09 14:50:28 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/19 13:26:21 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct			s_ptr
 int						g_flag;
 char					*g_pwd;
 char					*g_curr_err;
+int						g_signal;
 
 /*
 ** _____________________prototype utils__________________________
