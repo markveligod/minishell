@@ -162,8 +162,9 @@ void					check_split(char **mass, char *dup_line, char *line, char **space);
 ** NEW FOR PIPES
 */
 char					**external_mass(t_command *command, char **env); //external_commnad.c
-void test_pipes(t_ptr *ptr);
+void					run_commands(t_ptr *ptr);
+void					pipe_commands(char ***mass, t_ptr *ptr, int size, int *mass_red, t_command **com_mass);
+void					pipe_redirect_fork(int file, char **mass, t_command *com_mass, t_ptr *ptr);
 int if_internal_command(t_command *command, t_ptr *ptr);
 int get_fd(t_command *command);
-void process_fork(char ***mass, t_ptr *ptr, int size, int *mass_red, t_command **com_mass);
 #endif

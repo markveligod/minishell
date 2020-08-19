@@ -52,11 +52,24 @@ char		*keep_reading(char *line, char *message)
 	char	*newline;
 	char	*new;
 	int		i;
+	pid_t	pid;
+	int		status;
 
+	g_signal = 4;
 	ft_putstr(message);
 	ft_putstr(" $> ");
-	get_next_line(&newline);
-	new = ft_strjoin(line, newline);
+	pid = fork();
+	if (pid < 0)
+		return (NULL);
+	if (pid == 0)
+	{
+		signal(SIGINT, exit);
+		signal(SIGQUIT, exit);
+		get_next_line(&newline);
+		new = ft_strjoin(line, newline);
+	}
+	else
+		waitpid(pid, &status, WUNTRACED);
 	return (new);
 }
 
@@ -85,6 +98,8 @@ void		line_check(char **line)
 			if (!(newline[j]))
 			{
 				newline = keep_reading(newline, "quote");
+				if (g_signal == 3)
+					return;
 				i = 0;
 			}	
 		}
