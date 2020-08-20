@@ -44,10 +44,6 @@ void		line_parsing(char *line, t_ptr *ptr)
 			}
 			ptr->base->flag_base = ft_realloc_mass(ptr->base->flag_base, mass[i]);
 			i++;
-			if (!mass[i])
-			{
-				
-			}
 		}
 		else
 			i += line_parse_by_command(&mass[i], ptr, spaces);
