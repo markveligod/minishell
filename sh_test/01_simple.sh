@@ -1,23 +1,13 @@
 # VALID
-/bin/ls;
-sleep 2;
-/usr/local/bin/valgrind;
-sleep 2;
-/usr/bin/make;
-sleep 2;
-/bin/echo;
-sleep 2;
-/bin/date;
-sleep 2;
-/bin/ln;
-sleep 2;
-/bin/ps;
-sleep 2;
+/bin/ls
+/usr/local/bin/valgrind
+/usr/bin/make
+/bin/echo
+/bin/date
+/bin/ln
+/bin/ps
 
 # INVALID
-/sbin/ls;
-sleep 2;
-/xxx;
-sleep 2;
-/bin/ddate;
-sleep 2;
+/sbin/ls
+/xxx
+/bin/ddate

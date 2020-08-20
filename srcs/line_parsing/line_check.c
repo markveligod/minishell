@@ -67,6 +67,7 @@ char		*keep_reading(char *line, char *message)
 		signal(SIGQUIT, exit);
 		get_next_line(&newline);
 		new = ft_strjoin(line, newline);
+		free(newline);
 	}
 	else
 		waitpid(pid, &status, WUNTRACED);
@@ -87,6 +88,7 @@ void		line_check(char **line)
 	int j;
 	char quote;
 	char *newline;
+	char *tmp;
 
 	i = 0;
 	newline = ft_strdup(*line);
@@ -97,7 +99,9 @@ void		line_check(char **line)
 			i = j + 1;
 			if (!(newline[j]))
 			{
-				newline = keep_reading(newline, "quote");
+				tmp = ft_strdup(newline);
+				free(newline);
+				newline = keep_reading(tmp, "quote");
 				if (g_signal == 3)
 					return;
 				i = 0;
@@ -108,7 +112,9 @@ void		line_check(char **line)
 			i = i + 2;
 			if (!(newline[i - 1]))
 			{
-				newline = keep_reading(newline, "");
+				tmp = ft_strdup(newline);
+				free(newline);
+				newline = keep_reading(tmp, "");
 				i = 0;
 			}
 		}
@@ -116,7 +122,11 @@ void		line_check(char **line)
 			i++;
 	}
 	if (newline[i - 1] == '|')
-		newline = keep_reading(newline, "pipe");
+	{
+		tmp = ft_strdup(newline);
+		free(newline);
+		newline = keep_reading(tmp, "pipe");
+	}
 	free(*line);
 	*line = ft_strdup(newline);
 	free(newline);
