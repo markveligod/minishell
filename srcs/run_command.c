@@ -22,15 +22,17 @@ void	run_commands(t_ptr *ptr)
 	char		***mass;
 	t_command	*new;
 	t_command	**com_mass;
-	
-	if (ptr->command == NULL)
+	t_command	*com;
+
+	com = ptr->command;
+	if (com == NULL)
 		return;
-	while (ptr->command)
+	while (com)
 	{
-		if (ptr->command->base == '|')
+		if (com->base == '|')
 		{
 			count = 1;
-			new = ptr->command;
+			new = com;
 			while (new->base == '|')
 			{
 				count++;
@@ -44,28 +46,35 @@ void	run_commands(t_ptr *ptr)
 			flag = 1;
 			while (flag == 1)
 			{
-				if (if_internal_command(ptr->command, ptr) == 0)
+				if (if_internal_command(com, ptr) == 0)
 				{
-					mass[i] = external_mass(ptr->command, ptr->is_env);
+					mass[i] = external_mass(com, ptr->is_env);
 					com_mass[i] = NULL;
 				}
 				else
 				{
 					mass[i] = NULL;
-					com_mass[i] = ptr->command;
+					com_mass[i] = com;
 				}
-				mass_red[i++] = get_fd(ptr->command);
+				mass_red[i++] = get_fd(com);
 				flag = 0;
-				if (ptr->command->base == '|')
+				if (com->base == '|')
 					flag = 1;
-				ptr->command = ptr->command->next;
+				com = com->next;
 			}
 			pipe_commands(mass, ptr, count, mass_red, com_mass);
+			i = 0;
+			while (i < count)
+				if (mass[i++])
+					ft_free_array(mass[i]);
+			free(mass);
+			free(com_mass);
+			free(mass_red);
 		}
 		else
 		{
-			do_command(ptr->command, ptr);
-			ptr->command = ptr->command->next;
+			do_command(com, ptr);
+			com = com->next;
 		}
 	}
 }
