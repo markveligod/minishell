@@ -28,7 +28,7 @@ void		line_parsing(char *line, t_ptr *ptr)
 
 	init_struct_base(ptr);
 	line_check(&line);
-	if (g_signal == 3)
+	if (g_signal == 8)
 		return;
 	mass = line_split_into_words(line, &spaces);
 	i = 0;

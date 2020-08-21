@@ -40,7 +40,7 @@ void	redirect_command(t_command *command)
 		close(fd[1]);
 		exit(1);
 	}
-	else //parent
+	else
 	{
 		waitpid(pid, &status, WUNTRACED);
 		close(fd[1]);

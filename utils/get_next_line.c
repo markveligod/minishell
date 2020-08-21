@@ -81,7 +81,7 @@ int		get_next_line(char **line)
 			return (0);
 		buffer[count] = '\0';
 		remains = ft_strjoin(remains, buffer);
-		if (count == 0 && remains[0] == 0)
+		if (count == 0 && remains[0] == 0 && g_signal != 7)
 		{
 			ft_putstr("logout\n");
 			exit(1);

@@ -47,30 +47,19 @@ int line_skip_quote(int i, char *line)
 ** ____________________________________________
 */
 
-char		*keep_reading(char *line, char *message)
+char *keep_reading(char *line, char *message)
 {
-	char	*newline;
-	char	*new;
-	int		i;
-	pid_t	pid;
-	int		status;
+	char *newline;
+	char *new;
+	int i;
+	pid_t pid;
+	int status;
 
-	g_signal = 4;
 	ft_putstr(message);
 	ft_putstr(" $> ");
-	pid = fork();
-	if (pid < 0)
-		return (NULL);
-	if (pid == 0)
-	{
-		signal(SIGINT, exit);
-		signal(SIGQUIT, exit);
-		get_next_line(&newline);
-		new = ft_strjoin(line, newline);
-		free(newline);
-	}
-	else
-		waitpid(pid, &status, WUNTRACED);
+	get_next_line(&newline);
+	new = ftstrjoin(line, newline);
+	free(newline);
 	return (new);
 }
 
@@ -89,45 +78,80 @@ void		line_check(char **line)
 	char quote;
 	char *newline;
 	char *tmp;
+	pid_t pid;
+	int status;
+	int fd[2];
+	int in;
+	int ret;
+	char buffer[11];
+	char *stack;
 
+	in = dup(STDIN_FILENO);
 	i = 0;
-	newline = ft_strdup(*line);
-	while (newline[i])
+	pipe(fd);
+	pid = fork();
+	g_signal = 7;
+	if (pid == 0)
 	{
-		if ((j = line_skip_quote(i, newline)) != i)
+		newline = ft_strdup(*line);
+		while (newline[i])
 		{
-			i = j + 1;
-			if (!(newline[j]))
+			if ((j = line_skip_quote(i, newline)) != i)
 			{
-				tmp = ft_strdup(newline);
-				free(newline);
-				newline = keep_reading(tmp, "quote");
-				if (g_signal == 3)
-					return;
-				i = 0;
-			}	
-		}
-		else if (newline[i] == '\\')
-		{
-			i = i + 2;
-			if (!(newline[i - 1]))
-			{
-				tmp = ft_strdup(newline);
-				free(newline);
-				newline = keep_reading(tmp, "");
-				i = 0;
+				i = j + 1;
+				if (!(newline[j]))
+				{
+					signal(SIGINT, exit);
+					signal(SIGQUIT, exit);
+					tmp = ft_strdup(newline);
+					free(newline);
+					newline = keep_reading(tmp, "quote");
+					free(tmp);
+					i = 0;
+				}	
 			}
+			else if (newline[i] == '\\')
+			{
+				i = i + 2;
+				if (!(newline[i - 1]))
+				{
+					newline = keep_reading(newline, "");
+					i = 0;
+				}
+			}
+			else
+				i++;
 		}
-		else
-			i++;
-	}
-	if (newline[i - 1] == '|')
-	{
+		if (newline[i - 1] == '|')
+			newline = keep_reading(newline, "pipe");
 		tmp = ft_strdup(newline);
 		free(newline);
-		newline = keep_reading(tmp, "pipe");
+		newline = ftstrjoin(tmp, "\n");
+		free(tmp);
+		dup2(fd[1], 1);
+		close(fd[0]);
+		ft_putstr(newline);
+		close(fd[1]);
+		exit(1);
 	}
-	free(*line);
-	*line = ft_strdup(newline);
-	free(newline);
+	else
+	{
+		waitpid(pid, &status, WUNTRACED);
+		dup2(fd[0], 0);
+		close(fd[1]);
+		stack = ft_strdup("");
+		while ((ret = read(0, buffer, 10)) > 0)
+		{
+			buffer[ret] = '\0';
+			stack = ft_strjoin(stack, buffer);
+			if (ft_one_of_them('\n', stack))
+				break;
+		}
+		free(*line);
+		*line = ft_strdup(stack);
+		free(stack);
+		close(fd[0]);
+		dup2(in, STDIN_FILENO);
+		close(in);
+	}
 }

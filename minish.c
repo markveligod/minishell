@@ -62,8 +62,11 @@ void		read_input(t_ptr *ptr)
 		ft_putstr(g_pwd);
 		get_next_line(&line);
 		line_parsing(line, ptr);
-		if (g_signal != 3)
+		if (g_signal != 8)
+		{
+			printf("%d\n", g_signal);
 			run_commands(ptr);
+		}
 		clear_malloc(ptr);
 	}
 }
@@ -74,15 +77,22 @@ void		read_input(t_ptr *ptr)
 
 void		sighandler(int signum)
 {
-	if (g_signal == 2 || g_signal == 4)
+	/*if (g_signal == 2 || g_signal == 4)
 	{
 		g_signal = (g_signal == 2 ? 1 : 3);
+		printf("AAAA\n");
 		if (signum == SIGQUIT)
 			ft_putstr("Quit: 3");
 		write(1, "\n", 1);
+		return;
+	}*/
+	if (g_signal == 7)
+	{
+		g_signal = 8;
+		ft_putstr("\n");
 		return ;
 	}
-	else if (signum == SIGINT)
+	if (signum == SIGINT)
 	{
 		if (g_flag == 1)
 			ft_putstr("\n");
@@ -93,10 +103,8 @@ void		sighandler(int signum)
 		}
 	}
 	else if (signum == SIGQUIT)
-	{
 		if (g_flag == 1)
 			ft_putstr("Quit: 3\n");
-	}
 }
 
 int			main(int ac, char **av, char **env)
