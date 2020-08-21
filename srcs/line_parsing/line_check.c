@@ -115,6 +115,8 @@ void		line_check(char **line)
 				i = i + 2;
 				if (!(newline[i - 1]))
 				{
+					signal(SIGINT, exit);
+					signal(SIGQUIT, exit);
 					newline = keep_reading(newline, "");
 					i = 0;
 				}
@@ -123,7 +125,11 @@ void		line_check(char **line)
 				i++;
 		}
 		if (newline[i - 1] == '|')
+		{
+			signal(SIGINT, exit);
+			signal(SIGQUIT, exit);
 			newline = keep_reading(newline, "pipe");
+		}
 		tmp = ft_strdup(newline);
 		free(newline);
 		newline = ftstrjoin(tmp, "\n");

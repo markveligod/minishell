@@ -34,12 +34,6 @@ void	do_command(t_command *command, t_ptr *ptr)
 		redirect_command(command);
 	else
 		external_command(command, ptr->is_env);
-	/*else if ((command->command[0] == '.' && command->command[1] == '/') ||
-		(command->command[0] == '.' && command->command[1] == '.' &&
-			command->command[2] == '/'))
-		file_command(command, ptr->is_env);
-	else
-		external_command(command, ptr->is_env);*/
 }
 
 int if_internal_command(t_command *command, t_ptr *ptr)
