@@ -53,6 +53,7 @@ void	run_commands(t_ptr *ptr)
 				}
 				else
 				{
+					mass[i] = (char **)malloc(sizeof(char *));
 					mass[i] = NULL;
 					com_mass[i] = com;
 				}
@@ -65,8 +66,13 @@ void	run_commands(t_ptr *ptr)
 			pipe_commands(mass, ptr, count, mass_red, com_mass);
 			i = 0;
 			while (i < count)
-				if (mass[i++])
+			{
+				if (mass[i] != NULL)
 					ft_free_array(mass[i]);
+				else
+					free(mass[i]);
+				i++;
+			}
 			free(mass);
 			free(com_mass);
 			free(mass_red);

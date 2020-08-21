@@ -74,20 +74,17 @@ void		read_input(t_ptr *ptr)
 
 void		sighandler(int signum)
 {
-	/*if (g_signal == 2 || g_signal == 4)
-	{
-		g_signal = (g_signal == 2 ? 1 : 3);
-		printf("AAAA\n");
-		if (signum == SIGQUIT)
-			ft_putstr("Quit: 3");
-		write(1, "\n", 1);
-		return;
-	}*/
 	if (g_signal == 7)
 	{
 		g_signal = 8;
 		ft_putstr("\n");
 		return ;
+	}
+	if (g_signal == 2)
+	{
+		g_signal = 1;
+		ft_putstr("\n");
+		return;
 	}
 	if (signum == SIGINT)
 	{
