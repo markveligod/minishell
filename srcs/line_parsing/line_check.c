@@ -148,7 +148,7 @@ void		line_check(char **line)
 				break;
 		}
 		free(*line);
-		*line = ft_strdup(stack);
+		*line = ft_substr(stack, 0, ft_strlen(stack) - 1);
 		free(stack);
 		close(fd[0]);
 		dup2(in, STDIN_FILENO);

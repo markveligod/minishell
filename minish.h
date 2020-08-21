@@ -87,6 +87,7 @@ int						ft_isdigit(int c);
 char					*ft_delete_array_elem(char *arr, int i);
 void					ft_lst_add_back(t_command **lst, t_command *new);
 char					**ft_split(char const *s, char c);
+char					*ft_substr(char *s, int start, int len);
 
 
 /*

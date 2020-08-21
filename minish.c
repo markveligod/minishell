@@ -63,10 +63,7 @@ void		read_input(t_ptr *ptr)
 		get_next_line(&line);
 		line_parsing(line, ptr);
 		if (g_signal != 8)
-		{
-			printf("%d\n", g_signal);
 			run_commands(ptr);
-		}
 		clear_malloc(ptr);
 	}
 }
