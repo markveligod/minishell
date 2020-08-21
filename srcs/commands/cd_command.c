@@ -70,6 +70,8 @@ void	cd_command(t_command *command, t_ptr *ptr)
 	{
 		g_curr_err = "1";
 		errno_error(command->command, errno);
+		free(path);
+		free(cwd);
 		return ;
 	}
 	else

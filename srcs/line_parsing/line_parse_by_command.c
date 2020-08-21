@@ -31,6 +31,42 @@ void	error_redirections(char **line, int i, t_ptr *ptr)
 ** _______________________________________________________
 */
 
+void	fill_com_args(char *line, t_command *new, char **spaces)
+{
+	line = modify_word(line, ptr->is_env);
+	if (!(new->command))
+		new->command = ft_strdup(line);
+	else
+	{
+		new->spaces = ft_realloc_mass(new->spaces, spaces);
+		new->args = ft_realloc_mass(new->args, line);
+	}
+}
+
+int		fill_structure(char **line, t_command *new, t_ptr *ptr, char **spaces)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+		if ((ft_strcmp(";", line[i]) == 0 || ft_strcmp("|", line[i]) == 0))
+		{
+			new->base = line[i][0];
+			break ;
+		}
+		if (line[i][0] == '>' || line[i][0] == '<')
+		{
+			new->flag_v = ft_realloc_mass(new->flag_v, line[i]);
+			error_redirections(line, i++, ptr);
+			new->filename = ft_realloc_mass(new->filename, line[i++]);
+		}
+		else
+			fill_com_args(line[i++], new, spaces);
+	}
+	return (i);
+}
+
 int		line_parse_by_command(char **line, t_ptr *ptr, char **spaces)
 {
 	int			i;
@@ -41,34 +77,7 @@ int		line_parse_by_command(char **line, t_ptr *ptr, char **spaces)
 		error("Allocation problem!", ptr);
 	free(new->command);
 	new->command = NULL;
-	i = 0;
-	while (line[i])
-	{
-		if ((ft_strcmp(";", line[i]) == 0 || ft_strcmp("|", line[i]) == 0))
-		{
-			new->base = line[i][0];
-			break;
-		}
-		if (line[i][0] == '>' || line[i][0] == '<')
-		{
-			new->flag_v = ft_realloc_mass(new->flag_v, line[i]);
-			error_redirections(line, i, ptr);
-			new->filename = ft_realloc_mass(new->filename, line[++i]);
-			i++;
-		}
-		else
-		{
-			line[i] = modify_word(line[i], ptr->is_env);
-			if (!(new->command))
-				new->command = ft_strdup(line[i]);
-			else
-			{
-				new->spaces = ft_realloc_mass(new->spaces, spaces[i]);
-				new->args = ft_realloc_mass(new->args, line[i]);
-			}
-			i++;
-		}
-	}
+	i = fill_structure(line, new, ptr, spaces);
 	if (!(line[i]))
 		new->base = '\0';
 	if (!(new->command))

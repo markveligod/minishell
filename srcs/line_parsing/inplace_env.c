@@ -16,48 +16,31 @@
 ** _________________________________________________________
 ** Расшифровывает переменную среды (из имени в ее значение);
 ** _________________________________________________________
+** inplace_env - функция по расшифровке переменной среды
+** - выделяет из строки имя переменной
+** - отделяет конец строки (после переменной)
+** - вызывает create_string
+** - добавляет к полученной строке конец
+**
+** create_string - вспомогательная функция
+** - находит в env соответствующее значение
+** - записывает в строку ее начало (до переменной среды)
+** - добавляет в нее расшифрованную переменную
 */
 
-char		*inplace_env(char *word, char **env, int *j)
+char		*create_string(int *j, char *word, char *name, char **env)
 {
-	int		k;
-	char	*name;
-	char	*end;
-	char	*value;
 	int		tmp_j;
+	char	*value;
+	int		k;
 	char	flag;
 
-	/*
-	** Выделяем из строки имя переменной среды
-	** В end заносим оставшийся кусочек строки
-	*/
 	k = 0;
-	flag = 0;
-	name = ft_strdup(word + *j + 1);
-	if (name[k] == '?')
-	{
-		flag = '?';
-		k++;
-	}
-	else
-		while (ft_isalnum(name[k]))
-			k++;
-	end = ft_strdup(name + k);
-	name[k] = '\0';
-	/*
-	** Ищем в массиве env нужное имя переменной
-	*/
-	k = 0;
+	tmp_j = 0;
+	flag = name[0];
 	while (env[k] && ft_strcmp(env[k], name) != 0)
 		k++;
 	free(name);
-	/*
-	** Создаем новое слово
-	** Заносим туда символы до переменной
-	** Соединяем со значением переменной из env
-	** Cоединяем с концом строки
-	*/
-	tmp_j = 0;
 	value = (char *)malloc(sizeof(char) * (*j + 1));
 	while (tmp_j != *j)
 	{
@@ -69,6 +52,28 @@ char		*inplace_env(char *word, char **env, int *j)
 		value = ft_strjoin(value, g_curr_err);
 	else if (env[k] && env[++k])
 		value = ft_strjoin(value, env[k]);
+	return (value);
+}
+
+char		*inplace_env(char *word, char **env, int *j)
+{
+	int		k;
+	char	*name;
+	char	*end;
+	char	flag;
+	char	*value;
+
+	k = 0;
+	name = ft_strdup(word + *j + 1);
+	flag = name[0];
+	if (name[k] == '?')
+		k++;
+	else
+		while (ft_isalnum(name[k]))
+			k++;
+	end = ft_strdup(name + k);
+	name[k] = '\0';
+	value = create_string(j, word, name, env);
 	*j = ft_strlen(value) - 1;
 	value = ft_strjoin(value, end);
 	free(word);
