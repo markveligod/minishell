@@ -81,17 +81,7 @@ int		cd_command(t_command *command, t_ptr *ptr)
 	else
 		path = ft_strdup(command->args[0]);
 	if (chdir(path) != 0)
-<<<<<<< HEAD
-	{
-		g_curr_err = "1";
-		errno_error(command->command, errno);
-		free(path);
-		free(cwd);
-		return ;
-	}
-=======
 		return (fail_cd(command, 1, errno));
->>>>>>> 2817574f7e1e6c4927c8d40d890bb09230cef317
 	else
 		change_pwd(&cwd, ptr);
 	return (reset_cd(cwd, path, command));

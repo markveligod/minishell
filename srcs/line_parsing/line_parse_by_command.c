@@ -31,9 +31,8 @@ void	error_redirections(char **line, int i, t_ptr *ptr)
 ** _______________________________________________________
 */
 
-void	fill_com_args(char *line, t_command *new, char **spaces)
+void	fill_com_args(char *line, t_command *new, char *spaces)
 {
-	line = modify_word(line, ptr->is_env);
 	if (!(new->command))
 		new->command = ft_strdup(line);
 	else
@@ -62,7 +61,12 @@ int		fill_structure(char **line, t_command *new, t_ptr *ptr, char **spaces)
 			new->filename = ft_realloc_mass(new->filename, line[i++]);
 		}
 		else
-			fill_com_args(line[i++], new, spaces);
+		{
+			
+			line[i] = modify_word(line[i], ptr->is_env);
+			fill_com_args(line[i], new, spaces[i]);
+			i++;
+		}
 	}
 	return (i);
 }
