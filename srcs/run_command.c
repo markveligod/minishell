@@ -53,7 +53,6 @@ void	run_commands(t_ptr *ptr)
 				}
 				else
 				{
-					mass[i] = (char **)malloc(sizeof(char *));
 					mass[i] = NULL;
 					com_mass[i] = com;
 				}
