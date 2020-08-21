@@ -82,10 +82,10 @@ void	external_command(t_command *command, char **env)
 
 	mass = create_args(command);
 	get_path(mass, &name_flag, env);
-	/*g_flag = 1;
+	g_flag = 1;
 	g_curr_err = "0";
 	flag = check_stat(command, mass[0], name_flag);
-	run_forks(flag, command, mass);*/
+	run_forks(flag, command, mass);
 	ft_free_array(mass);
 }
 
