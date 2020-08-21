@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork_types.c                                       :+:      :+:    :+:   */
+/*   external_fork_command.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 10:28:41 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/08 10:28:55 by leweathe         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:15:44 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	run_forks(int flag, t_command *command, char **mass)
 /*
 ** Запуск дочернего процесса без редиректов
 */
+
 void	fork_run(t_command *command, char **mass)
 {
 	pid_t	pid;
@@ -60,16 +61,53 @@ void	fork_run(t_command *command, char **mass)
 ** Запуск дочернего процесса с учетом редиректа
 */
 
+void	right_arrow(pid_t cpid, int *pipefd, char **mass, int fd)
+{
+	int status;
+
+	close(pipefd[1]);
+	pipefd[1] = fd;
+	if (cpid == 0)
+	{
+		dup2(pipefd[1], 1);
+		close(pipefd[0]);
+		close(pipefd[1]);
+		execve(mass[0], mass, NULL);
+	}
+	else
+	{
+		close(pipefd[0]);
+		waitpid(cpid, &status, WUNTRACED);
+	}
+}
+
+void	left_arrow(pid_t cpid, int *pipefd, char **mass, int fd)
+{
+	int status;
+
+	close(pipefd[0]);
+	pipefd[0] = fd;
+	if (cpid == 0)
+	{
+		dup2(pipefd[0], 0);
+		close(pipefd[0]);
+		close(pipefd[1]);
+		execve(mass[0], mass, NULL);
+	}
+	else
+	{
+		close(pipefd[1]);
+		waitpid(cpid, &status, WUNTRACED);
+	}
+}
+
 void	fork_redirect(char *file_name, char *flag, char **mass)
 {
 	pid_t	cpid;
-	pid_t	wpid;
 	int		fd;
-	int		status;
 	int		pipefd[2];
-	char	buf[11];
 
-	if (ft_strcmp(flag,	">") == 0)
+	if (ft_strcmp(flag, ">") == 0)
 		fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0664);
 	else if (ft_strcmp(flag, ">>") == 0)
 		fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0664);
@@ -78,37 +116,7 @@ void	fork_redirect(char *file_name, char *flag, char **mass)
 	cpid = fork();
 	pipe(pipefd);
 	if (ft_strcmp(flag, ">") == 0 || ft_strcmp(flag, ">>") == 0)
-	{
-		close(pipefd[1]);
-		pipefd[1] = fd;
-		if (cpid == 0)
-		{
-			dup2(pipefd[1], 1);
-			close(pipefd[0]);
-			close(pipefd[1]);
-			execve(mass[0], mass, NULL);
-		}
-		else
-		{
-			close(pipefd[0]);
-			wpid = waitpid(cpid, &status, WUNTRACED);
-		}
-	}
+		right_arrow(cpid, pipefd, mass, fd);
 	else if (ft_strcmp(flag, "<") == 0)
-	{
-		close(pipefd[0]);
-		pipefd[0] = fd;
-		if (cpid == 0)
-		{
-			dup2(pipefd[0], 0);
-			close(pipefd[0]);
-			close(pipefd[1]);
-			execve(mass[0], mass, NULL);
-		}
-		else
-		{
-			close(pipefd[1]);
-			wpid = waitpid(cpid, &status, WUNTRACED);
-		}
-	}
+		left_arrow(cpid, pipefd, mass, fd);
 }

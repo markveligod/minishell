@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/19 16:18:38 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/21 15:16:11 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ t_command				*init_list_command(t_command *new);
 ** commands (srcs/commands)
 */
 void					do_command(t_command *command, t_ptr *ptr);
-void					cd_command(t_command *command, t_ptr *ptr);
+int						cd_command(t_command *command, t_ptr *ptr);
 void					pwd_command(t_command *command);
 void					echo_command(t_command *command);
 void					env_command(char **env, t_command *command);

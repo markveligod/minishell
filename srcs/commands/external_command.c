@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 22:23:06 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/09 14:50:05 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/21 15:57:17 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,17 @@ char	*command_path(char *name, char **env)
 	if (env[i] && env[++i])
 	{
 		path = ft_split(env[i], ':');
-		j = 0;
-		while (path[j])
-		{ 
+		j = -1;
+		while (path[++j])
+		{
 			path[j] = ft_strjoin(path[j], "/");
 			path[j] = ft_strjoin(path[j], name);
 			if (open(path[j], O_RDONLY) != -1)
-			{ 
+			{
 				free(name);
 				name = ft_strdup(path[j]);
 				break ;
 			}
-			j++;
 		}
 		ft_free_array(path);
 	}
@@ -91,10 +90,10 @@ void	external_command(t_command *command, char **env)
 
 char	**external_mass(t_command *command, char **env)
 {
-	int i;
-	char **mass;
-	int name_flag;
-	int flag;
+	int		i;
+	char	**mass;
+	int		name_flag;
+	int		flag;
 
 	mass = create_args(command);
 	get_path(mass, &name_flag, env);
