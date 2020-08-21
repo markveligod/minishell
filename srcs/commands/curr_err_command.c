@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   curr_err_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:25:24 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/06 11:10:38 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/21 15:29:13 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minish.h"
 
-void	curr_err_command()
+void	curr_err_command(void)
 {
 	char *str;
 

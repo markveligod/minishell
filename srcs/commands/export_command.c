@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/29 07:47:47 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/19 16:26:41 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/08/21 15:38:06 by ckakuna           #+#    #+#             */
+/*   Updated: 2020/08/21 15:44:09 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,11 +131,27 @@ void		print_export(char **is_export)
 	}
 }
 
+void        com_here(t_ptr *ptr, t_command *t_command, int i)
+{
+    int j;
+    
+    j = 0;
+	while (t_command->args[i][j] && t_command->args[i][j] != '=')
+		j++;
+	if (t_command->args[i][j] != '\0')
+	{
+		if (check_args(ptr->is_env, t_command->args[i]) == 1)
+			ptr->is_env = change_env(ptr->is_env, t_command->args[i]);
+		else
+			ptr->is_env = add_args(ptr->is_env, t_command->args[i]);
+	}
+	else
+		ptr->is_export = ft_realloc_mass(ptr->is_export, t_command->args[i]);
+}
+
 void		export_command(t_ptr *ptr, t_command *t_command)
 {
-	int		i;
-	int		j;
-	errno_t	errno_num;
+	int i;
 
 	i = 0;
 	if (t_command->args[0] == NULL)
@@ -147,25 +163,13 @@ void		export_command(t_ptr *ptr, t_command *t_command)
 		if ((equal_args(t_command->args)) == 1)
 		{
 			g_curr_err = "1";
-			errno_num = 1;
-			errno_error(t_command->command, errno_num);
+			errno_error(t_command->command, 1);
 			return ;
 		}
 	while (t_command->args[i])
-	{
-		j = 0;
-		while (t_command->args[i][j] && t_command->args[i][j] != '=')
-			j++;
-		if (t_command->args[i][j] != '\0')
-		{
-			if (check_args(ptr->is_env, t_command->args[i]) == 1)
-				ptr->is_env = change_env(ptr->is_env, t_command->args[i]);
-			else
-				ptr->is_env = add_args(ptr->is_env, t_command->args[i]);
-		}
-		else
-			ptr->is_export = ft_realloc_mass(ptr->is_export, t_command->args[i]);
-		i++;
-	}
+    {
+        com_here(ptr, t_command, i);
+        i++;
+    }
 	g_curr_err = "0";
 }

@@ -6,15 +6,25 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 10:48:27 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/19 12:42:57 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/21 16:25:59 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minish.h"
 
+char		*new_str(char *path, char *curr_pwd, int i)
+{
+	char *new_path;
+
+	new_path = ft_strdup(curr_pwd);
+	free(curr_pwd);
+	new_path = ft_strjoin(new_path, "/");
+	new_path = ft_strjoin(new_path, &path[i]);
+	return (new_path);
+}
+
 char		*dot_dot_path(char *path, char *curr_pwd)
 {
-	char	*new_path;
 	int		i;
 	int		j;
 
@@ -36,17 +46,13 @@ char		*dot_dot_path(char *path, char *curr_pwd)
 		else
 			break ;
 	}
-	new_path = ft_strdup(curr_pwd);
-	free(curr_pwd);
-	new_path = ft_strjoin(new_path, "/");
-	new_path = ft_strjoin(new_path, &path[i]);
-	return (new_path);
+	return (new_str(path, curr_pwd, i));
 }
 
 char		*join_path(char *path, char *curr_pwd, int flag)
 {
 	char *new_path;
-	
+
 	new_path = ft_strdup(curr_pwd);
 	free(curr_pwd);
 	if (flag == 1)
@@ -77,12 +83,12 @@ char		*relative_path(char *path)
 
 int			check_stat(t_command *command, char *filename, int name_flag)
 {
-	int fd;
-	int flag;
-	struct stat buff;
-	
+	int			fd;
+	int			flag;
+	struct stat	buff;
+
 	flag = 0;
-	if((fd = open(filename, O_RDONLY)) == (-1))
+	if ((fd = open(filename, O_RDONLY)) == (-1))
 	{
 		if (name_flag == 1)
 		{
