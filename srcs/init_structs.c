@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 20:16:50 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/19 16:22:39 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/22 06:48:34 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** иницилизирует структуру ptr
 */
 
-void init_struct_ptr(t_ptr *ptr)
+void		init_struct_ptr(t_ptr *ptr)
 {
 	ptr->base = NULL;
 	ptr->command = NULL;
@@ -29,7 +29,7 @@ void init_struct_ptr(t_ptr *ptr)
 ** иницилизирует структуру base (имя команды и разделитель)
 */
 
-void	init_struct_base(t_ptr *ptr)
+void		init_struct_base(t_ptr *ptr)
 {
 	if (!(ptr->base = (t_base *)malloc(sizeof(t_base))) ||
 		!(ptr->base->flag_base = (char **)malloc(sizeof(char *) * 1)) ||
@@ -43,7 +43,7 @@ void	init_struct_base(t_ptr *ptr)
 ** иницилизирует структуру command (список)
 */
 
-t_command *init_list_command(t_command *new)
+t_command	*init_list_command(t_command *new)
 {
 	if (!(new = (t_command *)malloc(sizeof(t_command))) ||
 		!(new->filename = (char **)malloc(sizeof(char *) * 1)) ||
