@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/21 15:16:11 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/22 12:35:55 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ typedef struct			s_ptr
 	t_command			*command;
 	char				**is_env;
 	char				**is_export;
+	int					*mass_red;
+	char				***mass;
+	t_command			**com_mass;
 }						t_ptr;
 
 /*
@@ -165,8 +168,12 @@ void					check_split(char **mass, char *dup_line, char *line, char **space);
 */
 char					**external_mass(t_command *command, char **env); //external_commnad.c
 void					run_commands(t_ptr *ptr);
-void					pipe_commands(char ***mass, t_ptr *ptr, int size, int *mass_red, t_command **com_mass);
+void					clear_mass_com(t_ptr *ptr, int count);
+int						size_pipe_in_line(t_command *com);
+void					init_mass_command(t_ptr *ptr, int count);
+t_command				*put_param_in_mass(t_command *com, t_ptr *ptr);
+void					pipe_commands(t_ptr *ptr, int size);
 void					pipe_redirect_fork(int file, char **mass, t_command *com_mass, t_ptr *ptr);
-int if_internal_command(t_command *command, t_ptr *ptr);
-int get_fd(t_command *command);
+int						if_internal_command(t_command *command, t_ptr *ptr);
+int						get_fd(t_command *command);
 #endif
