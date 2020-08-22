@@ -3,62 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   unset_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/29 08:37:11 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/03 10:21:28 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/08/22 12:48:20 by leweathe          #+#    #+#             */
+/*   Updated: 2020/08/22 12:48:24 by leweathe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minish.h"
 
+char		**create_new_env(t_ptr *ptr, t_command *command)
+{
+	int		i;
+	int		j;
+	char	**new_env;
+
+	if (!(new_env = (char **)malloc(sizeof(char *) * 1)))
+		error("Allocation problem!", ptr);
+	new_env[0] = NULL;
+	i = 0;
+	while (ptr->is_env[i])
+	{
+		j = -1;
+		while (command->args[++j])
+			if (ft_strcmp(ptr->is_env[i], command->args[j]) == 0)
+				break ;
+		if (command->args[j] != NULL)
+			i += 2;
+		else
+		{
+			new_env = ft_realloc_mass(new_env, ptr->is_env[i++]);
+			new_env = ft_realloc_mass(new_env, ptr->is_env[i++]);
+		}
+	}
+	return (new_env);
+}
+
 /*
 ** Функция для пересоздания массива переменных окружения env
 */
 
-void		unset_command(t_ptr *ptr, t_command *t_command)
+void		unset_command(t_ptr *ptr, t_command *command)
 {
 	int		i;
 	int		j;
 	char	*temp;
 	char	**new_env;
-	
-	if (t_command->args[0] == NULL)
+
+	if (command->args[0] == NULL)
 	{
 		g_curr_err = "1";
 		ft_putstr("unset: not enough arguments");
 		return ;
 	}
-	i = 0;
-	if (!(new_env = (char **)malloc(sizeof(char *) * 1)))
-		error("Allocation problem!", ptr);
-	new_env[0] = NULL;
-	while (ptr->is_env[i])
-	{
-		j = 0;
-		while (t_command->args[j])
-		{
-			if (ft_strcmp(ptr->is_env[i], t_command->args[j]) == 0)
-				break ;
-			j++;
-		}
-		if (t_command->args[j] != NULL)
-		{
-			i += 2;
-			continue ;
-		}
-		else
-		{
-			temp = ft_strdup(ptr->is_env[i]);
-			new_env = ft_realloc_mass(new_env, temp);
-			free(temp);
-			i++;
-			temp = ft_strdup(ptr->is_env[i]);
-			new_env = ft_realloc_mass(new_env, temp);
-			free(temp);
-			i++;
-		}
-	}
+	new_env = create_new_env(ptr, command);
 	ft_free_array(ptr->is_env);
 	ptr->is_env = NULL;
 	ptr->is_env = new_env;
