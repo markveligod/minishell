@@ -5,31 +5,25 @@
 cd > no_cd_1.res
 cd $OLDPWD
 env | grep pwd >> no_cd_1.res
-sleep 4
 
 #Test #2 cd .
 cd . > no_cd_2.res
 env | grep pwd >> no_cd_2.res
-sleep 4
 
 #Test #3 cd ..
 cd .. > no_cd_3.res
 cd $OLDPWD
 env | grep pwd >> no_cd_3.res
-sleep 4
 
 #Test #4 cd no_cd.sh
 > no_cd_4.res cd no_cd.sh
 env | grep PWD >> no_cd_4.res
-sleep 4
 
 #Test #5 cd no_cd.sh or_cd.sh
 > no_cd_5.res cd no_cd.sh or_cd.sh
 env | grep PWD >> no_cd_5.res
-sleep 4
 
 #Test #6 cd /bin
 cd /bin > no_cd_6.res
 cd $OLDPWD
 env | grep PWD >> no_cd_6.res
-sleep 4
