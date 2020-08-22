@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_in_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/28 15:35:02 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/03 09:38:25 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/08/22 12:40:41 by ckakuna           #+#    #+#             */
+/*   Updated: 2020/08/22 12:45:21 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 ** Создает флаги режимов для открытия файла
 */
 
-int			create_open_flag(char *flag)
+int		create_open_flag(char *flag)
 {
-	int		open;
+	int open;
 
 	if (ft_strcmp(flag, ">>") == 0)
 		open = O_RDWR | O_CREAT | O_APPEND;
@@ -33,12 +33,19 @@ int			create_open_flag(char *flag)
 ** Вывод содержимого функций в файл или на печать
 */
 
-void		write_in_file(t_command *command, char *line)
+void	fail_write_in_file(char *command, errno_t errno_num, char *line)
 {
-	int		flag;
-	int		i;
-	int		fd;
-	errno_t	error_num;
+	g_curr_err = "1";
+	errno_error(command, errno_num);
+	free(line);
+	return ;
+}
+
+void	write_in_file(t_command *command, char *line)
+{
+	int flag;
+	int i;
+	int fd;
 
 	i = -1;
 	errno = 0;
@@ -53,20 +60,10 @@ void		write_in_file(t_command *command, char *line)
 		{
 			flag = create_open_flag(command->flag_v[i]);
 			if ((fd = open(command->filename[i], flag, 0666)) == -1)
-			{
-				g_curr_err = "1";
-				errno_error(command->command, errno);
-				free(line);
-				return ;
-			}
+				return (fail_write_in_file(command->command, errno, line));
 			ft_putstr_fd(line, fd);
 			if (close(fd) == -1)
-			{
-				g_curr_err = "1";
-				errno_error(command->command, errno);
-				free(line);
-				return ;
-			}
+				return (fail_write_in_file(command->command, errno, line));
 		}
 	}
 	free(line);
@@ -84,7 +81,7 @@ int		get_fd(t_command *command)
 	{
 		g_curr_err = "1";
 		errno_error(command->command, errno);
-		return(-1);
+		return (-1);
 	}
-	return(fd);
+	return (fd);
 }
