@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 22:23:06 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/21 15:57:17 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/22 13:10:57 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ char	**create_args(t_command *command)
 
 void	get_path(char **mass, int *name_flag, char **env)
 {
-	char	*temp;
-
 	*name_flag = 0;
 	if (mass[0][0] == '/')
 		*name_flag = 0;
@@ -74,7 +72,6 @@ void	get_path(char **mass, int *name_flag, char **env)
 
 void	external_command(t_command *command, char **env)
 {
-	int			i;
 	char		**mass;
 	int			name_flag;
 	int			flag;
@@ -90,7 +87,6 @@ void	external_command(t_command *command, char **env)
 
 char	**external_mass(t_command *command, char **env)
 {
-	int		i;
 	char	**mass;
 	int		name_flag;
 	int		flag;

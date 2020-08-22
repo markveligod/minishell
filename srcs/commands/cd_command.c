@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 13:25:35 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/21 15:26:35 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/22 13:09:16 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		fail_cd(t_command *command, int flag, errno_t error_num)
 	if (flag == 0)
 		ft_putstr_fd("cd: Too many arguments\n", 0);
 	else
-		errno_error(command->command, errno);
+		errno_error(command->command, error_num);
 	return (1);
 }
 

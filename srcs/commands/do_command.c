@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 13:52:01 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/21 15:32:08 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/22 13:11:32 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	do_command(t_command *command, t_ptr *ptr)
 		external_command(command, ptr->is_env);
 }
 
-int		if_internal_command(t_command *command, t_ptr *ptr)
+int		if_internal_command(t_command *command)
 {
 	return (ft_strcmp(command->command, "echo") == 0 ||
 		ft_strcmp(command->command, "cd") == 0 ||

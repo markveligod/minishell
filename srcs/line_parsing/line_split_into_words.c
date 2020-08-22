@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_split_into_words.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 19:42:40 by leweathe          #+#    #+#             */
-/*   Updated: 2020/07/31 19:42:42 by leweathe         ###   ########.fr       */
+/*   Updated: 2020/08/22 13:13:17 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ char		**line_split_into_words(char *line, char ***spaces)
 	char	**mass;
 	char	*word;
 	int		i;
-	int		symb;
 	int		len;
 
 	i = 0;

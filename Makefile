@@ -6,7 +6,7 @@
 #    By: ckakuna <ck@42.fr>                         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 07:21:41 by ckakuna           #+#    #+#              #
-#    Updated: 2020/08/22 12:47:28 by ckakuna          ###   ########.fr        #
+#    Updated: 2020/08/22 13:05:00 by ckakuna          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS_UTILS = ./utils/ft_strlcpy.c ./utils/ft_substr.c ./utils/ft_strchr.c ./util
 OBJ = $(SRCS:.c=.o) $(SRCS_UTILS:.c=.o) $(TESTS:.c=.o) $(SRCS_COMM:.c=.o) $(SRCS_LINE:.c=.o)
 
 %.o:%.c
-	@$(CC) -o $@ -c $<
+	@$(CC) $(FLAGS) -o $@ -c $<
 	@echo "\033[90m[\033[32mOK\033[90m]\033[33m Compiling $<\033[0m"
 
 $(NAME): $(OBJ) $(HDRS)

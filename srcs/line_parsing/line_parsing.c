@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 19:30:04 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/01 19:30:29 by leweathe         ###   ########.fr       */
+/*   Updated: 2020/08/22 13:12:58 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void		line_structure_parse(char **mass, char **spaces, t_ptr *ptr)
 void		line_parsing(char *line, t_ptr *ptr)
 {
 	char	**mass;
-	int		i;
-	int		j;
 	char	**spaces;
 
 	init_struct_base(ptr);

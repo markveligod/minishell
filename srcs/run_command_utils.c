@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 12:32:33 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/22 12:34:40 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/22 13:12:15 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_command	*put_param_in_mass(t_command *com, t_ptr *ptr)
 	flag = 1;
 	while (flag == 1)
 	{
-		if (if_internal_command(com, ptr) == 0)
+		if (if_internal_command(com) == 0)
 		{
 			ptr->mass[i] = external_mass(com, ptr->is_env);
 			ptr->com_mass[i] = NULL;

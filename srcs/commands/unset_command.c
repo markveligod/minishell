@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 12:48:20 by leweathe          #+#    #+#             */
-/*   Updated: 2020/08/22 12:48:24 by leweathe         ###   ########.fr       */
+/*   Updated: 2020/08/22 13:08:23 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ char		**create_new_env(t_ptr *ptr, t_command *command)
 
 void		unset_command(t_ptr *ptr, t_command *command)
 {
-	int		i;
-	int		j;
-	char	*temp;
 	char	**new_env;
 
 	if (command->args[0] == NULL)

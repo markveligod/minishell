@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/22 12:50:07 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/22 13:06:48 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int			main(int ac, char **av, char **env)
 {
 	t_ptr	ptr;
 
+	(void)ac;
+	(void)**av;
 	g_flag = 0;
 	g_signal = 0;
 	g_curr_err = "0";

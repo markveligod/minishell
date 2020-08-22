@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/22 12:56:34 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/22 13:11:54 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ t_command				*put_param_in_mass(t_command *com, t_ptr *ptr);
 void					pipe_commands(t_ptr *ptr, int size);
 void					pipe_redirect_fork(int file, char **mass,
 						t_command *com_mass, t_ptr *ptr);
-int						if_internal_command(t_command *command, t_ptr *ptr);
+int						if_internal_command(t_command *command);
 int						get_fd(t_command *command);
 
 #endif
