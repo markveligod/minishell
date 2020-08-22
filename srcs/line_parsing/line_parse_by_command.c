@@ -73,9 +73,9 @@ int		fill_structure(char **line, t_command *new, t_ptr *ptr, char **spaces)
 int		line_parse_by_command(char **line, t_ptr *ptr, char **spaces)
 {
 	int			i;
-	int			j;
 	t_command	*new;
 
+	new = NULL;
 	if (!(new = init_list_command(new)))
 		error("Allocation problem!", ptr);
 	free(new->command);
