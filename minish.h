@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:26:37 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/22 12:35:55 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/22 12:56:34 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/stat.h>
-
-#include <stdio.h> //delete
-
-//typedef int errno_t; //linux edit
 
 typedef struct			s_base
 {
@@ -75,7 +71,7 @@ int						ft_strlen(char *str);
 int						get_next_line(char **line);
 int						ft_strcmp(char *str1, char *str2);
 char					**ft_split(char const *s, char c);
-int 					ft_strchr(const char *s);
+int						ft_strchr(const char *s);
 size_t					ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char					*ft_strdup(const char *s1);
 char					**ft_realloc_mass(char **map, char *line);
@@ -92,7 +88,6 @@ void					ft_lst_add_back(t_command **lst, t_command *new);
 char					**ft_split(char const *s, char c);
 char					*ft_substr(char *s, int start, int len);
 
-
 /*
 ** _____________________prototype srcs__________________________
 */
@@ -107,13 +102,14 @@ void					error(char *str, t_ptr *ptr);
 void					write_in_file(t_command *command, char *line);
 void					errno_error(char *com_name, errno_t error_num);
 
-
 /*
 ** parsing input line
 */
+
 void					line_parsing(char *line, t_ptr *ptr);
 char					**line_split_into_words(char *line, char ***spaces);
-int						line_parse_by_command(char **line, t_ptr *ptr, char **spaces);
+int						line_parse_by_command(char **line, t_ptr *ptr,
+						char **spaces);
 char					*inplace_env(char *word, char **env, int *j);
 char					**parser_env(char **env);
 char					*modify_word(char *word, char **env);
@@ -123,62 +119,67 @@ int						line_skip_quote(int i, char *line);
 /*
 ** initialization of structures and lists
 */
+
 void					init_struct_ptr(t_ptr *ptr);
 void					init_struct_base(t_ptr *ptr);
 t_command				*init_list_command(t_command *new);
 
-
 /*
 ** commands (srcs/commands)
 */
+
 void					do_command(t_command *command, t_ptr *ptr);
 int						cd_command(t_command *command, t_ptr *ptr);
 void					pwd_command(t_command *command);
 void					echo_command(t_command *command);
 void					env_command(char **env, t_command *command);
-void					export_command(t_ptr *ptr, t_command *t_command);
+void					export_command(t_ptr *ptr, t_command *command);
 void					export_com_here(t_ptr *ptr, t_command *command, int i);
 int						export_equal_args(char **args);
 char					**export_add_args(char **env, char *value);
 char					**export_change_env(char **env, char *value);
 int						export_check_args(char **env, char *value);
-void					unset_command(t_ptr *ptr, t_command *t_command);
+void					unset_command(t_ptr *ptr, t_command *command);
 void					exit_command(t_ptr *ptr);
 void					curr_err_command();
 void					redirect_command(t_command *command);
 
-
-
 /*
 ** extarnal command
 */
+
 void					external_command(t_command *command, char **env);
 void					file_command(t_command *command, char **env);
 void					fork_redirect(char *file_name, char *flag, char **mass);
 void					fork_run(t_command *command, char **mass);
 void					run_forks(int flag, t_command *command, char **mass);
-int						check_stat(t_command *command, char *filename, int name_flag);
+int						check_stat(t_command *command, char *filename,
+						int name_flag);
 char					*relative_path(char *path);
 
 /*
 ** TEST'S
 */
-void			    	test_parsing(t_ptr *ptr);
-void  					test_clear_malloc(t_ptr *ptr);
-void					check_split(char **mass, char *dup_line, char *line, char **space);
 
+void					test_parsing(t_ptr *ptr);
+void					test_clear_malloc(t_ptr *ptr);
+void					check_split(char **mass, char *dup_line, char *line,
+						char **space);
 
 /*
 ** NEW FOR PIPES
 */
-char					**external_mass(t_command *command, char **env); //external_commnad.c
+
+char					**external_mass(t_command *command, char **env);
 void					run_commands(t_ptr *ptr);
 void					clear_mass_com(t_ptr *ptr, int count);
 int						size_pipe_in_line(t_command *com);
 void					init_mass_command(t_ptr *ptr, int count);
 t_command				*put_param_in_mass(t_command *com, t_ptr *ptr);
 void					pipe_commands(t_ptr *ptr, int size);
-void					pipe_redirect_fork(int file, char **mass, t_command *com_mass, t_ptr *ptr);
+void					pipe_redirect_fork(int file, char **mass,
+						t_command *com_mass, t_ptr *ptr);
 int						if_internal_command(t_command *command, t_ptr *ptr);
 int						get_fd(t_command *command);
+
 #endif
