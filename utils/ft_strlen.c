@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/24 08:01:19 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/07/24 08:01:30 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/08/22 12:53:17 by leweathe          #+#    #+#             */
+/*   Updated: 2020/08/22 12:53:19 by leweathe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../minish.h"
+
 int		ft_strlen(char *str)
 {
-    int	i;
+	int	i;
 
 	i = 0;
 	if (!str)

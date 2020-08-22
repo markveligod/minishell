@@ -14,10 +14,10 @@
 
 char	*ft_strjoin(char *remains, char *buffer)
 {
-	char *array;
-	unsigned int size;
-	int i;
-	int j;
+	char			*array;
+	unsigned int	size;
+	int				i;
+	int				j;
 
 	if (!remains && !buffer)
 		return (NULL);
@@ -35,11 +35,7 @@ char	*ft_strjoin(char *remains, char *buffer)
 		}
 	i = 0;
 	while (buffer[i])
-	{
-		array[j] = buffer[i];
-		i++;
-		j++;
-	}
+		array[j++] = buffer[i++];
 	array[size] = '\0';
 	free((void *)remains);
 	return (array);

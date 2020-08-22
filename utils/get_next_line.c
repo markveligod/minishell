@@ -14,8 +14,8 @@
 
 char	*push_line(char *remains)
 {
-	int i;
-	char *array;
+	int		i;
+	char	*array;
 
 	i = 0;
 	while (remains[i] && remains[i] != '\n')
@@ -34,9 +34,9 @@ char	*push_line(char *remains)
 
 char	*cut_next_line(char *remains)
 {
-	int i;
-	int j;
-	char *array;
+	int		i;
+	int		j;
+	char	*array;
 
 	i = 0;
 	j = 0;
@@ -91,5 +91,5 @@ int		get_next_line(char **line)
 	}
 	*line = push_line(remains);
 	remains = cut_next_line(remains);
-	return((count == 0) ? 0 : 1);
+	return ((count == 0) ? 0 : 1);
 }

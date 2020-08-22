@@ -12,12 +12,12 @@
 
 #include "../minish.h"
 
-char *ftstrjoin(char *remains, char *buffer)
+char		*ftstrjoin(char *remains, char *buffer)
 {
-	char *array;
-	unsigned int size;
-	int i;
-	int j;
+	char			*array;
+	unsigned int	size;
+	int				i;
+	int				j;
 
 	if (!remains && !buffer)
 		return (NULL);
@@ -28,18 +28,10 @@ char *ftstrjoin(char *remains, char *buffer)
 	j = 0;
 	if (remains)
 		while (remains[i])
-		{
-			array[j] = remains[i];
-			i++;
-			j++;
-		}
+			array[j++] = remains[i++];
 	i = 0;
 	while (buffer[i])
-	{
-		array[j] = buffer[i];
-		i++;
-		j++;
-	}
+		array[j++] = buffer[i++];
 	array[size] = '\0';
 	return (array);
 }

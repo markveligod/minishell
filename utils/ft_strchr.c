@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckakuna <42.fr>                            +#+  +:+       +#+        */
+/*   By: leweathe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/29 14:16:52 by leweathe          #+#    #+#             */
-/*   Updated: 2020/07/24 13:32:09 by ckakuna          ###   ########.fr       */
+/*   Created: 2020/08/22 12:55:10 by leweathe          #+#    #+#             */
+/*   Updated: 2020/08/22 12:55:12 by leweathe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minish.h"
 
-int ft_strchr(const char *s)
+int			ft_strchr(const char *s)
 {
-	int i;
-	char c;
+	int		i;
+	char	c;
 
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
+	i = -1;
+	while (s && s[++i])
 	{
 		if (s[i] == '\"')
 		{
@@ -38,7 +36,6 @@ int ft_strchr(const char *s)
 		}
 		if (s[i] == '|' || s[i] == ';' || s[i] == '\n')
 			return (i);
-		i++;
 	}
-	return (i);
+	return (i < 0 ? 0 : i);
 }

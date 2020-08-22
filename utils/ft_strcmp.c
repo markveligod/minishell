@@ -12,7 +12,7 @@
 
 #include "../minish.h"
 
-int	ft_strcmp(char *str1, char *str2)
+int		ft_strcmp(char *str1, char *str2)
 {
 	unsigned char	*s1;
 	unsigned char	*s2;
