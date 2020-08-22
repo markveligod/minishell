@@ -62,7 +62,6 @@ int		fill_structure(char **line, t_command *new, t_ptr *ptr, char **spaces)
 		}
 		else
 		{
-			
 			line[i] = modify_word(line[i], ptr->is_env);
 			fill_com_args(line[i], new, spaces[i]);
 			i++;

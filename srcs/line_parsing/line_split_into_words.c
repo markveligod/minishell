@@ -17,7 +17,8 @@
 **           Создает массив пробелов
 ** ____________________________________________
 */
-void		line_count_spaces(char *line, char ***spaces)
+
+int			line_count_spaces(char *line, char ***spaces)
 {
 	int		i;
 	char	*word;
@@ -35,6 +36,7 @@ void		line_count_spaces(char *line, char ***spaces)
 	}
 	*spaces = ft_realloc_mass(*spaces, word);
 	free(word);
+	return (i);
 }
 
 /*
@@ -96,16 +98,11 @@ char		**line_split_into_words(char *line, char ***spaces)
 	while (line[i])
 	{
 		len = count_word_len(&line[i]);
-		word = (char *)malloc(sizeof(char) * (len + 1));
-		word[len] = '\0';
-		symb = 0;
-		while (symb != len)
-			word[symb++] = line[i++];
+		word = ft_substr(line, i, len);
+		i += len;
 		mass = ft_realloc_mass(mass, word);
 		free(word);
-		line_count_spaces(&line[i], spaces);
-		while (ft_one_of_them(line[i], " \t"))
-			i++;
+		i += line_count_spaces(&line[i], spaces);
 	}
 	free(line);
 	return (mass);

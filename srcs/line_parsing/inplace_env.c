@@ -74,7 +74,7 @@ char		*inplace_env(char *word, char **env, int *j)
 	end = ft_strdup(name + k);
 	name[k] = '\0';
 	value = create_string(j, word, name, env);
-	*j = ft_strlen(value) - 1;
+	*j = ft_strlen(value);
 	value = ft_strjoin(value, end);
 	free(word);
 	free(end);
