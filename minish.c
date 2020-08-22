@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 07:27:07 by ckakuna           #+#    #+#             */
-/*   Updated: 2020/08/19 16:19:14 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/08/22 12:50:07 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		sighandler(int signum)
 	{
 		g_signal = 1;
 		ft_putstr("\n");
-		return;
+		return ;
 	}
 	if (signum == SIGINT)
 	{
