@@ -14,6 +14,7 @@ It does not accept parameters and returns an integer value. The various values r
 **Negative value:** creating a child process failed.
 **Zero:** returned to the newly created child process.
 **A positive value** is returned to the parent or to the subscriber. This value contains the process ID of the newly created child process.  
+  
 ![](https://github.com/markveligod/minishell/raw/master/img/1.jpg)  
   
 Predict the output of the next program:
