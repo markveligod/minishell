@@ -13,7 +13,7 @@ It does not accept parameters and returns an integer value. The various values r
 
 **Negative value:** creating a child process failed.
 **Zero:** returned to the newly created child process.
-**A positive value** is returned to the parent or to the subscriber. This value contains the process ID of the newly created child process.
+**A positive value** is returned to the parent or to the subscriber. This value contains the process ID of the newly created child process.  
 ![](https://github.com/markveligod/minishell/raw/master/img/1.jpg)  
   
 Predict the output of the next program:
@@ -173,7 +173,7 @@ Conceptually, a pipe is a connection between two processes, so that the standard
 * The pipe is a one-way link, i.e. We can use the channel so that one process writes to the channel and the other writes from the channel. It opens a channel that is an area of main memory that is treated as a" virtual file".
 * The pipe can be used by the creation process, as well as by all its child processes for reading and writing. One process can write to this "virtual file" or channel, and another related process can read from it.
 * If a process tries to read before something is written to the feed, the process is paused until something is written.
-The pipe system call finds the first two available positions in the open file table of the process and distributes them at the ends of the pipe for reading and writing.
+The pipe system call finds the first two available positions in the open file table of the process and distributes them at the ends of the pipe for reading and writing.  
 ![](https://github.com/markveligod/minishell/raw/master/img/2.jpg)  
   
 The syntax in C:
